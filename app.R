@@ -22,10 +22,19 @@ navbar <- bs4DashNavbar(skin = "dark")
 
 # sidebar -----------------------------------------------------------------
 
-sidebar <- bs4DashSidebar(bs4DashSidebar(
+sidebar <- bs4DashSidebar(
+  expand_on_hover = TRUE,
   skin = "dark",
+  status = "primary",
+  title = "bs4Dash",
+  brandColor = "primary",
+  url = "https://www.google.fr",
+  src = "https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg",
+  elevation = 3,
+  opacity = 0.8,
   bs4SidebarMenu(
-    id = "test",
+  id = "test",
+  bs4SidebarHeader("Main content"),
     bs4SidebarMenuItem(
       tabName = "tab1",
       icon = "dashboard",
@@ -41,7 +50,7 @@ sidebar <- bs4DashSidebar(bs4DashSidebar(
                             text = "Tab 4")
     )
   )
-))
+)
 
 # controlbar --------------------------------------------------------------
 
