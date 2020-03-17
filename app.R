@@ -26,10 +26,10 @@ sidebar <- bs4DashSidebar(
   expand_on_hover = TRUE,
   skin = "dark",
   status = "primary",
-  title = "bs4Dash",
+  title = "Welding Dashboard",
   brandColor = "primary",
-  url = "https://www.google.fr",
-  src = "https://adminlte.io/themes/AdminLTE/dist/img/user2-160x160.jpg",
+  # url = "https://www.google.fr",
+  src = "img/hondaicon.jpg",
   elevation = 3,
   opacity = 0.8,
   bs4SidebarMenu(
