@@ -1,4 +1,5 @@
 
+
 # load libraries ----------------------------------------------------------
 
 library(shiny)
@@ -15,6 +16,43 @@ setDTthreads(0L)
 # source files ------------------------------------------------------------
 
 
+# navbar ------------------------------------------------------------------
+
+navbar <- bs4DashNavbar(skin = "dark")
+
+# sidebar -----------------------------------------------------------------
+
+sidebar <- bs4DashSidebar(bs4DashSidebar(
+  skin = "dark",
+  bs4SidebarMenu(
+    id = "test",
+    bs4SidebarMenuItem(
+      tabName = "tab1",
+      icon = "dashboard",
+      text = "Tab 1"
+    ),
+    bs4SidebarMenuItem(tabName = "tab2",
+                       text = "Tab 2"),
+    bs4SidebarMenuItem(
+      text = "Click me pleaaaaase",
+      bs4SidebarMenuSubItem(tabName = "subtab1",
+                            text = "Tab 3"),
+      bs4SidebarMenuSubItem(tabName = "subtab2",
+                            text = "Tab 4")
+    )
+  )
+))
+
+# controlbar --------------------------------------------------------------
+
+controlbar <- bs4DashControlbar(disable = TRUE,
+                                title = "Controls")
+
+# mainbody ----------------------------------------------------------------
+
+mainbody <- bs4DashBody(
+  
+)
 
 # ui ----------------------------------------------------------------------
 
@@ -25,49 +63,18 @@ ui <- bs4DashPage(
   controlbar_collapsed = TRUE,
   controlbar_overlay = TRUE,
   enable_preloader = TRUE,
-  loading_duration =  4,
-  title = "Basic Dashboard",
-  navbar = bs4DashNavbar(
-    skin = "dark" 
-  ),
-  sidebar = bs4DashSidebar(
-    bs4DashSidebar(
-      skin = "dark",
-      bs4SidebarMenu(
-        id = "test",
-        bs4SidebarMenuItem(
-          tabName = "tab1",
-          icon = "dashboard", 
-          text = "Tab 1"
-        ),
-        bs4SidebarMenuItem(
-          tabName = "tab2",
-          text = "Tab 2"
-        ),
-        bs4SidebarMenuItem(
-          text = "Click me pleaaaaase",
-          bs4SidebarMenuSubItem(
-            tabName = "subtab1",
-            text = "Tab 3"
-          ),bs4SidebarMenuSubItem(
-            tabName = "subtab2",
-            text = "Tab 4"
-          )
-        )
-      )
-    )
-  ),
-  controlbar = bs4DashControlbar(
-    disable = TRUE,
-    title = "Controls" 
-    ),
+  loading_duration =  2,
+  title = "Weilding Defects",
+  navbar = navbar,
+  sidebar = sidebar,
+  controlbar = controlbar,
   footer = bs4DashFooter(),
-  body = bs4DashBody()
+  body = mainbody
 )
 
 # server ------------------------------------------------------------------
 
-server <- function(input, output, session){
+server <- function(input, output, session) {
   
 }
 
