@@ -6,17 +6,36 @@ library(DBI)
 library(data.table)
 library(plotly)
 library(DT)
+library(shinyFeedback)
+library(shinytoastr)
+library(shinycssloaders)
+library(shinyWidgets)
+library(shinyjs)
+library(dplyr)
+
 # library(bootstraplib)
 
 # set defaults ------------------------------------------------------------
 
 setDTthreads(0L)
 
+options(scipen = 999)
+
+options(spinner.type = 8)
+
+shiny::onStop(function() {
+  dbDisconnect(conn)
+})
+
 # bs_theme_new(version = "4", bootswatch = NULL)
 # bs_theme_base_colors(bg = "salmon", fg = "white")
 
 # source files ------------------------------------------------------------
+source("globals.R")
 
+source("Modules/car_delete_module.R")
+source("Modules/car_edit_module.R")
+source("Modules/cars_table_module.R")
 
 # navbar ------------------------------------------------------------------
 
@@ -59,7 +78,17 @@ controlbar <- bs4DashControlbar(disable = TRUE,
 # mainbody ----------------------------------------------------------------
 
 mainbody <- bs4DashBody(
-  dataTableOutput("mainData")
+  useToastr(),
+  useShinyFeedback(),
+  useShinyjs(),
+  tags$link(rel = "stylesheet", type = "text/css", 
+           href = "css/custom.css"), 
+  tags$script(src = "js/custom.js"),
+  titlePanel(
+    h1("Shiny CRUD Application", align = 'center'),
+    windowTitle = "Shiny CRUD Application"
+  ),
+  cars_table_module_ui("cars_table")
 )
 
 # ui ----------------------------------------------------------------------
@@ -84,16 +113,16 @@ ui <- bs4DashPage(
 # server ------------------------------------------------------------------
 
 server <- function(input, output, session) {
-  output$mainData <- renderDataTable({
-    datatable(iris, 
-              plugins = 'natural', 
-              options = list(
-      dom = 't',
-      columnDefs = list(
-        list(type = 'natural', targets = 1)
-        )
-    ))
-  })
+  # user session$userData to store user data that will be needed throughout
+  # the Shiny application
+  session$userData$email <- 'tycho.brahe@tychobra.com'
+  session$userData$conn <- conn
+  session$userData$db_trigger <- reactiveVal(0)
+  
+  callModule(
+    cars_table_module,
+    "cars_table"
+  )
 }
 
 # shinyApp ----------------------------------------------------------------
