@@ -23,31 +23,28 @@ navbar <- bs4DashNavbar(skin = "dark")
 # sidebar -----------------------------------------------------------------
 
 sidebar <- bs4DashSidebar(
-  expand_on_hover = TRUE,
+  expand_on_hover = FALSE,
   skin = "dark",
   status = "primary",
   title = "Welding Dashboard",
-  brandColor = "primary",
+  brandColor = "gray-light",
   # url = "https://www.google.fr",
   src = "img/hondaicon.jpg",
   elevation = 3,
   opacity = 0.8,
   bs4SidebarMenu(
   id = "test",
-  bs4SidebarHeader("Main content"),
+  bs4SidebarHeader("Welding"),
     bs4SidebarMenuItem(
-      tabName = "tab1",
-      icon = "dashboard",
-      text = "Tab 1"
-    ),
-    bs4SidebarMenuItem(tabName = "tab2",
-                       text = "Tab 2"),
-    bs4SidebarMenuItem(
-      text = "Click me pleaaaaase",
-      bs4SidebarMenuSubItem(tabName = "subtab1",
-                            text = "Tab 3"),
-      bs4SidebarMenuSubItem(tabName = "subtab2",
-                            text = "Tab 4")
+      tabName = "FeedData",
+      icon = "edit",
+      text = "Feed Data",
+      bs4SidebarMenuSubItem(tabName = "Original",
+                            text = "Main Tables",
+                            icon = "cube"),
+      bs4SidebarMenuSubItem(tabName = "DailyFeed",
+                            text = "Daily Feed",
+                            icon = "file-excel")
     )
   )
 )
