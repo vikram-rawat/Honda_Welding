@@ -1,5 +1,3 @@
-
-
 # load libraries ----------------------------------------------------------
 
 library(shiny)
@@ -7,11 +5,15 @@ library(bs4Dash)
 library(DBI)
 library(data.table)
 library(plotly)
-library(bootstraplib)
+library(DT)
+# library(bootstraplib)
 
 # set defaults ------------------------------------------------------------
 
 setDTthreads(0L)
+
+# bs_theme_new(version = "4", bootswatch = NULL)
+# bs_theme_base_colors(bg = "salmon", fg = "white")
 
 # source files ------------------------------------------------------------
 
@@ -57,7 +59,7 @@ controlbar <- bs4DashControlbar(disable = TRUE,
 # mainbody ----------------------------------------------------------------
 
 mainbody <- bs4DashBody(
-  
+  dataTableOutput("mainData")
 )
 
 # ui ----------------------------------------------------------------------
@@ -82,7 +84,16 @@ ui <- bs4DashPage(
 # server ------------------------------------------------------------------
 
 server <- function(input, output, session) {
-  
+  output$mainData <- renderDataTable({
+    datatable(iris, 
+              plugins = 'natural', 
+              options = list(
+      dom = 't',
+      columnDefs = list(
+        list(type = 'natural', targets = 1)
+        )
+    ))
+  })
 }
 
 # shinyApp ----------------------------------------------------------------
