@@ -70,6 +70,7 @@ ui <- bs4DashPage(
   controlbar_overlay = TRUE,
   enable_preloader = TRUE,
   loading_duration =  2,
+  loading_background = "#2F4F4F",
   title = "Weilding Defects",
   navbar = navbar,
   sidebar = sidebar,
