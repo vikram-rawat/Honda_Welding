@@ -41,32 +41,27 @@ defects_server <- function(input, output, session) {
 
   # main Data ---------------------------------------------------------------
   
-  cars <- reactive({
+  mainTable <- reactive({
     session$userData$db_trigger()
     
     session$userData$conn %>%
-      tbl('mtcars') %>%
+      tbl('defects') %>%
       collect() %>%
-      # Filter out deleted rows from database `mtcars` table
-      filter(is_deleted == FALSE) %>%
-      mutate(
-        created_at = as.POSIXct(created_at, tz = "UTC"),
-        modified_at = as.POSIXct(modified_at, tz = "UTC")
-      ) %>%
+      filter(is_deleted == FALSE) %>% 
       arrange(desc(modified_at))
   })
-  
-  
-  car_table_prep <- reactiveVal(NULL)
-  
+
+  table_prep <- reactiveVal(NULL)
+
   # changes in the Data -----------------------------------------------------
   
-  observeEvent(cars(), {
-    out <- cars()
+  observeEvent(mainTable(), {
+    ;browser()
+    out <- mainTable()
     
     ids <- out$uid
     
-    actions <- purrr::map_chr(ids, function(id_) {
+    actions <- vapply(X = ids,FUN =  function(id_) {
       paste0(
         '<div class="btn-group" style="width: 75px;" role="group" aria-label="Basic example">
           <button class="btn btn-primary btn-sm edit_btn" data-toggle="tooltip" data-placement="top" title="Edit" id = ',
@@ -77,7 +72,8 @@ defects_server <- function(input, output, session) {
         ' style="margin: 0"><i class="fa fa-trash-o"></i></button>
         </div>'
       )
-    })
+      },FUN.VALUE = character(1)
+    )
     
     # Remove the `uid` column. We don't want to show this column to the user
     out <- out %>%
@@ -87,7 +83,7 @@ defects_server <- function(input, output, session) {
     out <- cbind(tibble(" " = actions),
                  out)
     
-    if (is.null(car_table_prep())) {
+    if (is.null(table_prep())) {
       # loading data into the table for the first time, so we render the entire table
       # rather than using a DT proxy
       car_table_prep(out)
@@ -173,7 +169,7 @@ defects_server <- function(input, output, session) {
   )
   
   car_to_edit <- eventReactive(input$car_id_to_edit, {
-    cars() %>%
+    mainTable() %>%
       filter(uid == input$car_id_to_edit)
   })
   
@@ -192,7 +188,7 @@ defects_server <- function(input, output, session) {
   # delete data -------------------------------------------------------------
   
   car_to_delete <- eventReactive(input$car_id_to_delete, {
-    out <- cars() %>%
+    out <- mainTable() %>%
       filter(uid == input$car_id_to_delete) %>%
       pull(model)
     

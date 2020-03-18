@@ -88,7 +88,7 @@ mainbody <- bs4DashBody(
     h1("Shiny CRUD Application", align = 'center'),
     windowTitle = "Shiny CRUD Application"
   ),
-  cars_table_module_ui("cars_table")
+  defects_ui("cars_table")
 )
 
 # ui ----------------------------------------------------------------------
@@ -120,7 +120,7 @@ server <- function(input, output, session) {
   session$userData$db_trigger <- reactiveVal(0)
   
   callModule(
-    cars_table_module,
+    defects_server,
     "cars_table"
   )
 }
