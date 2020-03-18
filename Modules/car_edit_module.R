@@ -1,24 +1,33 @@
-car_edit_module <- function(input,
-                            output,
-                            session,
-                            modal_title,
-                            car_to_edit,
-                            modal_trigger) {
+# Server ------------------------------------------------------------------
+
+edit_module <- function(input,
+                        output,
+                        session,
+                        modal_title,
+                        obj_to_edit,
+                        modal_trigger) {
+  # namespace ---------------------------------------------------------------
+  
   ns <- session$ns
+
+
+  # observer ----------------------------------------------------------------
   
   observeEvent(modal_trigger(), {
-    hold <- car_to_edit()
+    ;browser()
+    hold <- obj_to_edit()
     
-    showModal(modalDialog(
+    showModal(
+      modalDialog(
       fluidRow(
         column(
           width = 6,
-          textInput(ns("model"),
-                    'Model',
+          textInput(ns("problems"),
+                    'Problems',
                     value = ifelse(is.null(hold), "", hold$model)),
-          numericInput(
-            ns('mpg'),
-            'Miles/Gallon',
+          textInput(
+            ns('created_at'),
+            'Created At',
             value = ifelse(is.null(hold), "", hold$mpg),
             min = 0,
             step = 0.1
@@ -123,7 +132,7 @@ car_edit_module <- function(input,
   })
   
   edit_car_dat <- reactive({
-    hold <- car_to_edit()
+    hold <- obj_to_edit()
     
     out <- list(
       uid = if (is.null(hold))

@@ -24,13 +24,13 @@ defects_ui <- function(id) {
       column(
         width = 12,
         title = "Motor Trend Car Road Tests",
-        DTOutput(ns('car_table')) %>%
+        DTOutput(ns('table')) %>%
           withSpinner(),
         tags$br(),
         tags$br()
       )
     ),
-    tags$script(src = "cars_table_module.js"),
+    tags$script(src = "js/cars_table_module.js"),
     tags$script(paste0("cars_table_module_js('", ns(''), "')"))
   )
 }
@@ -42,6 +42,7 @@ defects_server <- function(input, output, session) {
   # main Data ---------------------------------------------------------------
   
   mainTable <- reactive({
+
     session$userData$db_trigger()
     
     session$userData$conn %>%
@@ -56,72 +57,62 @@ defects_server <- function(input, output, session) {
   # changes in the Data -----------------------------------------------------
   
   observeEvent(mainTable(), {
-    ;browser()
+    
     out <- mainTable()
     
     ids <- out$uid
     
     actions <- vapply(X = ids,FUN =  function(id_) {
-      paste0(
-        '<div class="btn-group" style="width: 75px;" role="group" aria-label="Basic example">
-          <button class="btn btn-primary btn-sm edit_btn" data-toggle="tooltip" data-placement="top" title="Edit" id = ',
-        id_,
-        ' style="margin: 0"><i class="fa fa-pencil-square-o"></i></button>
-          <button class="btn btn-danger btn-sm delete_btn" data-toggle="tooltip" data-placement="top" title="Delete" id = ',
-        id_,
-        ' style="margin: 0"><i class="fa fa-trash-o"></i></button>
-        </div>'
-      )
+        paste0(
+          '<div class="btn-group" style="width: 75px;" role="group" aria-label="Basic example">
+            <button class="btn btn-primary btn-sm edit_btn" data-toggle="tooltip" data-placement="top" title="Edit" id = ',
+          id_,
+          ' style="margin: 0"><i class="fa fa-pencil-square-o"></i></button>
+            <button class="btn btn-danger btn-sm delete_btn" data-toggle="tooltip" data-placement="top" title="Delete" id = ',
+          id_,
+          ' style="margin: 0"><i class="fa fa-trash-o"></i></button>
+          </div>'
+        )
       },FUN.VALUE = character(1)
     )
     
     # Remove the `uid` column. We don't want to show this column to the user
     out <- out %>%
-      select(-uid,-is_deleted)
+      select(- uid, -is_deleted)
     
     # Set the Action Buttons row to the first column of the `mtcars` table
-    out <- cbind(tibble(" " = actions),
-                 out)
+    out <- cbind(
+              tibble(" " = actions),
+              out
+            )
     
     if (is.null(table_prep())) {
       # loading data into the table for the first time, so we render the entire table
       # rather than using a DT proxy
-      car_table_prep(out)
+      table_prep(out)
       
     } else {
       # table has already rendered, so use DT proxy to update the data in the
-      # table without rerendering the entire table
-      replaceData(car_table_proxy,
+      # table without re-rendering the entire table
+      replaceData(table_proxy,
                   out,
                   resetPaging = FALSE,
                   rownames = FALSE)
-      
     }
   })
   
-  
   # render Table ------------------------------------------------------------
   
-  output$car_table <- renderDT({
-    req(car_table_prep())
-    out <- car_table_prep()
+  output$table <- renderDT({
+
+    req(table_prep())
+    out <- table_prep()
     
     datatable(
       out,
       rownames = FALSE,
       colnames = c(
-        'Model',
-        'Miles/Gallon',
-        'Cylinders',
-        'Displacement (cu.in.)',
-        'Horsepower',
-        'Rear Axle Ratio',
-        'Weight (lbs)',
-        '1/4 Mile Time',
-        'Engine',
-        'Transmission',
-        'Forward Gears',
-        'Carburetors',
+        'Problems',
         'Created At',
         'Created By',
         'Modified At',
@@ -150,10 +141,9 @@ defects_server <- function(input, output, session) {
     ) %>%
       formatDate(columns = c("created_at", "modified_at"),
                  method = 'toLocaleString')
-    
   })
   
-  car_table_proxy <- DT::dataTableProxy('car_table')
+  table_proxy <- DT::dataTableProxy('table')
   
   # edit data ---------------------------------------------------------------
   
@@ -168,9 +158,9 @@ defects_server <- function(input, output, session) {
     })
   )
   
-  car_to_edit <- eventReactive(input$car_id_to_edit, {
+  car_to_edit <- eventReactive(input$id_to_edit, {
     mainTable() %>%
-      filter(uid == input$car_id_to_edit)
+      filter(uid == input$id_to_edit)
   })
   
   
@@ -181,17 +171,16 @@ defects_server <- function(input, output, session) {
     modal_title = "Edit Car",
     car_to_edit = car_to_edit,
     modal_trigger = reactive({
-      input$car_id_to_edit
+      input$id_to_edit
     })
   )
   
   # delete data -------------------------------------------------------------
   
-  car_to_delete <- eventReactive(input$car_id_to_delete, {
+  car_to_delete <- eventReactive(input$id_to_delete, {
     out <- mainTable() %>%
-      filter(uid == input$car_id_to_delete) %>%
+      filter(uid == input$id_to_delete) %>%
       pull(model)
-    
     out <- as.character(out)
   })
   
@@ -201,8 +190,7 @@ defects_server <- function(input, output, session) {
     modal_title = "Delete Car",
     car_to_delete = car_to_delete,
     modal_trigger = reactive({
-      input$car_id_to_delete
+      input$id_to_delete
     })
   )
-  
 }
