@@ -9,17 +9,17 @@
 #' @importFrom shinytoastr toastr_success toastr_error
 #'
 #' @param modal_title string - the title for the modal
-#' @param car_to_delete string - the model of the car to be deleted
+#' @param obj_to_delete string - the model of the car to be deleted
 #' @param trigger reactive trigger to open the modal (Delete button)
 #'
 #' @return None
 
-car_delete_module <-
+delete_module <-
   function(input,
            output,
            session,
            title,
-           car_to_delete,
+           obj_to_delete,
            trigger) {
     ns <- session$ns
     # Observes trigger for this module (here, the Delete Button)
@@ -31,7 +31,7 @@ car_delete_module <-
         h3(
           paste(
             "Are you sure you want to delete the information for the",
-            car_to_delete(),
+            obj_to_delete(),
             "car?"
           )
         ),

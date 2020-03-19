@@ -167,7 +167,7 @@ defects_server <- function(input, output, session) {
   
   callModule(
     edit_module,
-    "edit_car",
+    "edit_problems",
     title = "Edit Car",
     obj_to_edit = car_to_edit,
     trigger = reactive({
@@ -177,7 +177,7 @@ defects_server <- function(input, output, session) {
   
   # delete data -------------------------------------------------------------
   
-  car_to_delete <- eventReactive(input$id_to_delete, {
+  obj_to_delete <- eventReactive(input$id_to_delete, {
     out <- mainTable() %>%
       filter(uid == input$id_to_delete) %>%
       pull(model)
@@ -185,10 +185,10 @@ defects_server <- function(input, output, session) {
   })
   
   callModule(
-    car_delete_module,
-    "delete_car",
+    delete_module,
+    "delete_problems",
     title = "Delete Car",
-    car_to_delete = car_to_delete,
+    obj_to_delete = obj_to_delete,
     trigger = reactive({
       input$id_to_delete
     })

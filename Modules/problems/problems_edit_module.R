@@ -63,8 +63,7 @@ edit_module <- function(input,
       )
     )
     
-    time_now <-
-      as.character(lubridate::with_tz(Sys.time(), tzone = "UTC"))
+    time_now <- as.character(Sys.time())
     
     if (is.null(hold)) {
       # adding a new car
@@ -87,7 +86,7 @@ edit_module <- function(input,
   })
   
   validate_edit <- eventReactive(input$submit, {
-    dat <- edit_car_dat()
+    dat <- edit_dat()
     
     # Logic to validate inputs...
     
