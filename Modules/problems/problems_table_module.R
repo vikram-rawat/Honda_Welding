@@ -75,7 +75,7 @@ defects_server <- function(input, output, session) {
         )
       },FUN.VALUE = character(1)
     )
-    
+
     # Remove the `uid` column. We don't want to show this column to the user
     out <- out %>%
       select(- uid, -is_deleted)
