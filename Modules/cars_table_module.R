@@ -148,10 +148,10 @@ defects_server <- function(input, output, session) {
   # edit data ---------------------------------------------------------------
   
   callModule(
-    car_edit_module,
+    edit_module,
     "add_car",
-    modal_title = "Add Car",
-    car_to_edit = function()
+    title = "Add Car",
+    obj_to_edit = function()
       NULL,
     modal_trigger = reactive({
       input$add_car
@@ -166,10 +166,10 @@ defects_server <- function(input, output, session) {
   
   
   callModule(
-    car_edit_module,
+    edit_module,
     "edit_car",
-    modal_title = "Edit Car",
-    car_to_edit = car_to_edit,
+    title = "Edit Car",
+    obj_to_edit = car_to_edit,
     modal_trigger = reactive({
       input$id_to_edit
     })
@@ -187,7 +187,7 @@ defects_server <- function(input, output, session) {
   callModule(
     car_delete_module,
     "delete_car",
-    modal_title = "Delete Car",
+    title = "Delete Car",
     car_to_delete = car_to_delete,
     modal_trigger = reactive({
       input$id_to_delete

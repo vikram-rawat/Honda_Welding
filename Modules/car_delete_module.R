@@ -13,7 +13,7 @@
 #'
 #' @return None
 
-car_delete_module <- function(input, output, session, modal_title, car_to_delete, modal_trigger) {
+car_delete_module <- function(input, output, session, title, car_to_delete, modal_trigger) {
   ns <- session$ns
   # Observes trigger for this module (here, the Delete Button)
   observeEvent(modal_trigger(), {
@@ -25,7 +25,7 @@ car_delete_module <- function(input, output, session, modal_title, car_to_delete
         h3(
           paste("Are you sure you want to delete the information for the", car_to_delete(), "car?")
         ),
-        title = modal_title,
+        title = title,
         size = "m",
         footer = list(
           actionButton(

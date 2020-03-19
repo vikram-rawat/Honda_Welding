@@ -3,7 +3,7 @@
 edit_module <- function(input,
                         output,
                         session,
-                        modal_title,
+                        title,
                         obj_to_edit,
                         modal_trigger) {
   # namespace ---------------------------------------------------------------
@@ -14,7 +14,6 @@ edit_module <- function(input,
   # observer ----------------------------------------------------------------
   
   observeEvent(modal_trigger(), {
-    ;browser()
     hold <- obj_to_edit()
     
     showModal(
@@ -24,89 +23,41 @@ edit_module <- function(input,
           width = 6,
           textInput(ns("problems"),
                     'Problems',
-                    value = ifelse(is.null(hold), "", hold$model)),
-          textInput(
+                    value = hold$problems
+                    ),
+          disabled(textInput(
             ns('created_at'),
             'Created At',
-            value = ifelse(is.null(hold), "", hold$mpg),
-            min = 0,
-            step = 0.1
+            value = as.POSIXct(x = hold$created_at,
+                               origin = "1970-01-01")
+            )
           ),
-          selectInput(
-            ns('am'),
-            'Transmission',
-            choices = c('Automatic', 'Manual'),
-            selected = ifelse(is.null(hold), "", hold$am)
-          ),
-          numericInput(
-            ns('disp'),
-            'Displacement (cu.in.)',
-            value = ifelse(is.null(hold), "", hold$disp),
-            min = 0,
-            step = 0.1
-          ),
-          numericInput(
-            ns('hp'),
-            'Horsepower',
-            value = ifelse(is.null(hold), "", hold$hp),
-            min = 0,
-            step = 1
-          ),
-          numericInput(
-            ns('drat'),
-            'Rear Axle Ratio',
-            value = ifelse(is.null(hold), "", hold$drat),
-            min = 0,
-            step = 0.01
+          disabled(
+            textInput(
+              ns('created_by'),
+              'Created By',
+              value = hold$created_by
+            )
           )
         ),
         column(
           width = 6,
-          numericInput(
-            ns('wt'),
-            'Weight (lbs)',
-            value = ifelse(is.null(hold), "", hold$wt),
-            min = 0,
-            step = 1
+          disabled(textInput(
+            ns('modified_at'),
+            'Modified At',
+            value = Sys.time()
+            )
           ),
-          numericInput(
-            ns('qsec'),
-            '1/4 Mile Time',
-            value = ifelse(is.null(hold), "", hold$qsec),
-            min = 0,
-            step = 0.01
-          ),
-          selectInput(
-            ns('vs'),
-            'Engine',
-            choices = c('Straight', 'V-shaped'),
-            selected = ifelse(is.null(hold), "", hold$vs)
-          ),
-          numericInput(
-            ns('cyl'),
-            'Cylinders',
-            value = ifelse(is.null(hold), "", hold$cyl),
-            min = 0,
-            max = 20,
-            step = 1
-          ),
-          numericInput(
-            ns('gear'),
-            'Forward Gears',
-            value = ifelse(is.null(hold), "", hold$gear),
-            min = 0,
-            step = 1
-          ),
-          numericInput(
-            ns('carb'),
-            'Carburetors',
-            value = ifelse(is.null(hold), "", hold$carb),
-            min = 0,
-            step = 1
+          disabled(
+            textInput(
+              ns('modified_by'),
+              'Modified By',
+              value = session$userData$email
+            )
           )
         )
       ),
-      title = modal_title,
+      title = title,
       size = 'm',
       footer = list(
         modalButton('Cancel'),
@@ -216,9 +167,9 @@ edit_module <- function(input,
       }
       
       session$userData$db_trigger(session$userData$db_trigger() + 1)
-      shinytoastr::toastr_success(paste0(modal_title, " Success"))
+      shinytoastr::toastr_success(paste0(title, " Success"))
     }, error = function(error) {
-      shinytoastr::toastr_error(paste0(modal_title, " Error"))
+      shinytoastr::toastr_error(paste0(title, " Error"))
       
       print(error)
     })
