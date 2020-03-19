@@ -5,7 +5,7 @@ edit_module <- function(input,
                         session,
                         title,
                         obj_to_edit,
-                        modal_trigger) {
+                        trigger) {
   # namespace ---------------------------------------------------------------
   
   ns <- session$ns
@@ -13,48 +13,18 @@ edit_module <- function(input,
 
   # observer ----------------------------------------------------------------
   
-  observeEvent(modal_trigger(), {
+  observeEvent(trigger(), {
     hold <- obj_to_edit()
     
     showModal(
       modalDialog(
       fluidRow(
         column(
-          width = 6,
+          width = 12,
           textInput(ns("problems"),
                     'Problems',
                     value = hold$problems
-                    ),
-          disabled(textInput(
-            ns('created_at'),
-            'Created At',
-            value = as.POSIXct(x = hold$created_at,
-                               origin = "1970-01-01")
-            )
-          ),
-          disabled(
-            textInput(
-              ns('created_by'),
-              'Created By',
-              value = hold$created_by
-            )
-          )
-        ),
-        column(
-          width = 6,
-          disabled(textInput(
-            ns('modified_at'),
-            'Modified At',
-            value = Sys.time()
-            )
-          ),
-          disabled(
-            textInput(
-              ns('modified_by'),
-              'Modified By',
-              value = session$userData$email
-            )
-          )
+                  )
         )
       ),
       title = title,
@@ -71,38 +41,25 @@ edit_module <- function(input,
     ))
   })
   
-  observeEvent(input$model, {
-    if (input$model == "") {
-      shinyFeedback::feedbackDanger("model",
+  observeEvent(input$problems, {
+    if (input$problems == "") {
+      shinyFeedback::feedbackDanger("problems",
                                     text = "Must enter model of car!")
       shinyjs::disable('submit')
     } else {
-      shinyFeedback::hideFeedback("model")
+      shinyFeedback::hideFeedback("problems")
       shinyjs::enable('submit')
     }
   })
   
-  edit_car_dat <- reactive({
+  edit_dat <- reactive({
+    
     hold <- obj_to_edit()
     
     out <- list(
-      uid = if (is.null(hold))
-        NA
-      else
-        hold$uid,
+      uid = hold$uid,
       data = list(
-        "model" = input$model,
-        "mpg" = input$mpg,
-        "cyl" = input$cyl,
-        "disp" = input$disp,
-        "hp" = input$hp,
-        "drat" = input$drat,
-        "wt" = input$wt,
-        "qsec" = input$qsec,
-        "vs" = input$vs,
-        "am" = input$am,
-        "gear" = input$gear,
-        "carb" = input$carb
+        "problems" = input$problems,
       )
     )
     
