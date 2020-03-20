@@ -2,9 +2,10 @@ MainDB <- dbConnect(RSQLite::SQLite(),
                     "Data/mainData.sqlite")
 
 write <- data.table(
-  uids <- lapply(1:10, function(row_num) {
-    row_data <- digest::digest(row_num)
-  }) %>% unlist(),
+  uid = lapply(1:10, function(row_num) {
+          row_data <- digest::digest(row_num)
+        }) %>% 
+          unlist(),
   problems = c("leakage","beakage"),
   created_at = seq.POSIXt(from = Sys.time(),
                           by = 'sec',

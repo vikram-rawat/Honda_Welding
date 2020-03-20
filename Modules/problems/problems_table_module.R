@@ -178,7 +178,7 @@ defects_server <- function(input, output, session) {
   obj_to_delete <- eventReactive(input$id_to_delete, {
     out <- mainTable() %>%
       filter(uid == input$id_to_delete) %>%
-      pull(model)
+      pull(problems)
     out <- as.character(out)
   })
   

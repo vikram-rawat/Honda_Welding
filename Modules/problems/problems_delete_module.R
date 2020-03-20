@@ -1,19 +1,3 @@
-
-
-#' Car Delete Module
-#'
-#' This module is for deleting a row's information from the mtcars database file
-#'
-#' @importFrom  shiny observeEvent req showModal h3 modalDialog removeModal actionButton modalButton
-#' @importFrom DBI dbExecute
-#' @importFrom shinytoastr toastr_success toastr_error
-#'
-#' @param modal_title string - the title for the modal
-#' @param obj_to_delete string - the model of the car to be deleted
-#' @param trigger reactive trigger to open the modal (Delete button)
-#'
-#' @return None
-
 delete_module <-
   function(input,
            output,
@@ -21,18 +5,21 @@ delete_module <-
            title,
            obj_to_delete,
            trigger) {
+
+# namespace ---------------------------------------------------------------
+
     ns <- session$ns
     # Observes trigger for this module (here, the Delete Button)
+    
     observeEvent(trigger(), {
       # Authorize who is able to access particular buttons (here, modules)
-      req(session$userData$email == 'tycho.brahe@tychobra.com')
-      
+      # req(session$userData$email == 'tycho.brahe@tychobra.com')
       showModal(modalDialog(
         h3(
           paste(
             "Are you sure you want to delete the information for the",
             obj_to_delete(),
-            "car?"
+            "defect?"
           )
         ),
         title = title,
@@ -57,7 +44,7 @@ delete_module <-
         DBI::dbExecute(
           session$userData$conn,
           # "DELETE FROM mtcars WHERE uid=$1",
-          "UPDATE mtcars SET is_deleted=TRUE WHERE uid=$1",
+          "UPDATE defects SET is_deleted=TRUE WHERE uid=$1",
           params = c(uid)
         )
         
@@ -69,4 +56,4 @@ delete_module <-
         print(error)
       })
     })
-  }
+}

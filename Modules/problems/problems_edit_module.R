@@ -142,15 +142,14 @@ edit_module <- function(input,
       if (flagAdd()) {
         # creating a new car
         uid <- digest::digest(Sys.time())
-        
+
         dbExecute(
           session$userData$conn,
-          "INSERT INTO problems( $1, created_at=$2, created_by=$3,
-           modified_at=$4, modified_by=$5, is_deleted=$6 WHERE uid=$7)",
-          params = c(
-            list(uid),
-            unname(dat$data)
-          )
+          "INSERT INTO defects(problems , created_at, created_by,
+           modified_at, modified_by, is_deleted, uid)
+          VALUES($1,$2,$3,$4,$5,$6,$7)",
+          params = c(unname(dat$data),
+                     list(uid))
         )
       } else {
         dbExecute(
