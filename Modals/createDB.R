@@ -2,7 +2,9 @@ MainDB <- dbConnect(RSQLite::SQLite(),
                     "Data/mainData.sqlite")
 
 write <- data.table(
-  uid = 1:10,
+  uids <- lapply(1:10, function(row_num) {
+    row_data <- digest::digest(row_num)
+  }) %>% unlist(),
   problems = c("leakage","beakage"),
   created_at = seq.POSIXt(from = Sys.time(),
                           by = 'sec',
@@ -14,6 +16,7 @@ write <- data.table(
   modified_by = c("vikram","rawat"),
   is_deleted = c(FALSE,FALSE)
 )
+
 
 MainDB %>% 
   dbWriteTable(
@@ -31,4 +34,8 @@ MainDB %>%
   collect() %>%
   # Filter out deleted rows from database `mtcars` table
   filter(is_deleted == FALSE) %>%
-  arrange(desc(modified_at))
+  arrange(desc(uid))
+
+dbSendStatement(MainDB,"
+drop table mtcars 
+                ")

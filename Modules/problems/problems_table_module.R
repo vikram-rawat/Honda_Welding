@@ -13,7 +13,7 @@ defects_ui <- function(id) {
         ns("add_car"),
         "Add",
         class = "btn-success",
-        style = "color: #fff;",
+        style = "color: #000;",
         icon = icon('plus'),
         width = '100%'
       ),
@@ -40,7 +40,7 @@ defects_ui <- function(id) {
 defects_server <- function(input, output, session) {
 
   # main Data ---------------------------------------------------------------
-  
+
   mainTable <- reactive({
 
     session$userData$db_trigger()
@@ -142,7 +142,7 @@ defects_server <- function(input, output, session) {
       formatDate(columns = c("created_at", "modified_at"),
                  method = 'toLocaleString')
   })
-  
+
   table_proxy <- DT::dataTableProxy('table')
   
   # edit data ---------------------------------------------------------------
@@ -162,9 +162,7 @@ defects_server <- function(input, output, session) {
     mainTable() %>%
       filter(uid == input$id_to_edit)
   })
-  
-  
-  
+
   callModule(
     edit_module,
     "edit_problems",
@@ -174,7 +172,7 @@ defects_server <- function(input, output, session) {
       input$id_to_edit
     })
   )
-  
+
   # delete data -------------------------------------------------------------
   
   obj_to_delete <- eventReactive(input$id_to_delete, {
@@ -193,4 +191,5 @@ defects_server <- function(input, output, session) {
       input$id_to_delete
     })
   )
+
 }

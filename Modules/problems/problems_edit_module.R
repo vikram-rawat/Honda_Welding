@@ -9,21 +9,27 @@ edit_module <- function(input,
   # namespace ---------------------------------------------------------------
   
   ns <- session$ns
+  
+  flagAdd <- reactive({is.null(obj_to_edit())}) 
 
   # observer ----------------------------------------------------------------
   
   observeEvent(trigger(), {
+
     hold <- obj_to_edit()
     
+    if(!flagAdd()){
+
     showModal(
       modalDialog(
       fluidRow(
         column(
           width = 12,
-          textInput(ns("problems"),
-                    'Problems',
-                    value = hold$problems
-                  )
+          textInput(
+            ns("problems"),
+               'Problems',
+               value = hold$problems
+          )
         )
       ),
       title = title,
@@ -34,27 +40,60 @@ edit_module <- function(input,
           ns('submit'),
           'Submit',
           class = "btn btn-primary",
-          style = "color: white"
+          style = "color: green"
         )
       )
     ))
-  })
-  
-  observeEvent(input$problems, {
-    if (input$problems == "") {
-      shinyFeedback::feedbackDanger("problems",
-                                    text = "Must enter model of car!")
-      shinyjs::disable('submit')
     } else {
-      shinyFeedback::hideFeedback("problems")
-      shinyjs::enable('submit')
+      
+      showModal(
+        modalDialog(
+          fluidRow(
+            column(
+              width = 12,
+              textInput(
+                ns("problems"),
+                '',
+                value = hold$problems
+              )
+            )
+          ),
+          title = title,
+          size = 'm',
+          footer = list(
+            modalButton('Cancel'),
+            actionButton(
+              ns('submit'),
+              'Submit',
+              class = "btn btn-primary",
+              style = "color: green"
+            )
+          )
+        ))
     }
   })
   
+  observeEvent(input$problems,  {
+
+    if(nchar(input$problems) < 3) {
+  
+        shinyFeedback::feedbackDanger(inputId = "problems",
+                                      show = TRUE ,
+                                      text = "Must enter a Defect!")
+        shinyjs::disable('submit')
+        
+      } else {
+        
+        shinyFeedback::hideFeedback("problems")
+        shinyjs::enable('submit')
+
+    }
+  })
+
   edit_dat <- reactive({
 
     hold <- obj_to_edit()
-    
+
     out <- list(
       uid = hold$uid,
       data = list(
@@ -64,7 +103,7 @@ edit_module <- function(input,
     
     time_now <- as.character(Sys.time())
     
-    if (is.null(hold)) {
+    if (flagAdd()) {
       # adding a new car
       
       out$data$created_at <- time_now
@@ -100,14 +139,28 @@ edit_module <- function(input,
     dat <- validate_edit()
     tryCatch({
 
-        # editing an existing car
+      if (flagAdd()) {
+        # creating a new car
+        uid <- digest::digest(Sys.time())
+        
+        dbExecute(
+          session$userData$conn,
+          "INSERT INTO problems( $1, created_at=$2, created_by=$3,
+           modified_at=$4, modified_by=$5, is_deleted=$6 WHERE uid=$7)",
+          params = c(
+            list(uid),
+            unname(dat$data)
+          )
+        )
+      } else {
         dbExecute(
           session$userData$conn,
           "UPDATE defects SET problems=$1, created_at=$2, created_by=$3,
-          modified_at=$4, modified_by=$5, is_deleted=$6 WHERE uid=$7",
+           modified_at=$4, modified_by=$5, is_deleted=$6 WHERE uid=$7",
           params = c(unname(dat$data),
                      list(dat$uid))
         )
+      }
 
       session$userData$db_trigger(session$userData$db_trigger() + 1)
       shinytoastr::toastr_success(paste0(title, " Success"))
