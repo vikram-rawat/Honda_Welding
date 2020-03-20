@@ -185,7 +185,8 @@ defects_server <- function(input, output, session) {
   callModule(
     delete_module,
     "delete_problems",
-    title = "Delete Car",
+    title = "Delete Defects",
+    ShowValue = "defects",
     obj_to_delete = obj_to_delete,
     trigger = reactive({
       input$id_to_delete

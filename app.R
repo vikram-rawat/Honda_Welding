@@ -35,7 +35,7 @@ source("globals.R")
 
 source("Modules/problems/problems_table_module.R")
 source("Modules/problems/problems_edit_module.R")
-source("Modules/problems/problems_delete_module.R")
+source("Modules/delete_module.R")
 
 # navbar ------------------------------------------------------------------
 

@@ -4,6 +4,7 @@ delete_module <-
            session,
            title,
            obj_to_delete,
+           ShowValue = "defect",
            trigger) {
 
 # namespace ---------------------------------------------------------------
@@ -19,14 +20,14 @@ delete_module <-
           paste(
             "Are you sure you want to delete the information for the",
             obj_to_delete(),
-            "defect?"
+            ShowValue,"?"
           )
         ),
         title = title,
         size = "m",
         footer = list(
           actionButton(ns("delete_button"),
-                       "Delete Car",
+                       paste0("Delete ",ShowValue),
                        style = "color: #fff; background-color: #dd4b39; border-color: #d73925"),
           modalButton("Cancel")
         )
@@ -49,10 +50,9 @@ delete_module <-
         )
         
         session$userData$db_trigger(session$userData$db_trigger() + 1)
-        shinytoastr::toastr_success("Car Successfully Deleted")
+        shinytoastr::toastr_success(paste0(ShowValue, " Successfully Deleted"))
       }, error = function(error) {
-        shinytoastr::toastr_error("Error Deleting Car")
-        
+        shinytoastr::toastr_error(paste0("Error Deleting ", ShowValue))
         print(error)
       })
     })
