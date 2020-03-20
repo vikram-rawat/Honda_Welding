@@ -78,17 +78,40 @@ controlbar <- bs4DashControlbar(disable = TRUE,
 # mainbody ----------------------------------------------------------------
 
 mainbody <- bs4DashBody(
-  useToastr(),
-  useShinyFeedback(),
-  useShinyjs(),
-  tags$link(rel = "stylesheet", type = "text/css", 
-           href = "css/custom.css"), 
-  titlePanel(
-    h1("Shiny CRUD Application", align = 'center'),
-    windowTitle = "Shiny CRUD Application"
-  ),
-  defects_ui("cars_table"),
-  tags$script(src = "js/custom.js")
+  sidebarLayout(
+    sidebarPanel = sidebarPanel(
+      bs4Card(
+        title = "Select Table to Edit",
+        width = 12,
+        status = "primary",
+        collapsible = TRUE,
+        closable = FALSE,
+        selectInput(inputId = "chooseTable",
+                    label = "Choose Table",
+                    choices = c("Defects",
+                                "Cars",
+                                "Zones"),
+                    selected = "defects")
+      )
+    ),
+    mainPanel = mainPanel(
+      useToastr(),
+      useShinyFeedback(),
+      useShinyjs(),
+      tags$link(rel = "stylesheet", type = "text/css", 
+                href = "css/custom.css"),
+      bs4Card(
+        title = "Defects Table",
+        width = 12,
+        status = "primary",
+        collapsible = TRUE,
+        maximizable =  TRUE,
+        closable = FALSE,
+        labelStatus = "dark",
+        defects_ui("cars_table")
+      ),
+      tags$script(src = "js/custom.js")      
+    ))
 )
 
 # ui ----------------------------------------------------------------------
