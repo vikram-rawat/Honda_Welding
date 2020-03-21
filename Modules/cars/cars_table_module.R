@@ -1,4 +1,4 @@
-defects_ui <- function(id) {
+cars_ui <- function(id) {
 
   # namespace ---------------------------------------------------------------
   
@@ -37,7 +37,7 @@ defects_ui <- function(id) {
 
 # server ------------------------------------------------------------------
 
-defects_server <- function(input, output, session) {
+cars_server <- function(input, output, session) {
 
   # main Data ---------------------------------------------------------------
 
@@ -46,7 +46,7 @@ defects_server <- function(input, output, session) {
     session$userData$db_trigger()
     
     session$userData$conn %>%
-      tbl('defects') %>%
+      tbl('cars') %>%
       collect() %>%
       filter(is_deleted == FALSE) %>% 
       arrange(desc(modified_at))
@@ -112,7 +112,7 @@ defects_server <- function(input, output, session) {
       out,
       rownames = FALSE,
       colnames = c(
-        'Problems',
+        'cars',
         'Created At',
         'Created By',
         'Modified At',
@@ -130,7 +130,7 @@ defects_server <- function(input, output, session) {
           list(
             extend = "excel",
             text = "Download",
-            title = paste0("mtcars-", Sys.Date()),
+            title = paste0("cars-", Sys.Date()),
             exportOptions = list(columns = 1:(length(out) - 1))
           )
         ),
@@ -148,7 +148,7 @@ defects_server <- function(input, output, session) {
   # edit data ---------------------------------------------------------------
   
   callModule(
-    edit_module,
+    cars_edit_module,
     "add_car",
     title = "Add Car",
     obj_to_edit = function()
@@ -164,8 +164,8 @@ defects_server <- function(input, output, session) {
   })
 
   callModule(
-    edit_module,
-    "edit_problems",
+    cars_edit_module,
+    "edit_cars",
     title = "Edit Car",
     obj_to_edit = car_to_edit,
     trigger = reactive({
@@ -184,8 +184,8 @@ defects_server <- function(input, output, session) {
   
   callModule(
     delete_module,
-    "delete_problems",
-    title = "Delete Defects",
+    "delete_cars",
+    title = "Delete Cars",
     ShowValue = "defects",
     obj_to_delete = obj_to_delete,
     trigger = reactive({

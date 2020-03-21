@@ -1,6 +1,6 @@
 # Server ------------------------------------------------------------------
 
-edit_module <- function(input,
+cars_edit_module <- function(input,
                         output,
                         session,
                         title,
@@ -26,9 +26,9 @@ edit_module <- function(input,
         column(
           width = 12,
           textInput(
-            ns("problems"),
-               'Problems',
-               value = hold$problems
+            ns("cars"),
+               'cars',
+               value = hold$cars
           )
         )
       ),
@@ -40,10 +40,11 @@ edit_module <- function(input,
           ns('submit'),
           'Submit',
           class = "btn btn-primary",
-          style = "color: green"
+          style = "background-color: green;"
+          )
         )
       )
-    ))
+    )
     } else {
       
       showModal(
@@ -52,9 +53,9 @@ edit_module <- function(input,
             column(
               width = 12,
               textInput(
-                ns("problems"),
+                ns("cars"),
                 '',
-                value = hold$problems
+                value = hold$cars
               )
             )
           ),
@@ -73,18 +74,18 @@ edit_module <- function(input,
     }
   })
   
-  observeEvent(input$problems,  {
+  observeEvent(input$cars,  {
 
-    if(nchar(input$problems) < 3) {
+    if(nchar(input$cars) < 3) {
   
-        shinyFeedback::feedbackDanger(inputId = "problems",
+        shinyFeedback::feedbackDanger(inputId = "cars",
                                       show = TRUE ,
-                                      text = "Must enter a Defect!")
+                                      text = "Must enter a Car!")
         shinyjs::disable('submit')
         
       } else {
         
-        shinyFeedback::hideFeedback("problems")
+        shinyFeedback::hideFeedback("cars")
         shinyjs::enable('submit')
 
     }
@@ -97,7 +98,7 @@ edit_module <- function(input,
     out <- list(
       uid = hold$uid,
       data = list(
-        "problems" = input$problems
+        "cars" = input$cars
       )
     )
     
@@ -145,7 +146,7 @@ edit_module <- function(input,
 
         dbExecute(
           session$userData$conn,
-          "INSERT INTO defects(problems , created_at, created_by,
+          "INSERT INTO defects(cars , created_at, created_by,
            modified_at, modified_by, is_deleted, uid)
           VALUES($1,$2,$3,$4,$5,$6,$7)",
           params = c(unname(dat$data),
@@ -154,7 +155,7 @@ edit_module <- function(input,
       } else {
         dbExecute(
           session$userData$conn,
-          "UPDATE defects SET problems=$1, created_at=$2, created_by=$3,
+          "UPDATE defects SET cars=$1, created_at=$2, created_by=$3,
            modified_at=$4, modified_by=$5, is_deleted=$6 WHERE uid=$7",
           params = c(unname(dat$data),
                      list(dat$uid))

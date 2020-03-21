@@ -26,6 +26,20 @@ MainDB %>%
     overwrite = TRUE
   )
 
+MainDB %>% 
+  dbWriteTable(
+    "cars",
+    write,
+    overwrite = TRUE
+  )
+
+MainDB %>% 
+  dbWriteTable(
+    "zones",
+    write,
+    overwrite = TRUE
+  )
+
 
 MainDB %>% 
   dbListTables()
@@ -36,7 +50,3 @@ MainDB %>%
   # Filter out deleted rows from database `mtcars` table
   filter(is_deleted == FALSE) %>%
   arrange(desc(uid))
-
-dbSendStatement(MainDB,"
-drop table mtcars 
-                ")

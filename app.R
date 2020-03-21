@@ -30,12 +30,22 @@ shiny::onStop(function() {
 # bs_theme_new(version = "4", bootswatch = NULL)
 # bs_theme_base_colors(bg = "salmon", fg = "white")
 
-# source files ------------------------------------------------------------
+# getData -----------------------------------------------------------------
+
 source("globals.R")
 
-source("Modules/problems/problems_table_module.R")
-source("Modules/problems/problems_edit_module.R")
+# source files ------------------------------------------------------------
+
+source("Modules/defects/defects_table_module.R")
+source("Modules/defects/defects_edit_module.R")
+source("Modules/cars/cars_table_module.R")
+source("Modules/cars/cars_edit_module.R")
+source("Modules/zones/zones_table_module.R")
+source("Modules/zones/zones_edit_module.R")
+source("Modules/dailyFeed/feed_table_module.R")
+source("Modules/dailyFeed/feed_edit_module.R")
 source("Modules/delete_module.R")
+source("Modules/edit_modules/edit_modules.R")
 
 # navbar ------------------------------------------------------------------
 
@@ -78,40 +88,15 @@ controlbar <- bs4DashControlbar(disable = TRUE,
 # mainbody ----------------------------------------------------------------
 
 mainbody <- bs4DashBody(
-  sidebarLayout(
-    sidebarPanel = sidebarPanel(
-      bs4Card(
-        title = "Select Table to Edit",
-        width = 12,
-        status = "primary",
-        collapsible = TRUE,
-        closable = FALSE,
-        selectInput(inputId = "chooseTable",
-                    label = "Choose Table",
-                    choices = c("Defects",
-                                "Cars",
-                                "Zones"),
-                    selected = "defects")
-      )
-    ),
-    mainPanel = mainPanel(
-      useToastr(),
-      useShinyFeedback(),
-      useShinyjs(),
-      tags$link(rel = "stylesheet", type = "text/css", 
-                href = "css/custom.css"),
-      bs4Card(
-        title = "Defects Table",
-        width = 12,
-        status = "primary",
-        collapsible = TRUE,
-        maximizable =  TRUE,
-        closable = FALSE,
-        labelStatus = "dark",
-        defects_ui("cars_table")
-      ),
-      tags$script(src = "js/custom.js")      
-    ))
+  tags$link(rel = "stylesheet", type = "text/css", 
+            href = "css/custom.css"),
+  bs4TabItems(
+    bs4TabItem(tabName = "Original", 
+               edit_ui('edit_tables')),
+    bs4TabItem(tabName = "DailyFeed", 
+               'Nothing')
+  ),
+  tags$script(src = "js/custom.js")
 )
 
 # ui ----------------------------------------------------------------------
@@ -142,10 +127,7 @@ server <- function(input, output, session) {
   session$userData$conn <- conn
   session$userData$db_trigger <- reactiveVal(0)
   
-  callModule(
-    defects_server,
-    "cars_table"
-  )
+  callModule(edit_server,"edit_tables")
 }
 
 # shinyApp ----------------------------------------------------------------
