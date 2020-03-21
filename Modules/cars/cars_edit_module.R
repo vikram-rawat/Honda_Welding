@@ -146,7 +146,7 @@ cars_edit_module <- function(input,
 
         dbExecute(
           session$userData$conn,
-          "INSERT INTO defects(cars , created_at, created_by,
+          "INSERT INTO cars(cars , created_at, created_by,
            modified_at, modified_by, is_deleted, uid)
           VALUES($1,$2,$3,$4,$5,$6,$7)",
           params = c(unname(dat$data),
@@ -155,7 +155,7 @@ cars_edit_module <- function(input,
       } else {
         dbExecute(
           session$userData$conn,
-          "UPDATE defects SET cars=$1, created_at=$2, created_by=$3,
+          "UPDATE cars SET cars=$1, created_at=$2, created_by=$3,
            modified_at=$4, modified_by=$5, is_deleted=$6 WHERE uid=$7",
           params = c(unname(dat$data),
                      list(dat$uid))

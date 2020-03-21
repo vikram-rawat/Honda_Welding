@@ -4,6 +4,7 @@ delete_module <-
            session,
            title,
            obj_to_delete,
+           tableName,
            ShowValue = "defect",
            trigger) {
 
@@ -44,8 +45,9 @@ delete_module <-
         
         DBI::dbExecute(
           session$userData$conn,
-          # "DELETE FROM mtcars WHERE uid=$1",
-          "UPDATE defects SET is_deleted=TRUE WHERE uid=$1",
+          paste0("UPDATE ",
+                 tableName,
+                 " SET is_deleted=TRUE WHERE uid=$1"),
           params = c(uid)
         )
         

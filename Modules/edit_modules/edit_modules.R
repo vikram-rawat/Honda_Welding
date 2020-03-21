@@ -80,7 +80,7 @@ ns <- session$ns
               maximizable =  TRUE,
               closable = FALSE,
               labelStatus = "dark",
-              defects_ui(ns("cars_table"))
+              cars_ui(ns("cars_table"))
             ),
             "zones" = bs4Card(
               title = "Zones Table",
@@ -90,7 +90,7 @@ ns <- session$ns
               maximizable =  TRUE,
               closable = FALSE,
               labelStatus = "dark",
-              defects_ui(ns("zones_table"))
+              zones_ui(ns("zones_table"))
             )
     )
   })

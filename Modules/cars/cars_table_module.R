@@ -5,7 +5,7 @@ cars_ui <- function(id) {
   ns <- NS(id)
   
   # ui elements -------------------------------------------------------------
-  
+
   tagList(
     fluidRow(column(
       width = 2,
@@ -157,7 +157,7 @@ cars_server <- function(input, output, session) {
       input$add_cars
     })
   )
-
+  
   car_to_edit <- eventReactive(input$id_to_edit, {
     mainTable() %>%
       filter(uid == input$id_to_edit)
@@ -172,13 +172,13 @@ cars_server <- function(input, output, session) {
       input$id_to_edit
     })
   )
-
-  # delete data -------------------------------------------------------------
   
+  # delete data -------------------------------------------------------------
+
   obj_to_delete <- eventReactive(input$id_to_delete, {
     out <- mainTable() %>%
       filter(uid == input$id_to_delete) %>%
-      pull(problems)
+      pull(cars)
     out <- as.character(out)
   })
   
@@ -187,6 +187,7 @@ cars_server <- function(input, output, session) {
     "delete_cars",
     title = "Delete Cars",
     ShowValue = "defects",
+    tableName = "cars",
     obj_to_delete = obj_to_delete,
     trigger = reactive({
       input$id_to_delete

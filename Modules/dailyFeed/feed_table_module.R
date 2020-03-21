@@ -187,6 +187,7 @@ feeds_server <- function(input, output, session) {
     "delete_problems",
     title = "Delete Defects",
     ShowValue = "defects",
+    tableName = "feeds",
     obj_to_delete = obj_to_delete,
     trigger = reactive({
       input$id_to_delete

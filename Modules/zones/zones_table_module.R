@@ -187,6 +187,7 @@ zones_server <- function(input, output, session) {
     "delete_zones",
     title = "Delete Zones",
     ShowValue = "zones",
+    tableName = "zones",
     obj_to_delete = obj_to_delete,
     trigger = reactive({
       input$id_to_delete
