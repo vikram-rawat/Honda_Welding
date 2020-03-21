@@ -150,7 +150,7 @@ defects_server <- function(input, output, session) {
   callModule(
     defects_edit_module,
     "add_defects",
-    title = "Add Car",
+    title = "Add Defect",
     obj_to_edit = function()
       NULL,
     trigger = reactive({
@@ -166,7 +166,7 @@ defects_server <- function(input, output, session) {
   callModule(
     defects_edit_module,
     "edit_problems",
-    title = "Edit Car",
+    title = "Edit Defect",
     obj_to_edit = car_to_edit,
     trigger = reactive({
       input$id_to_edit

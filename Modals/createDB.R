@@ -26,12 +26,16 @@ MainDB %>%
     overwrite = TRUE
   )
 
+setnames(write,"problems", "cars")
+
 MainDB %>% 
   dbWriteTable(
     "cars",
     write,
     overwrite = TRUE
   )
+
+setnames(write,"cars", "zones")
 
 MainDB %>% 
   dbWriteTable(
@@ -45,7 +49,7 @@ MainDB %>%
   dbListTables()
 
 MainDB %>%
-  tbl('defects') %>%
+  tbl('cars') %>%
   collect() %>%
   # Filter out deleted rows from database `mtcars` table
   filter(is_deleted == FALSE) %>%

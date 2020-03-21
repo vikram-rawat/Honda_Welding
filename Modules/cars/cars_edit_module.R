@@ -1,11 +1,11 @@
 # Server ------------------------------------------------------------------
 
 cars_edit_module <- function(input,
-                        output,
-                        session,
-                        title,
-                        obj_to_edit,
-                        trigger) {
+                             output,
+                             session,
+                             title,
+                             obj_to_edit,
+                             trigger) {
   # namespace ---------------------------------------------------------------
   
   ns <- session$ns
@@ -82,9 +82,9 @@ cars_edit_module <- function(input,
                                       show = TRUE ,
                                       text = "Must enter a Car!")
         shinyjs::disable('submit')
-        
+
       } else {
-        
+
         shinyFeedback::hideFeedback("cars")
         shinyjs::enable('submit')
 

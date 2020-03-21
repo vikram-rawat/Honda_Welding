@@ -10,7 +10,7 @@ cars_ui <- function(id) {
     fluidRow(column(
       width = 2,
       actionButton(
-        ns("add_car"),
+        ns("add_cars"),
         "Add",
         class = "btn-success",
         style = "color: #000;",
@@ -112,7 +112,7 @@ cars_server <- function(input, output, session) {
       out,
       rownames = FALSE,
       colnames = c(
-        'cars',
+        'Cars',
         'Created At',
         'Created By',
         'Modified At',
@@ -149,15 +149,15 @@ cars_server <- function(input, output, session) {
   
   callModule(
     cars_edit_module,
-    "add_car",
+    "add_cars",
     title = "Add Car",
     obj_to_edit = function()
       NULL,
     trigger = reactive({
-      input$add_car
+      input$add_cars
     })
   )
-  
+
   car_to_edit <- eventReactive(input$id_to_edit, {
     mainTable() %>%
       filter(uid == input$id_to_edit)
