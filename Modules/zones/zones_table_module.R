@@ -23,7 +23,7 @@ zones_ui <- function(id) {
     fluidRow(
       column(
         width = 12,
-        title = "Motor Trend Car Road Tests",
+        title = "Production Zones",
         DTOutput(ns('table')) %>%
           withSpinner(),
         tags$br(),
@@ -178,7 +178,7 @@ zones_server <- function(input, output, session) {
   obj_to_delete <- eventReactive(input$id_to_delete, {
     out <- mainTable() %>%
       filter(uid == input$id_to_delete) %>%
-      pull(problems)
+      pull(zones)
     out <- as.character(out)
   })
   

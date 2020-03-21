@@ -48,9 +48,5 @@ MainDB %>%
 MainDB %>% 
   dbListTables()
 
-MainDB %>%
-  tbl('cars') %>%
-  collect() %>%
-  # Filter out deleted rows from database `mtcars` table
-  filter(is_deleted == FALSE) %>%
-  arrange(desc(uid))
+MainDB %>% 
+  dbSendStatement("delete from  zones")

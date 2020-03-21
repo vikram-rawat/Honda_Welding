@@ -26,9 +26,9 @@ zones_edit_module <- function(input,
         column(
           width = 12,
           textInput(
-            ns("problems"),
-               'Problems',
-               value = hold$problems
+            ns("zones"),
+               'zones',
+               value = hold$zones
           )
         )
       ),
@@ -53,9 +53,9 @@ zones_edit_module <- function(input,
             column(
               width = 12,
               textInput(
-                ns("problems"),
+                ns("zones"),
                 '',
-                value = hold$problems
+                value = hold$zones
               )
             )
           ),
@@ -74,18 +74,18 @@ zones_edit_module <- function(input,
     }
   })
   
-  observeEvent(input$problems,  {
+  observeEvent(input$zones,  {
 
-    if(nchar(input$problems) < 3) {
+    if(nchar(input$zones) < 3) {
   
-        shinyFeedback::feedbackDanger(inputId = "problems",
+        shinyFeedback::feedbackDanger(inputId = "zones",
                                       show = TRUE ,
                                       text = "Must enter a Defect!")
         shinyjs::disable('submit')
         
       } else {
         
-        shinyFeedback::hideFeedback("problems")
+        shinyFeedback::hideFeedback("zones")
         shinyjs::enable('submit')
 
     }
@@ -98,7 +98,7 @@ zones_edit_module <- function(input,
     out <- list(
       uid = hold$uid,
       data = list(
-        "problems" = input$problems
+        "zones" = input$zones
       )
     )
     
@@ -146,7 +146,7 @@ zones_edit_module <- function(input,
 
         dbExecute(
           session$userData$conn,
-          "INSERT INTO defects(problems , created_at, created_by,
+          "INSERT INTO zones(zones , created_at, created_by,
            modified_at, modified_by, is_deleted, uid)
           VALUES($1,$2,$3,$4,$5,$6,$7)",
           params = c(unname(dat$data),
@@ -155,7 +155,7 @@ zones_edit_module <- function(input,
       } else {
         dbExecute(
           session$userData$conn,
-          "UPDATE defects SET problems=$1, created_at=$2, created_by=$3,
+          "UPDATE zones SET zones=$1, created_at=$2, created_by=$3,
            modified_at=$4, modified_by=$5, is_deleted=$6 WHERE uid=$7",
           params = c(unname(dat$data),
                      list(dat$uid))
