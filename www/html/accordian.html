@@ -6,15 +6,31 @@
           aria-controls="shiftDetails">
           Select Shifts
         </button>
+        <button type="button" class="btn btn-outline-danger float-right">
+          <i class="fa fa-times-circle success" aria-hidden="true"></i>
+          Clear All
+        </button>
       </h5>
     </div>
 
     <div id="shiftDetails" class="collapse show" aria-labelledby="Shifts" data-parent="#dailyFeed">
       <div class="card-body">
         <div class="row">
-          <div class="col-4" :class="mainTheme.shiftElevate"> Morning Shift </div>
-          <div class="col-4" :class="mainTheme.shiftElevate"> AfterNoon Shift </div>
-          <div class="col-4" :class="mainTheme.shiftElevate"> Night Shift </div>
+          <div class="col-4">
+            <button class="btn btn-default bg-danger disabled" :class="mainTheme.shiftElevate">
+              <img src="img/sunrise.png" width="200" /> Morning Shift
+            </button>
+          </div>
+          <div class="col-4">
+            <button class="btn btn-default bg-warning disabled" :class="mainTheme.shiftElevate">
+              <img src="img/sunnoon.jpeg" width="200" /> AfterNoon Shift
+            </button>
+          </div>
+          <div class="col-4">
+            <button class="btn btn-default bg-secondary active" :class="mainTheme.shiftElevate">
+              <img src="img/night.jpg" width="200" /> Night Shift
+            </button>
+          </div>
         </div>
       </div>
     </div>
