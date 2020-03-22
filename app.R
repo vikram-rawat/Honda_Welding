@@ -44,6 +44,7 @@ source("Modules/zones/zones_table_module.R")
 source("Modules/zones/zones_edit_module.R")
 source("Modules/dailyFeed/feed_table_module.R")
 source("Modules/dailyFeed/feed_edit_module.R")
+source("Modules/Entry/entry_mod.R")
 source("Modules/delete_module.R")
 source("Modules/edit_modules/edit_modules.R")
 
@@ -92,9 +93,11 @@ mainbody <- bs4DashBody(
             href = "css/custom.css"),
   bs4TabItems(
     bs4TabItem(tabName = "Original", 
-               edit_ui('edit_tables')),
-    bs4TabItem(tabName = "DailyFeed", 
-               'Nothing')
+               edit_ui('edit_tables')
+               ),
+    bs4TabItem(tabName = "DailyFeed",
+               feed_ui("daily_data")
+               )
   ),
   tags$script(src = "js/custom.js")
 )
@@ -127,7 +130,10 @@ server <- function(input, output, session) {
   session$userData$conn <- conn
   session$userData$db_trigger <- reactiveVal(0)
   
-  callModule(edit_server,"edit_tables")
+  callModule(edit_server, "edit_tables")
+  
+  callModule(feed_server, "daily_data")
+
 }
 
 # shinyApp ----------------------------------------------------------------
