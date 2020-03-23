@@ -1,4 +1,4 @@
-feeds_ui <- function(id) {
+dailyFeed_ui <- function(id) {
 
   # namespace ---------------------------------------------------------------
   
@@ -37,7 +37,7 @@ feeds_ui <- function(id) {
 
 # server ------------------------------------------------------------------
 
-feeds_server <- function(input, output, session) {
+dailyFeed_server <- function(input, output, session) {
 
   # main Data ---------------------------------------------------------------
 

@@ -47,5 +47,6 @@ feed_server <- function(input, output, session, allTables) {
         subtitle = Sys.Date()
       ) %>%
       tab_stubhead(label = "Defects Name")
+
   })
 }
