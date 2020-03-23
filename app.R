@@ -12,6 +12,7 @@ library(shinycssloaders)
 library(shinyWidgets)
 library(shinyjs)
 library(dplyr)
+library(gt)
 
 # library(bootstraplib)
 
