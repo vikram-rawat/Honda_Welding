@@ -3,6 +3,7 @@
 library(shiny)
 library(bs4Dash)
 library(DBI)
+library(pool)
 library(data.table)
 library(plotly)
 library(DT)
@@ -25,7 +26,7 @@ options(scipen = 999)
 options(spinner.type = 8)
 
 shiny::onStop(function() {
-  dbDisconnect(conn)
+  poolClose(conn)
 })
 
 # bs_theme_new(version = "4", bootswatch = NULL)
@@ -131,9 +132,9 @@ server <- function(input, output, session) {
   session$userData$conn <- conn
   session$userData$db_trigger <- reactiveVal(0)
   
-  callModule(edit_server, "edit_tables")
+  editData <- callModule(edit_server, "edit_tables")
   
-  callModule(feed_server, "daily_data")
+  FeedData <- callModule(feed_server, "daily_data", allTables = editData)
 
 }
 

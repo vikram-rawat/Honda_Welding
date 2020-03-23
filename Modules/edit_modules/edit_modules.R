@@ -40,20 +40,20 @@ edit_server <- function(input, output, session){
 
 ns <- session$ns  
 
-  callModule(
-    defects_server,
-    "defects_table"
-  )
+defectsTable <- callModule(
+  defects_server,
+  "defects_table"
+)
+
+carsTable <- callModule(
+  cars_server,
+  "cars_table"
+)
   
-  callModule(
-    cars_server,
-    "cars_table"
-  )
-  
-  callModule(
-    zones_server,
-    "zones_table"
-  )
+zonesTable <- callModule(
+  zones_server,
+  "zones_table"
+)
   
   # callModule(
   #   feeds_server,
@@ -94,4 +94,12 @@ ns <- session$ns
             )
     )
   })
+
+  return(
+    list(
+      defectsTable = defectsTable,
+      carsTable = carsTable,
+      zonesTable = zonesTable
+    )
+  )
 }

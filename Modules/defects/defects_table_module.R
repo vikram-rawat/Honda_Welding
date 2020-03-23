@@ -193,5 +193,8 @@ defects_server <- function(input, output, session) {
       input$id_to_delete
     })
   )
-
+  
+  return(
+    mainTable
+  )
 }

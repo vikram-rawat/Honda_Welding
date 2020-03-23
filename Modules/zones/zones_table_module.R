@@ -194,4 +194,8 @@ zones_server <- function(input, output, session) {
     })
   )
 
+  return(
+    mainTable
+  )
+  
 }

@@ -3,9 +3,9 @@
 feed_ui <- function(id) {
 
   # namespace ---------------------------------------------------------------
-  
+
   ns <- NS(id)
-  
+
   tagList(
     tags$script(src = "js/vue.js"),
     fluidRow(
@@ -25,26 +25,27 @@ feed_ui <- function(id) {
 
 # server ------------------------------------------------------------------
 
-feed_server <- function(input, output, session) {
-  
+feed_server <- function(input, output, session, allTables) {
+
   # namespace ---------------------------------------------------------------
-  
+
   ns <- session$ns
-  
+
   jsObjects <- reactiveVal()
-  
+
   feedTable <- reactive({
-    letters
+    allTables$defectsTable() %>% 
+      select(problems)
   })
-  
+
   output$feedView <- render_gt({
-    
-    feedTable() %>% 
-      gt() %>% 
+
+    feedTable() %>%
+      gt() %>%
       tab_header(
-        title = "Defects Table",
-        subtitle =  Sys.Date()
-      ) %>% 
+        title = input$Shifts,
+        subtitle = Sys.Date()
+      ) %>%
       tab_stubhead(label = "Defects Name")
   })
 }

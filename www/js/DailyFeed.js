@@ -37,30 +37,39 @@ var searchEngine = new Vue({
     }
   },
   methods: {
-    morningShift: function () {
-      this.disable.morningShift = "active"
-      this.disable.noonShift = "disabled"
-      this.disable.nightShift = "disabled"
+    morningShift: function() {
+      this.disable.morningShift = "active";
+      this.disable.noonShift = "disabled";
+      this.disable.nightShift = "disabled";
+      console.log("button Clicked Morning");
+      Shiny.setInputValue("daily_data-Shifts", "Morning", {
+        priority: "event"
+      });
     },
-    noonShift: function () {
-      this.disable.morningShift = "disabled"
-      this.disable.noonShift = "active"
-      this.disable.nightShift = "disabled"
+    noonShift: function() {
+      this.disable.morningShift = "disabled";
+      this.disable.noonShift = "active";
+      this.disable.nightShift = "disabled";
+      console.log("button Clicked Noon");
+
+      Shiny.setInputValue("daily_data-Shifts", "Noon", { priority: "event" });
     },
-    nightShift: function () {
-      this.disable.morningShift = "disabled"
-      this.disable.noonShift = "disabled"
-      this.disable.nightShift = "active"
+    nightShift: function() {
+      this.disable.morningShift = "disabled";
+      this.disable.noonShift = "disabled";
+      this.disable.nightShift = "active";
+      console.log("button Clicked Night");
+
+      Shiny.setInputValue("daily_data-Shifts", "Night", { priority: "event" });
     },
-    shiftClearAll: function () {
-      this.disable.morningShift = "active"
-      this.disable.noonShift = "active"
-      this.disable.nightShift = "active"
+    shiftClearAll: function() {
+      this.disable.morningShift = "active";
+      this.disable.noonShift = "active";
+      this.disable.nightShift = "active";
+      Shiny.setInputValue("daily_data-Shifts", "", { priority: "event" });
     }
   },
-  mounted: function () {
-
-  },
+  mounted: function() {},
   computed: {},
   watch: {}
 });
