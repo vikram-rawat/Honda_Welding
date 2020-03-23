@@ -1,34 +1,34 @@
 <div id="dailyFeed">
   <div class="card">
-    <div class="card-header bg-dark" id="Shifts" @click="zoomShifts">
-      <h5 class="mb-0">
+    <div class="card-header bg-dark" id="Shifts">
+      <h3 class="mb-0">
         <button class="btn btn-link" data-toggle="collapse" data-target="#shiftDetails" aria-expanded="true"
           aria-controls="shiftDetails">
           Select Shifts
         </button>
-        <button type="button" class="btn btn-outline-danger float-right">
+        <button type="button" class="btn btn-outline-danger float-right" @click="shiftClearAll">
           <i class="fa fa-times-circle success" aria-hidden="true"></i>
           Clear All
         </button>
-      </h5>
+      </h3>
     </div>
 
     <div id="shiftDetails" class="collapse show" aria-labelledby="Shifts" data-parent="#dailyFeed">
       <div class="card-body">
         <div class="row">
           <div class="col-4">
-            <button class="btn btn-default bg-danger disabled" :class="mainTheme.shiftElevate">
-              <img src="img/sunrise.png" width="200" /> Morning Shift
+            <button class="btn btn-default bg-danger" :class="disable.morningShift" @click="morningShift">
+              <img src="img/sunrise.png" width="100" /> Morning Shift
             </button>
           </div>
           <div class="col-4">
-            <button class="btn btn-default bg-warning disabled" :class="mainTheme.shiftElevate">
-              <img src="img/sunnoon.jpeg" width="200" /> AfterNoon Shift
+            <button class="btn btn-default bg-warning" :class="disable.noonShift" @click="noonShift">
+              <img src="img/sunnoon.jpeg" width="100" /> AfterNoon Shift
             </button>
           </div>
           <div class="col-4">
-            <button class="btn btn-default bg-secondary active" :class="mainTheme.shiftElevate">
-              <img src="img/night.jpg" width="200" /> Night Shift
+            <button class="btn btn-default bg-secondary" :class="disable.nightShift" @click="nightShift">
+              <img src="img/night.jpg" width="100" /> Night Shift
             </button>
           </div>
         </div>
@@ -37,12 +37,16 @@
   </div>
   <div class="card">
     <div class="card-header bg-dark" id="Zones">
-      <h5 class="mb-0">
+      <h3 class="mb-0">
         <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#zoneDetails" aria-expanded="false"
           aria-controls="zoneDetails">
           Select Zones
         </button>
-      </h5>
+        <button type="button" class="btn btn-outline-danger float-right">
+          <i class="fa fa-times-circle success" aria-hidden="true"></i>
+          Clear All
+        </button>
+      </h3>
     </div>
     <div id="zoneDetails" class="collapse" aria-labelledby="Zones" data-parent="#dailyFeed">
       <div class="card-body">
@@ -57,12 +61,16 @@
   </div>
   <div class="card">
     <div class="card-header bg-dark" id="Cars">
-      <h5 class="mb-0">
+      <h3 class="mb-0">
         <button class="btn btn-link collapsed " data-toggle="collapse" data-target="#carsDetails" aria-expanded="false"
           aria-controls="carsDetails">
           Select Cars
         </button>
-      </h5>
+        <button type="button" class="btn btn-outline-danger float-right">
+          <i class="fa fa-times-circle success" aria-hidden="true"></i>
+          Clear All
+        </button>
+      </h3>
     </div>
     <div id="carsDetails" class="collapse" aria-labelledby="Cars" data-parent="#dailyFeed">
       <div class="card-body">

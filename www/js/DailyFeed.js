@@ -2,8 +2,12 @@ var searchEngine = new Vue({
   el: "#dailyFeed",
   delimiters: ["{%%", "%%}"],
   data: {
+    disable: {
+      morningShift: "active",
+      noonShift: "active",
+      nightShift: "active"
+    },
     mainTheme: {
-      shiftElevate: "shadow-lg",
       stateTheme: {
         m6: false,
         l6: false,
@@ -33,8 +37,25 @@ var searchEngine = new Vue({
     }
   },
   methods: {
-    zoomShifts: function () {
-
+    morningShift: function () {
+      this.disable.morningShift = "active"
+      this.disable.noonShift = "disabled"
+      this.disable.nightShift = "disabled"
+    },
+    noonShift: function () {
+      this.disable.morningShift = "disabled"
+      this.disable.noonShift = "active"
+      this.disable.nightShift = "disabled"
+    },
+    nightShift: function () {
+      this.disable.morningShift = "disabled"
+      this.disable.noonShift = "disabled"
+      this.disable.nightShift = "active"
+    },
+    shiftClearAll: function () {
+      this.disable.morningShift = "active"
+      this.disable.noonShift = "active"
+      this.disable.nightShift = "active"
     }
   },
   mounted: function () {
