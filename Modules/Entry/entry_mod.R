@@ -10,12 +10,22 @@ feed_ui <- function(id) {
     tags$script(src = "js/vue.js"),
     fluidRow(
       column(
-        width = 9,
+        width = 8,
         htmlTemplate("www/html/accordian.html")
         ),
       column(
-        width = 3,
-        gt_output(ns('feedView'))
+        width = 4,
+        bs4Card(
+          width = 12, 
+          inputId = "feedDetails",
+          title = "Entered Values",
+          status = "success",
+          elevation = 1,
+          maximizable = TRUE,
+          closable = FALSE, 
+          label = "Check your Values here",
+          uiOutput(ns("DateTime"))
+        )
         )
       ),
     tags$script(src = "js/DailyFeed.js")
@@ -38,15 +48,25 @@ feed_server <- function(input, output, session, allTables) {
       select(problems)
   })
 
-  output$feedView <- render_gt({
-
-    feedTable() %>%
-      gt() %>%
-      tab_header(
-        title = input$Shifts,
-        subtitle = Sys.Date()
-      ) %>%
-      tab_stubhead(label = "Defects Name")
-
+  output$DateTime <- renderUI({
+    bs4InfoBox(
+      iconElevation = 1, 
+      width = 12, 
+      title = Sys.Date(),
+      value = input$Shifts,
+      icon = "calender"
+    )
   })
+  # output$feedView <- render_gt({
+  # 
+  #   feedTable() %>%
+  #     gt() %>%
+  #     tab_header(
+  #       title = input$Shifts,
+  #       subtitle = Sys.Date()
+  #     ) %>%
+  #     tab_stubhead(label = "Defects Name")
+  # 
+  # })
+  
 }
