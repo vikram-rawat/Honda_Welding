@@ -25,7 +25,8 @@ feed_ui <- function(id) {
           closable = FALSE, 
           label = "Check your Values here",
           uiOutput(ns("DateTime")),
-          uiOutput(ns("ZonesnCars"))
+          uiOutput(ns("ZonesnCars")),
+          tableOutput(ns("defecttable"))
         )
         )
       ),
@@ -72,35 +73,22 @@ feed_server <- function(input, output, session, allTables) {
               class = "card-header",
               div(
                 class = "float-left",
-                paste0(
-                  "ZoneName: ",
-                  input$Zones
-                  )
+                input$Zones
               ),
               div(
                 class = "float-right",
-                if(!is.null(input$Cars)){
-                paste0(
-                    "CarName: ",
-                    input$Cars
-                  ) 
-                }
-                )
-                )
+                input$Cars
               )
             )
+          )
         )
+      )
   })
-  # output$feedView <- render_gt({
-  # 
-  #   feedTable() %>%
-  #     gt() %>%
-  #     tab_header(
-  #       title = input$Shifts,
-  #       subtitle = Sys.Date()
-  #     ) %>%
-  #     tab_stubhead(label = "Defects Name")
-  # 
-  # })
   
+  output$defecttable <- renderTable({
+      req(input$Defects)
+      fromJSON(input$Defects)
+    }
+  )
+ 
 }

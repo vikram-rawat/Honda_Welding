@@ -114,6 +114,10 @@
           aria-expanded="false" aria-controls="defectsDetails">
           Feed Defects
         </button>
+        <button type="button" class="btn btn-outline-success float-right" @click="submitValues">
+          <i class="fa fa-check-circle success" aria-hidden="true"></i>
+          Submit Values
+        </button>
       </h3>
     </div>
     <div id="defectsDetails" class="collapse" aria-labelledby="Defects" data-parent="#dailyFeed">
@@ -121,9 +125,9 @@
         <div class="row">
           <div class="col-4" v-for="defect in apiData.Defects">
             <div class="form-group shiny-input-container">
-              <label class="control-label" for="defect"> {%% defect.name %%} </label>
-              <input id="defect.name" type="number" class="form-control" value="defect.inputValue"
-                v-model="defect.inputValue" />
+              <label class="control-label" for="defect"> {%% defect.defect %%} </label>
+              <input id="defect.defect" type="number" class="form-control" value="defect.counts" min="0" max="999"
+                v-model="defect.counts" />
             </div>
           </div>
         </div>

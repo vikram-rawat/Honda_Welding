@@ -1,5 +1,6 @@
 # load libraries ----------------------------------------------------------
 
+library(jsonlite)
 library(shiny)
 library(bs4Dash)
 library(DBI)

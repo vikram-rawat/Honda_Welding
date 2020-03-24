@@ -33,12 +33,12 @@ var dailyFeed = new Vue({
         { name: "Maruti6", classes: "disabled" }
       ],
       Defects: [
-        { name: "defect1", inputValue: 0 },
-        { name: "defect2", inputValue: 0 },
-        { name: "defect3", inputValue: 0 },
-        { name: "defect3", inputValue: 0 },
-        { name: "defect4", inputValue: 0 },
-        { name: "defect5", inputValue: 0 }
+        { defect: "defect1", counts: 0 },
+        { defect: "defect2", counts: 0 },
+        { defect: "defect3", counts: 0 },
+        { defect: "defect3", counts: 0 },
+        { defect: "defect4", counts: 0 },
+        { defect: "defect5", counts: 0 }
       ]
     }
   },
@@ -115,6 +115,15 @@ var dailyFeed = new Vue({
       Shiny.setInputValue("daily_data-Cars", car.name, {
         priority: "event"
       });
+    },
+    submitValues: function() {
+      Shiny.setInputValue(
+        "daily_data-Defects",
+        JSON.stringify(this.apiData.Defects),
+        {
+          priority: "event"
+        }
+      );
     }
   },
   mounted: function() {},
