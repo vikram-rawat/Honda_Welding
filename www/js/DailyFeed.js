@@ -1,11 +1,11 @@
-var searchEngine = new Vue({
+var dailyFeed = new Vue({
   el: "#dailyFeed",
   delimiters: ["{%%", "%%}"],
   data: {
     disable: {
-      morningShift: "active",
-      noonShift: "active",
-      nightShift: "active"
+      morningShift: "disable",
+      noonShift: "disable",
+      nightShift: "disable"
     },
     mainTheme: {
       stateTheme: {
@@ -15,21 +15,8 @@ var searchEngine = new Vue({
         l12: true
       }
     },
-    show: {
-      SubmitBtns: false,
-      Services: false,
-      Locations: false
-    },
-    disable: {
-      SubmitBtns: false,
-      Services: false,
-      Locations: false
-    },
-    inputValue: {
-      States: "",
-      Locations: "",
-      Services: ""
-    },
+    show: {},
+    inputValue: {},
     apiData: {
       Zones: ["Zone 1", "Zone 2", "Zone 3", "Zone 4"],
       Cars: ["Toyota", "Suzuki", "Honda", "SomeModal"],
@@ -70,6 +57,21 @@ var searchEngine = new Vue({
     }
   },
   mounted: function() {},
-  computed: {},
+  computed: {
+    zoneLength: function() {
+      if (this.apiData.Zones.length < 6) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    carLength: function() {
+      if (this.apiData.Cars.length < 6) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
   watch: {}
 });

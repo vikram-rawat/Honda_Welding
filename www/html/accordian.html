@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header bg-dark" id="Shifts">
       <h3 class="mb-0">
-        <button class="btn btn-link" data-toggle="collapse" data-target="#shiftDetails" aria-expanded="true"
+        <button class="btn btn-outline-primary" data-toggle="collapse" data-target="#shiftDetails" aria-expanded="true"
           aria-controls="shiftDetails">
           Select Shifts
         </button>
@@ -38,8 +38,8 @@
   <div class="card">
     <div class="card-header bg-dark" id="Zones">
       <h3 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#zoneDetails" aria-expanded="false"
-          aria-controls="zoneDetails">
+        <button class="btn btn-outline-primary collapsed" data-toggle="collapse" data-target="#zoneDetails"
+          aria-expanded="false" aria-controls="zoneDetails">
           Select Zones
         </button>
         <button type="button" class="btn btn-outline-danger float-right">
@@ -50,20 +50,30 @@
     </div>
     <div id="zoneDetails" class="collapse" aria-labelledby="Zones" data-parent="#dailyFeed">
       <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-        officia aute, non cupidatat skateboard dolor brunch.Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-        moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim
-        keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
-        butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably
-        haven't heard of them accusamus labore sustainable VHS.
+        <div class="row">
+          <template v-if="zoneLength">
+            <div class="col-6" v-for="zone in apiData.Zones">
+              <button class="btn btn-default btn-lg btn-block" :class="" @click="">
+                {%% zone %%}
+              </button>
+            </div>
+          </template>
+          <template v-else>
+            <div class="col-4" v-for="zone in apiData.Zones">
+              <button class="btn btn-default btn-lg btn-block" :class="" @click="">
+                {%% zone %%}
+              </button>
+            </div>
+          </template>
+        </div>
       </div>
     </div>
   </div>
   <div class="card">
     <div class="card-header bg-dark" id="Cars">
       <h3 class="mb-0">
-        <button class="btn btn-link collapsed " data-toggle="collapse" data-target="#carsDetails" aria-expanded="false"
-          aria-controls="carsDetails">
+        <button class="btn btn-outline-primary collapsed" data-toggle="collapse" data-target="#carsDetails"
+          aria-expanded="false" aria-controls="carsDetails">
           Select Cars
         </button>
         <button type="button" class="btn btn-outline-danger float-right">
@@ -74,12 +84,42 @@
     </div>
     <div id="carsDetails" class="collapse" aria-labelledby="Cars" data-parent="#dailyFeed">
       <div class="card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-        officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf
-        moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim
-        keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur
-        butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably
-        haven't heard of them accusamus labore sustainable VHS.
+        <div class="row">
+          <template v-if="carLength">
+            <div class="col-6" v-for="car in apiData.Cars">
+              <button class="btn btn-default btn-lg btn-block" :class="" @click="">
+                {%% car %%}
+              </button>
+            </div>
+          </template>
+          <template v-else>
+            <div class="col-4" v-for="car in apiData.Cars">
+              <button class="btn btn-default btn-lg btn-block" :class="" @click="">
+                {%% car %%}
+              </button>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header bg-dark" id="Defects">
+      <h3 class="mb-0">
+        <button class="btn btn-outline-primary collapsed" data-toggle="collapse" data-target="#defectsDetails"
+          aria-expanded="false" aria-controls="defectsDetails">
+          Feed Defects
+        </button>
+      </h3>
+    </div>
+    <div id="defectsDetails" class="collapse" aria-labelledby="Defects" data-parent="#dailyFeed">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-6" v-for="defect in apiData.Defects">
+
+            {%% defect %%}
+          </div>
+        </div>
       </div>
     </div>
   </div>
