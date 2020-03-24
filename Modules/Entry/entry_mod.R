@@ -24,7 +24,8 @@ feed_ui <- function(id) {
           maximizable = TRUE,
           closable = FALSE, 
           label = "Check your Values here",
-          uiOutput(ns("DateTime"))
+          uiOutput(ns("DateTime")),
+          uiOutput(ns("ZonesnCars"))
         )
         )
       ),
@@ -54,8 +55,41 @@ feed_server <- function(input, output, session, allTables) {
       width = 12, 
       title = Sys.Date(),
       value = input$Shifts,
-      icon = "calender"
+      icon = "calendar"
     )
+  })
+  
+  output$ZonesnCars <- renderUI({
+    req(input$Zones)
+    
+    fluidRow(
+      id = ns("zoneCar"),
+      column(
+        width = 12,
+        div(
+            class = "card text-white bg-info mb-3",
+            div(
+              class = "card-header",
+              div(
+                class = "float-left",
+                paste0(
+                  "ZoneName: ",
+                  input$Zones
+                  )
+              ),
+              div(
+                class = "float-right",
+                if(!is.null(input$Cars)){
+                paste0(
+                    "CarName: ",
+                    input$Cars
+                  ) 
+                }
+                )
+                )
+              )
+            )
+        )
   })
   # output$feedView <- render_gt({
   # 

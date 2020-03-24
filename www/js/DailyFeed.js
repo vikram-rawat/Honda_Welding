@@ -32,7 +32,14 @@ var dailyFeed = new Vue({
         { name: "Maruti5", classes: "disabled" },
         { name: "Maruti6", classes: "disabled" }
       ],
-      Defects: ["a", "b", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n"]
+      Defects: [
+        { name: "defect1", inputValue: 0 },
+        { name: "defect2", inputValue: 0 },
+        { name: "defect3", inputValue: 0 },
+        { name: "defect3", inputValue: 0 },
+        { name: "defect4", inputValue: 0 },
+        { name: "defect5", inputValue: 0 }
+      ]
     }
   },
   methods: {
@@ -74,7 +81,7 @@ var dailyFeed = new Vue({
           value.classes = "active";
         }
       }
-      Shiny.setInputValue("daily_data-Zones", value.name, {
+      Shiny.setInputValue("daily_data-Zones", zone.name, {
         priority: "event"
       });
     },
@@ -92,7 +99,7 @@ var dailyFeed = new Vue({
         value = this.apiData.Cars[x];
         value.classes = "disabled";
       }
-      Shiny.setInputValue("daily_data-Zones", "", {
+      Shiny.setInputValue("daily_data-Cars", "", {
         priority: "event"
       });
     },
@@ -105,7 +112,7 @@ var dailyFeed = new Vue({
           value.classes = "active";
         }
       }
-      Shiny.setInputValue("daily_data-Zones", value.name, {
+      Shiny.setInputValue("daily_data-Cars", car.name, {
         priority: "event"
       });
     }
