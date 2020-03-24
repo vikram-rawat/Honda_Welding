@@ -42,7 +42,7 @@
           aria-expanded="false" aria-controls="zoneDetails">
           Select Zones
         </button>
-        <button type="button" class="btn btn-outline-danger float-right">
+        <button type="button" class="btn btn-outline-danger float-right" @click="zoneClearAll">
           <i class="fa fa-times-circle success" aria-hidden="true"></i>
           Clear All
         </button>
@@ -53,15 +53,17 @@
         <div class="row">
           <template v-if="zoneLength">
             <div class="col-6" v-for="zone in apiData.Zones">
-              <button class="btn btn-default btn-lg btn-block" :class="" @click="">
-                {%% zone %%}
+              <button class="btn btn-default btn-lg btn-outline-success btn-block" :class="zone.classes"
+                @click="zoneClick(zone)">
+                {%% zone.name %%}
               </button>
             </div>
           </template>
           <template v-else>
             <div class="col-4" v-for="zone in apiData.Zones">
-              <button class="btn btn-default btn-lg btn-block" :class="" @click="">
-                {%% zone %%}
+              <button class="btn btn-default btn-lg btn-outline-success btn-block" :class="zone.classes"
+                @click="zoneClick(zone)">
+                {%% zone.name %%}
               </button>
             </div>
           </template>
@@ -76,7 +78,7 @@
           aria-expanded="false" aria-controls="carsDetails">
           Select Cars
         </button>
-        <button type="button" class="btn btn-outline-danger float-right">
+        <button type="button" class="btn btn-outline-danger float-right" @click="carClearAll">
           <i class="fa fa-times-circle success" aria-hidden="true"></i>
           Clear All
         </button>
@@ -87,15 +89,17 @@
         <div class="row">
           <template v-if="carLength">
             <div class="col-6" v-for="car in apiData.Cars">
-              <button class="btn btn-default btn-lg btn-block" :class="" @click="">
-                {%% car %%}
+              <button class="btn btn-default btn-lg btn-outline-primary btn-block" :class="car.classes"
+                @click="carClick(car)">
+                {%% car.name %%}
               </button>
             </div>
           </template>
           <template v-else>
             <div class="col-4" v-for="car in apiData.Cars">
-              <button class="btn btn-default btn-lg btn-block" :class="" @click="">
-                {%% car %%}
+              <button class="btn btn-default btn-lg btn-outline-primary btn-block" :class="car.classes"
+                @click="carClick(car)">
+                {%% car.name %%}
               </button>
             </div>
           </template>
