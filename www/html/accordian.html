@@ -27,7 +27,7 @@
             </button>
           </div>
           <div class="col-4">
-            <button class="btn btn-default bg-secondary" :class="disable.nightShift" @click="nightShift">
+            <button class="btn btn-default bg-dark" :class="disable.nightShift" @click="nightShift">
               <img src="img/night.jpg" width="100" /> Night Shift
             </button>
           </div>
@@ -132,6 +132,16 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header bg-dark" id="Defects">
+      <h3 class="mb-0">
+        <button type="button" class="btn btn-outline-success btn-block font-weight-bold" @click="submitForm">
+          <i class="fa fa-play-circle success" aria-hidden="true"></i>
+          Submit Entire Form
+        </button>
+      </h3>
     </div>
   </div>
 </div>

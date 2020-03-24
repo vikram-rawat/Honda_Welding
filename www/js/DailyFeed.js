@@ -124,6 +124,11 @@ var dailyFeed = new Vue({
           priority: "event"
         }
       );
+    },
+    submitForm: function() {
+      Shiny.setInputValue("daily_data-SubmitForm", "clicked", {
+        priority: "event"
+      });
     }
   },
   mounted: function() {},
