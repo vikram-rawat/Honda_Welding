@@ -18,32 +18,22 @@ var dailyFeed = new Vue({
     show: {},
     inputValue: {},
     apiData: {
-      Zones: [
-        { name: "Zone 1", classes: "disabled" },
-        { name: "Zone 2", classes: "disabled" },
-        { name: "Zone 3", classes: "disabled" },
-        { name: "Zone 4", classes: "disabled" }
-      ],
-      Cars: [
-        { name: "Maruti", classes: "disabled" },
-        { name: "Maruti2", classes: "disabled" },
-        { name: "Maruti3", classes: "disabled" },
-        { name: "Maruti4", classes: "disabled" },
-        { name: "Maruti5", classes: "disabled" },
-        { name: "Maruti6", classes: "disabled" }
-      ],
-      Defects: [
-        { defect: "defect1", counts: 0 },
-        { defect: "defect2", counts: 0 },
-        { defect: "defect3", counts: 0 },
-        { defect: "defect3", counts: 0 },
-        { defect: "defect4", counts: 0 },
-        { defect: "defect5", counts: 0 }
-      ]
+      Zones: [{
+        name: "Zone 1",
+        classes: "disabled"
+      }],
+      Cars: [{
+        name: "Maruti",
+        classes: "disabled"
+      }],
+      Defects: [{
+        defect: "defect1",
+        counts: 0
+      }]
     }
   },
   methods: {
-    morningShift: function() {
+    morningShift: function () {
       this.disable.morningShift = "active";
       this.disable.noonShift = "disabled";
       this.disable.nightShift = "disabled";
@@ -52,27 +42,33 @@ var dailyFeed = new Vue({
         priority: "event"
       });
     },
-    noonShift: function() {
+    noonShift: function () {
       this.disable.morningShift = "disabled";
       this.disable.noonShift = "active";
       this.disable.nightShift = "disabled";
 
-      Shiny.setInputValue("daily_data-Shifts", "Noon", { priority: "event" });
+      Shiny.setInputValue("daily_data-Shifts", "Noon", {
+        priority: "event"
+      });
     },
-    nightShift: function() {
+    nightShift: function () {
       this.disable.morningShift = "disabled";
       this.disable.noonShift = "disabled";
       this.disable.nightShift = "active";
 
-      Shiny.setInputValue("daily_data-Shifts", "Night", { priority: "event" });
+      Shiny.setInputValue("daily_data-Shifts", "Night", {
+        priority: "event"
+      });
     },
-    shiftClearAll: function() {
+    shiftClearAll: function () {
       this.disable.morningShift = "active";
       this.disable.noonShift = "active";
       this.disable.nightShift = "active";
-      Shiny.setInputValue("daily_data-Shifts", "", { priority: "event" });
+      Shiny.setInputValue("daily_data-Shifts", "", {
+        priority: "event"
+      });
     },
-    zoneClick: function(zone) {
+    zoneClick: function (zone) {
       for (x in this.apiData.Zones) {
         value = this.apiData.Zones[x];
         if (value.name != zone.name) {
@@ -85,7 +81,7 @@ var dailyFeed = new Vue({
         priority: "event"
       });
     },
-    zoneClearAll: function() {
+    zoneClearAll: function () {
       for (x in this.apiData.Zones) {
         value = this.apiData.Zones[x];
         value.classes = "disabled";
@@ -94,7 +90,7 @@ var dailyFeed = new Vue({
         priority: "event"
       });
     },
-    carClearAll: function() {
+    carClearAll: function () {
       for (x in this.apiData.Cars) {
         value = this.apiData.Cars[x];
         value.classes = "disabled";
@@ -103,7 +99,7 @@ var dailyFeed = new Vue({
         priority: "event"
       });
     },
-    carClick: function(car) {
+    carClick: function (car) {
       for (x in this.apiData.Cars) {
         value = this.apiData.Cars[x];
         if (value.name != car.name) {
@@ -116,31 +112,30 @@ var dailyFeed = new Vue({
         priority: "event"
       });
     },
-    submitValues: function() {
+    submitValues: function () {
       Shiny.setInputValue(
         "daily_data-Defects",
-        JSON.stringify(this.apiData.Defects),
-        {
+        JSON.stringify(this.apiData.Defects), {
           priority: "event"
         }
       );
     },
-    submitForm: function() {
+    submitForm: function () {
       Shiny.setInputValue("daily_data-SubmitForm", "clicked", {
         priority: "event"
       });
     }
   },
-  mounted: function() {},
+  mounted: function () {},
   computed: {
-    zoneLength: function() {
+    zoneLength: function () {
       if (this.apiData.Zones.length < 6) {
         return true;
       } else {
         return false;
       }
     },
-    carLength: function() {
+    carLength: function () {
       if (this.apiData.Cars.length < 6) {
         return true;
       } else {
@@ -153,16 +148,16 @@ var dailyFeed = new Vue({
 
 // update data for Zones
 Shiny
-  .addCustomMessageHandler('changeZones', function(data) {
+  .addCustomMessageHandler('changeZones', function (data) {
     dailyFeed.apiData.Zones = data
   });
 // update data for Cars
 Shiny
-  .addCustomMessageHandler('changeCars', function(data) {
+  .addCustomMessageHandler('changeCars', function (data) {
     dailyFeed.apiData.Cars = data
   });
 // update data for defects
 Shiny
-  .addCustomMessageHandler('changeDefects', function(data) {
+  .addCustomMessageHandler('changeDefects', function (data) {
     dailyFeed.apiData.Defects = data
   });
