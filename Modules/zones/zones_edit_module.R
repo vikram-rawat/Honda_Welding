@@ -141,16 +141,13 @@ zones_edit_module <- function(input,
     tryCatch({
 
       if (flagAdd()) {
-        # creating a new car
-        uid <- digest::digest(Sys.time())
-
+        
         dbExecute(
           session$userData$conn,
           "INSERT INTO zones(zones , created_at, created_by,
-           modified_at, modified_by, is_deleted, uid)
-          VALUES($1,$2,$3,$4,$5,$6,$7)",
-          params = c(unname(dat$data),
-                     list(uid))
+           modified_at, modified_by, is_deleted)
+          VALUES($1,$2,$3,$4,$5,$6)",
+          params = c(unname(dat$data))
         )
       } else {
         dbExecute(

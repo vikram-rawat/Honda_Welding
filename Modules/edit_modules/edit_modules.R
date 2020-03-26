@@ -17,10 +17,10 @@ edit_ui <- function(id){
         closable = FALSE,
         selectInput(inputId = ns("chooseTable"),
                     label = "Choose Table",
-                    choices = c("defects",
+                    choices = c("zones",
                                 "cars",
-                                "zones"),
-                    selected = "defects")
+                                "defects"),
+                    selected = "zones")
       )
     ),
     mainPanel = mainPanel(
