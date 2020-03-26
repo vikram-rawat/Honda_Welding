@@ -150,3 +150,19 @@ var dailyFeed = new Vue({
   },
   watch: {}
 });
+
+// update data for Zones
+Shiny
+  .addCustomMessageHandler('changeZones', function(data) {
+    dailyFeed.apiData.Zones = data
+  });
+// update data for Cars
+Shiny
+  .addCustomMessageHandler('changeCars', function(data) {
+    dailyFeed.apiData.Cars = data
+  });
+// update data for defects
+Shiny
+  .addCustomMessageHandler('changeDefects', function(data) {
+    dailyFeed.apiData.Defects = data
+  });

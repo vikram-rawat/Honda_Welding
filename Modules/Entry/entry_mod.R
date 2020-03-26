@@ -40,7 +40,38 @@ feed_ui <- function(id) {
 feed_server <- function(input, output, session, allTables) {
 
   # namespace ---------------------------------------------------------------
+  
+  observe({
 
+    session$sendCustomMessage(
+      "changeZones",
+      allTables$zonesTable() %>%
+        mutate(name = zones,
+               classes = "disabled") %>%
+        select(name, classes)  %>%
+        toJSON()
+    )
+
+    session$sendCustomMessage(
+      "changeCars",
+      allTables$carsTable() %>%
+        mutate(name = cars,
+               classes = "disabled") %>%
+        select(name, classes)  %>%
+        toJSON()
+    )
+
+    session$sendCustomMessage(
+      "changeDefects",
+      allTables$defectsTable() %>%
+        mutate(defect = problems,
+               counts = 0) %>%
+        select(defect, counts)  %>%
+        toJSON()
+    )
+
+  })
+  
   ns <- session$ns
 
   jsObjects <- reactiveVal()
@@ -49,7 +80,7 @@ feed_server <- function(input, output, session, allTables) {
     allTables$defectsTable() %>% 
       select(problems)
   })
-
+  
   output$DateTime <- renderUI({
     bs4InfoBox(
       iconElevation = 1, 
