@@ -1,3 +1,7 @@
-#shiny-modal{
- z-index: 20000 !important; 
+#shiny-modal {
+    z-index: 20000 !important;
+}
+
+.odd-color {
+    background-color: #cad1e6 !important;
 }
