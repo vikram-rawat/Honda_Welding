@@ -142,7 +142,7 @@ server <- function(input, output, session) {
 
 shinyApp(
   ui = ui,
-  server =  server,
+  server = server,
   options = list(
                 port = 9002,
                 host = "127.0.0.1"

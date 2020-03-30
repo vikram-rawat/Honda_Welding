@@ -1,6 +1,58 @@
 MainDB <- dbConnect(RSQLite::SQLite(),
                     "Data/mainData.sqlite")
 
+Zones <- "CREATE TABLE zones (
+  uid INTEGER PRIMARY KEY AUTOINCREMENT,
+  zones text NOT NULL unique,
+  created_at text NOT NULL,
+  created_by text NOT NULL,
+  modified_at text NOT NULL,
+  modified_by text NOT NULL,
+  is_deleted integer NOT NULL
+)"
+
+dbSendStatement(MainDB, Zones)
+# dbSendStatement(MainDB,"drop table zones")
+
+Cars <- "CREATE TABLE cars (
+  uid INTEGER PRIMARY KEY AUTOINCREMENT,
+  cars text NOT NULL unique,
+  created_at text NOT NULL,
+  created_by text NOT NULL,
+  modified_at text NOT NULL,
+  modified_by text NOT NULL,
+  is_deleted integer NOT NULL
+)"
+
+dbSendStatement(MainDB, Cars)
+# dbSendStatement(MainDB,"drop table cars")
+
+Defects <- "CREATE TABLE defects (
+  uid INTEGER PRIMARY KEY AUTOINCREMENT,
+  problems text NOT NULL unique,
+  created_at text NOT NULL,
+  created_by text NOT NULL,
+  modified_at text NOT NULL,
+  modified_by text NOT NULL,
+  is_deleted integer NOT NULL
+)"
+
+dbSendStatement(MainDB, Defects)
+
+Mapping <- "CREATE TABLE mapping (
+  uid INTEGER PRIMARY KEY AUTOINCREMENT,
+  zones text NOT NULL,
+  cars text NOT NULL unique,
+  problems text NOT NULL,
+  created_at text NOT NULL,
+  created_by text NOT NULL,
+  modified_at text NOT NULL,
+  modified_by text NOT NULL,
+  is_deleted integer NOT NULL
+)"
+
+dbSendStatement(MainDB, Mapping)
+
 dailyFeedSQL <- "CREATE TABLE dailyfeed (
   uid INTEGER PRIMARY KEY AUTOINCREMENT,
   Date Date NOT NULL,
@@ -16,45 +68,8 @@ dailyFeedSQL <- "CREATE TABLE dailyfeed (
   is_deleted integer NOT NULL
 )"
 
-dbSendStatement(MainDB,dailyFeedSQL)
+dbSendStatement(MainDB, dailyFeedSQL)
 
-Zones <- "CREATE TABLE zones (
-  uid INTEGER PRIMARY KEY AUTOINCREMENT,
-  zones text NOT NULL unique,
-  created_at text NOT NULL,
-  created_by text NOT NULL,
-  modified_at text NOT NULL,
-  modified_by text NOT NULL,
-  is_deleted integer NOT NULL
-)"
-
-dbSendStatement(MainDB,Zones)
-# dbSendStatement(MainDB,"drop table zones")
-
-Cars <- "CREATE TABLE cars (
-  uid INTEGER PRIMARY KEY AUTOINCREMENT,
-  cars text NOT NULL,
-  created_at text NOT NULL,
-  created_by text NOT NULL,
-  modified_at text NOT NULL,
-  modified_by text NOT NULL,
-  is_deleted integer NOT NULL
-)"
-
-dbSendStatement(MainDB, Cars)
-# dbSendStatement(MainDB,"drop table cars")
-
-Defects <- "CREATE TABLE defects (
-  uid INTEGER PRIMARY KEY AUTOINCREMENT,
-  problems text NOT NULL,
-  created_at text NOT NULL,
-  created_by text NOT NULL,
-  modified_at text NOT NULL,
-  modified_by text NOT NULL,
-  is_deleted integer NOT NULL
-)"
-
-dbSendStatement(MainDB, Defects)
 # dbSendStatement(MainDB,"drop table defects")
 
 # setnames(write,"problems", "cars")
