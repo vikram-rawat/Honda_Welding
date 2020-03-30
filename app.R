@@ -1,20 +1,20 @@
 # load libraries ----------------------------------------------------------
 
-library(jsonlite)
-library(shiny)
-library(bs4Dash)
-library(DBI)
-library(pool)
-library(data.table)
-library(plotly)
-library(DT)
-library(shinyFeedback)
-library(shinytoastr)
-library(shinycssloaders)
-library(shinyWidgets)
-library(shinyjs)
-library(dplyr)
-library(gt)
+library("jsonlite", character.only = TRUE)
+library("shiny", character.only = TRUE)
+library("bs4Dash", character.only = TRUE)
+library("DBI", character.only = TRUE)
+library("pool", character.only = TRUE)
+library("data.table", character.only = TRUE)
+library("plotly", character.only = TRUE)
+library("DT", character.only = TRUE)
+library("shinyFeedback", character.only = TRUE)
+library("shinytoastr", character.only = TRUE)
+library("shinycssloaders", character.only = TRUE)
+library("shinyWidgets", character.only = TRUE)
+library("shinyjs", character.only = TRUE)
+library("dplyr", character.only = TRUE)
+library("gt", character.only = TRUE)
 
 # library(bootstraplib)
 
@@ -39,17 +39,17 @@ source("globals.R")
 
 # source files ------------------------------------------------------------
 
-source("Modules/defects/defects_table_module.R")
-source("Modules/defects/defects_edit_module.R")
-source("Modules/cars/cars_table_module.R")
-source("Modules/cars/cars_edit_module.R")
-source("Modules/zones/zones_table_module.R")
-source("Modules/zones/zones_edit_module.R")
-source("Modules/dailyFeed/feed_table_module.R")
-source("Modules/dailyFeed/feed_edit_module.R")
-source("Modules/Entry/entry_mod.R")
-source("Modules/delete_module.R")
+source("Modules/edit_modules/defects/defects_table_module.R")
+source("Modules/edit_modules/defects/defects_edit_module.R")
+source("Modules/edit_modules/cars/cars_table_module.R")
+source("Modules/edit_modules/cars/cars_edit_module.R")
+source("Modules/edit_modules/zones/zones_table_module.R")
+source("Modules/edit_modules/zones/zones_edit_module.R")
+source("Modules/edit_modules/dailyFeed/feed_table_module.R")
+source("Modules/edit_modules/dailyFeed/feed_edit_module.R")
 source("Modules/edit_modules/edit_modules.R")
+source("Modules/delete_module.R")
+source("Modules/Entry/entry_mod.R")
 
 # navbar ------------------------------------------------------------------
 
@@ -63,7 +63,7 @@ sidebar <- bs4DashSidebar(
   status = "primary",
   title = "Welding Dashboard",
   brandColor = "gray-light",
-  # url = "https://www.google.fr",
+# url = "https://www.google.fr",
   src = "img/hondaicon.jpg",
   elevation = 3,
   opacity = 0.8,
@@ -92,10 +92,10 @@ controlbar <- bs4DashControlbar(disable = TRUE,
 # mainbody ----------------------------------------------------------------
 
 mainbody <- bs4DashBody(
-  tags$link(rel = "stylesheet", type = "text/css", 
+  tags$link(rel = "stylesheet", type = "text/css",
             href = "css/custom.css"),
   bs4TabItems(
-    bs4TabItem(tabName = "Original", 
+    bs4TabItem(tabName = "Original",
                edit_ui('edit_tables')
                ),
     bs4TabItem(tabName = "DailyFeed",
@@ -114,7 +114,7 @@ ui <- bs4DashPage(
   controlbar_collapsed = TRUE,
   controlbar_overlay = TRUE,
   enable_preloader = TRUE,
-  loading_duration =  2,
+  loading_duration = 2,
   loading_background = "#2F4F4F",
   title = "Weilding Defects",
   navbar = navbar,
@@ -132,9 +132,9 @@ server <- function(input, output, session) {
   session$userData$email <- 'vikram.rawat@GreyvalleyInfotech.com'
   session$userData$conn <- conn
   session$userData$db_trigger <- reactiveVal(0)
-  
+
   editData <- callModule(edit_server, "edit_tables")
-  
+
   FeedData <- callModule(feed_server, "daily_data", allTables = editData)
 
 }
