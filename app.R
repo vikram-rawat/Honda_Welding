@@ -23,7 +23,6 @@ library("gt", character.only = TRUE)
 setDTthreads(0L)
 
 options(scipen = 999)
-
 options(spinner.type = 8)
 
 shiny::onStop(function() {
@@ -141,4 +140,11 @@ server <- function(input, output, session) {
 
 # shinyApp ----------------------------------------------------------------
 
-shinyApp(ui, server)
+shinyApp(
+  ui = ui,
+  server =  server,
+  options = list(
+                port = 9002,
+                host = "127.0.0.1"
+            )
+)
