@@ -18,18 +18,10 @@ var dailyFeed = new Vue({
     show: {},
     inputValue: {},
     apiData: {
-      Zones: [{
-        name: "Zone 1",
-        classes: "disabled"
-      }],
-      Cars: [{
-        name: "Maruti",
-        classes: "disabled"
-      }],
-      Defects: [{
-        defect: "defect1",
-        counts: 0
-      }]
+      mappingData: [],
+      Zones: [],
+      Cars: [],
+      Defects: []
     }
   },
   methods: {
@@ -143,21 +135,37 @@ var dailyFeed = new Vue({
       }
     }
   },
-  watch: {}
+  watch: {
+    mappingData: function (newValue, oldValue) {
+      this.apiData.Zones = []
+      $.each(newValue, (i, v) => {
+        item = {}
+        item["name"] = v.zones
+        item["classes"] = "disabled"
+        zones.push(this.apiData.Zones);
+      });
+    }
+  }
 });
 
+// update data for Mapping
+Shiny
+  .addCustomMessageHandler('changeMapping', function (data) {
+    dailyFeed.apiData.mappingData = data;
+  });
+
 // update data for Zones
-Shiny
-  .addCustomMessageHandler('changeZones', function (data) {
-    dailyFeed.apiData.Zones = data
-  });
-// update data for Cars
-Shiny
-  .addCustomMessageHandler('changeCars', function (data) {
-    dailyFeed.apiData.Cars = data
-  });
-// update data for defects
-Shiny
-  .addCustomMessageHandler('changeDefects', function (data) {
-    dailyFeed.apiData.Defects = data
-  });
+// Shiny
+//   .addCustomMessageHandler('changeZones', function (data) {
+//     dailyFeed.apiData.Zones = data
+//   });
+// // update data for Cars
+// Shiny
+//   .addCustomMessageHandler('changeCars', function (data) {
+//     dailyFeed.apiData.Cars = data
+//   });
+// // update data for defects
+// Shiny
+//   .addCustomMessageHandler('changeDefects', function (data) {
+//     dailyFeed.apiData.Defects = data
+//   });

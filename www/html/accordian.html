@@ -2,32 +2,58 @@
   <div class="card">
     <div class="card-header odd-color" id="Shifts">
       <h3 class="mb-0">
-        <button class="btn btn-outline-primary" data-toggle="collapse" data-target="#shiftDetails" aria-expanded="true"
-          aria-controls="shiftDetails">
+        <button
+          class="btn btn-outline-primary"
+          data-toggle="collapse"
+          data-target="#shiftDetails"
+          aria-expanded="true"
+          aria-controls="shiftDetails"
+        >
           Select Shifts
         </button>
-        <button type="button" class="btn btn-outline-danger float-right" @click="shiftClearAll">
+        <button
+          type="button"
+          class="btn btn-outline-danger float-right"
+          @click="shiftClearAll"
+        >
           <i class="fa fa-times-circle success" aria-hidden="true"></i>
           Clear All
         </button>
       </h3>
     </div>
 
-    <div id="shiftDetails" class="collapse show" aria-labelledby="Shifts" data-parent="#dailyFeed">
+    <div
+      id="shiftDetails"
+      class="collapse show"
+      aria-labelledby="Shifts"
+      data-parent="#dailyFeed"
+    >
       <div class="card-body">
         <div class="row">
           <div class="col-4">
-            <button class="btn btn-default bg-danger" :class="disable.morningShift" @click="morningShift">
+            <button
+              class="btn btn-default bg-danger"
+              :class="disable.morningShift"
+              @click="morningShift"
+            >
               <img src="img/sunrise.png" width="100" /> Dawn Shift
             </button>
           </div>
           <div class="col-4">
-            <button class="btn btn-default bg-warning" :class="disable.noonShift" @click="noonShift">
+            <button
+              class="btn btn-default bg-warning"
+              :class="disable.noonShift"
+              @click="noonShift"
+            >
               <img src="img/sunnoon.jpeg" width="100" /> Noon Shift
             </button>
           </div>
           <div class="col-4">
-            <button class="btn btn-default bg-dark" :class="disable.nightShift" @click="nightShift">
+            <button
+              class="btn btn-default bg-dark"
+              :class="disable.nightShift"
+              @click="nightShift"
+            >
               <img src="img/night.jpg" width="100" /> Night Shift
             </button>
           </div>
@@ -38,31 +64,51 @@
   <div class="card">
     <div class="card-header odd-color" id="Zones">
       <h3 class="mb-0">
-        <button class="btn btn-outline-primary collapsed" data-toggle="collapse" data-target="#zoneDetails"
-          aria-expanded="false" aria-controls="zoneDetails">
+        <button
+          class="btn btn-outline-primary collapsed"
+          data-toggle="collapse"
+          data-target="#zoneDetails"
+          aria-expanded="false"
+          aria-controls="zoneDetails"
+        >
           Select Zones
         </button>
-        <button type="button" class="btn btn-outline-danger float-right" @click="zoneClearAll">
+        <button
+          type="button"
+          class="btn btn-outline-danger float-right"
+          @click="zoneClearAll"
+        >
           <i class="fa fa-times-circle success" aria-hidden="true"></i>
           Clear All
         </button>
       </h3>
     </div>
-    <div id="zoneDetails" class="collapse" aria-labelledby="Zones" data-parent="#dailyFeed">
+    <div
+      id="zoneDetails"
+      class="collapse"
+      aria-labelledby="Zones"
+      data-parent="#dailyFeed"
+    >
       <div class="card-body">
         <div class="row">
           <template v-if="zoneLength">
             <div class="col-6" v-for="zone in apiData.Zones">
-              <button class="btn btn-default btn-lg btn-outline-success btn-block" :class="zone.classes"
-                @click="zoneClick(zone)">
+              <button
+                class="btn btn-default btn-lg btn-outline-success btn-block"
+                :class="zone.classes"
+                @click="zoneClick(zone)"
+              >
                 {%% zone.name %%}
               </button>
             </div>
           </template>
           <template v-else>
             <div class="col-4" v-for="zone in apiData.Zones">
-              <button class="btn btn-default btn-lg btn-outline-success btn-block" :class="zone.classes"
-                @click="zoneClick(zone)">
+              <button
+                class="btn btn-default btn-lg btn-outline-success btn-block"
+                :class="zone.classes"
+                @click="zoneClick(zone)"
+              >
                 {%% zone.name %%}
               </button>
             </div>
@@ -74,31 +120,51 @@
   <div class="card">
     <div class="card-header odd-color" id="Cars">
       <h3 class="mb-0">
-        <button class="btn btn-outline-primary collapsed" data-toggle="collapse" data-target="#carsDetails"
-          aria-expanded="false" aria-controls="carsDetails">
+        <button
+          class="btn btn-outline-primary collapsed"
+          data-toggle="collapse"
+          data-target="#carsDetails"
+          aria-expanded="false"
+          aria-controls="carsDetails"
+        >
           Select Cars
         </button>
-        <button type="button" class="btn btn-outline-danger float-right" @click="carClearAll">
+        <button
+          type="button"
+          class="btn btn-outline-danger float-right"
+          @click="carClearAll"
+        >
           <i class="fa fa-times-circle success" aria-hidden="true"></i>
           Clear All
         </button>
       </h3>
     </div>
-    <div id="carsDetails" class="collapse" aria-labelledby="Cars" data-parent="#dailyFeed">
+    <div
+      id="carsDetails"
+      class="collapse"
+      aria-labelledby="Cars"
+      data-parent="#dailyFeed"
+    >
       <div class="card-body">
         <div class="row">
           <template v-if="carLength">
             <div class="col-6" v-for="car in apiData.Cars">
-              <button class="btn btn-default btn-lg btn-outline-primary btn-block" :class="car.classes"
-                @click="carClick(car)">
+              <button
+                class="btn btn-default btn-lg btn-outline-primary btn-block"
+                :class="car.classes"
+                @click="carClick(car)"
+              >
                 {%% car.name %%}
               </button>
             </div>
           </template>
           <template v-else>
             <div class="col-4" v-for="car in apiData.Cars">
-              <button class="btn btn-default btn-lg btn-outline-primary btn-block" :class="car.classes"
-                @click="carClick(car)">
+              <button
+                class="btn btn-default btn-lg btn-outline-primary btn-block"
+                :class="car.classes"
+                @click="carClick(car)"
+              >
                 {%% car.name %%}
               </button>
             </div>
@@ -110,24 +176,47 @@
   <div class="card">
     <div class="card-header odd-color" id="Defects">
       <h3 class="mb-0">
-        <button class="btn btn-outline-primary collapsed" data-toggle="collapse" data-target="#defectsDetails"
-          aria-expanded="false" aria-controls="defectsDetails">
+        <button
+          class="btn btn-outline-primary collapsed"
+          data-toggle="collapse"
+          data-target="#defectsDetails"
+          aria-expanded="false"
+          aria-controls="defectsDetails"
+        >
           Feed Defects
         </button>
-        <button type="button" class="btn btn-outline-success float-right" @click="submitValues">
+        <button
+          type="button"
+          class="btn btn-outline-success float-right"
+          @click="submitValues"
+        >
           <i class="fa fa-check-circle success" aria-hidden="true"></i>
           Submit Values
         </button>
       </h3>
     </div>
-    <div id="defectsDetails" class="collapse" aria-labelledby="Defects" data-parent="#dailyFeed">
+    <div
+      id="defectsDetails"
+      class="collapse"
+      aria-labelledby="Defects"
+      data-parent="#dailyFeed"
+    >
       <div class="card-body">
         <div class="row">
           <div class="col-4" v-for="defect in apiData.Defects">
             <div class="form-group shiny-input-container">
-              <label class="control-label" for="defect"> {%% defect.defect %%} </label>
-              <input id="defect.defect" type="number" class="form-control" value="defect.counts" min="0" max="999"
-                v-model="defect.counts" />
+              <label class="control-label" for="defect">
+                {%% defect.defect %%}
+              </label>
+              <input
+                id="defect.defect"
+                type="number"
+                class="form-control"
+                value="defect.counts"
+                min="0"
+                max="999"
+                v-model="defect.counts"
+              />
             </div>
           </div>
         </div>
@@ -137,7 +226,11 @@
   <div class="card">
     <div class="card-header odd-color" id="Defects">
       <h3 class="mb-0">
-        <button type="button" class="btn btn-outline-success btn-block font-weight-bold" @click="submitForm">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-block font-weight-bold"
+          @click="submitForm"
+        >
           <i class="fa fa-play-circle success" aria-hidden="true"></i>
           Submit Entire Form
         </button>

@@ -27,12 +27,11 @@ feed_ui <- function(id) {
           uiOutput(ns("DateTime")),
           uiOutput(ns("ZonesnCars")),
           tableOutput(ns("defecttable"))
-        )
+          )
         )
       ),
     tags$script(src = "js/DailyFeed.js")
   )
-
 }
 
 # server ------------------------------------------------------------------
@@ -44,31 +43,39 @@ feed_server <- function(input, output, session, allTables) {
   observe({
 
     session$sendCustomMessage(
-      "changeZones",
-      allTables$zonesTable() %>%
-        mutate(name = zones,
-               classes = "disabled") %>%
-        select(name, classes)  %>%
-        toJSON()
+      "changeMapping",
+      toJSON(
+        allTables$mappingTable() %>% 
+          select(zones, cars, problems)
+        )
     )
 
-    session$sendCustomMessage(
-      "changeCars",
-      allTables$carsTable() %>%
-        mutate(name = cars,
-               classes = "disabled") %>%
-        select(name, classes)  %>%
-        toJSON()
-    )
-
-    session$sendCustomMessage(
-      "changeDefects",
-      allTables$defectsTable() %>%
-        mutate(defect = problems,
-               counts = 0) %>%
-        select(defect, counts)  %>%
-        toJSON()
-    )
+    # session$sendCustomMessage(
+    #   "changeZones",
+    #   allTables$zonesTable() %>%
+    #     mutate(name = zones,
+    #            classes = "disabled") %>%
+    #     select(name, classes)  %>%
+    #     toJSON()
+    # )
+    # 
+    # session$sendCustomMessage(
+    #   "changeCars",
+    #   allTables$carsTable() %>%
+    #     mutate(name = cars,
+    #            classes = "disabled") %>%
+    #     select(name, classes)  %>%
+    #     toJSON()
+    # )
+    # 
+    # session$sendCustomMessage(
+    #   "changeDefects",
+    #   allTables$defectsTable() %>%
+    #     mutate(defect = problems,
+    #            counts = 0) %>%
+    #     select(defect, counts)  %>%
+    #     toJSON()
+    # )
 
   })
   
