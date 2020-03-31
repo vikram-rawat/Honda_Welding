@@ -1,16 +1,16 @@
-dailyFeed_ui <- function(id) {
+mapping_ui <- function(id) {
 
   # namespace ---------------------------------------------------------------
   
   ns <- NS(id)
   
   # ui elements -------------------------------------------------------------
-  
+
   tagList(
     fluidRow(column(
       width = 2,
       actionButton(
-        ns("add_car"),
+        ns("add_mapping"),
         "Add",
         class = "btn-success",
         style = "color: #000;",
@@ -37,7 +37,12 @@ dailyFeed_ui <- function(id) {
 
 # server ------------------------------------------------------------------
 
-dailyFeed_server <- function(input, output, session) {
+mapping_server <- function(
+  input, 
+  output, 
+  session,
+  inputList
+  ) {
 
   # main Data ---------------------------------------------------------------
 
@@ -46,7 +51,7 @@ dailyFeed_server <- function(input, output, session) {
     session$userData$db_trigger()
     
     session$userData$conn %>%
-      tbl('feeds') %>%
+      tbl('mapping') %>%
       collect() %>%
       filter(is_deleted == FALSE) %>% 
       arrange(desc(modified_at))
@@ -100,9 +105,9 @@ dailyFeed_server <- function(input, output, session) {
                   rownames = FALSE)
     }
   })
-  
+
   # render Table ------------------------------------------------------------
-  
+
   output$table <- renderDT({
 
     req(table_prep())
@@ -112,6 +117,8 @@ dailyFeed_server <- function(input, output, session) {
       out,
       rownames = FALSE,
       colnames = c(
+        "Zones",
+        "Cars",
         'Problems',
         'Created At',
         'Created By',
@@ -130,7 +137,7 @@ dailyFeed_server <- function(input, output, session) {
           list(
             extend = "excel",
             text = "Download",
-            title = paste0("mtcars-", Sys.Date()),
+            title = paste0("mapping-", Sys.Date()),
             exportOptions = list(columns = 1:(length(out) - 1))
           )
         ),
@@ -148,14 +155,15 @@ dailyFeed_server <- function(input, output, session) {
   # edit data ---------------------------------------------------------------
   
   callModule(
-    edit_module,
+    mapping_module,
     "add_car",
     title = "Add Car",
     obj_to_edit = function()
       NULL,
     trigger = reactive({
-      input$add_car
-    })
+      input$add_mapping
+    }),
+    inputList = inputList
   )
   
   car_to_edit <- eventReactive(input$id_to_edit, {
@@ -164,13 +172,14 @@ dailyFeed_server <- function(input, output, session) {
   })
 
   callModule(
-    edit_module,
+    mapping_module,
     "edit_problems",
     title = "Edit Car",
     obj_to_edit = car_to_edit,
     trigger = reactive({
       input$id_to_edit
-    })
+    }),
+    inputList = inputList
   )
 
   # delete data -------------------------------------------------------------
@@ -184,14 +193,18 @@ dailyFeed_server <- function(input, output, session) {
   
   callModule(
     delete_module,
-    "delete_problems",
-    title = "Delete Defects",
-    ShowValue = "defects",
-    tableName = "feeds",
+    "delete_mappings",
+    title = "Delete Mappings",
+    ShowValue = "Mappings",
+    tableName = "mapping",
     obj_to_delete = obj_to_delete,
     trigger = reactive({
       input$id_to_delete
     })
+  )
+  
+  return(
+    mainTable
   )
 
 }

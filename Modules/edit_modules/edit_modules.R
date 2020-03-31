@@ -19,7 +19,8 @@ edit_ui <- function(id){
                     label = "Choose Table",
                     choices = c("zones",
                                 "cars",
-                                "defects"),
+                                "defects",
+                                "mappings"),
                     selected = "zones")
       )
     ),
@@ -55,11 +56,16 @@ zonesTable <- callModule(
   "zones_table"
 )
   
-  # callModule(
-  #   feeds_server,
-  #   "feeds_table"
-  # )
-  
+mappingTable <- callModule(
+  mapping_server,
+  "mapping_table",
+  list(
+     zones = zonesTable()$zones,
+     cars = carsTable()$cars,
+     defects = defectsTable()$problems
+   )
+)
+
   output$mainTable <- renderUI({
     switch (input$chooseTable,
             "defects" = bs4Card(
@@ -91,6 +97,16 @@ zonesTable <- callModule(
               closable = FALSE,
               labelStatus = "dark",
               zones_ui(ns("zones_table"))
+            ),
+            "mappings" = bs4Card(
+              title = "Mapping Table",
+              width = 12,
+              status = "primary",
+              collapsible = TRUE,
+              maximizable = TRUE,
+              closable = FALSE,
+              labelStatus = "dark",
+              mapping_ui(id = ns("mapping_table"))
             )
     )
   })
@@ -99,7 +115,8 @@ zonesTable <- callModule(
     list(
       defectsTable = defectsTable,
       carsTable = carsTable,
-      zonesTable = zonesTable
+      zonesTable = zonesTable,
+      mappingTable = mappingTable
     )
   )
 }

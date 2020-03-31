@@ -37,12 +37,13 @@ Defects <- "CREATE TABLE defects (
   is_deleted integer NOT NULL
 )"
 
+# dbSendStatement(MainDB,"drop table defects")
 dbSendStatement(MainDB, Defects)
 
 Mapping <- "CREATE TABLE mapping (
   uid INTEGER PRIMARY KEY AUTOINCREMENT,
   zones text NOT NULL,
-  cars text NOT NULL unique,
+  cars text NOT NULL ,
   problems text NOT NULL,
   created_at text NOT NULL,
   created_by text NOT NULL,
@@ -51,6 +52,7 @@ Mapping <- "CREATE TABLE mapping (
   is_deleted integer NOT NULL
 )"
 
+# dbSendStatement(MainDB, "drop table mapping")
 dbSendStatement(MainDB, Mapping)
 
 dailyFeedSQL <- "CREATE TABLE dailyfeed (
@@ -73,7 +75,7 @@ dbSendStatement(MainDB, dailyFeedSQL)
 # dbSendStatement(MainDB,"drop table defects")
 
 # setnames(write,"problems", "cars")
-# 
+
 # setnames(write,"cars", "zones")
 
 dbDisconnect(MainDB)
