@@ -16,7 +16,10 @@ var dailyFeed = new Vue({
       }
     },
     show: {},
-    inputValue: {},
+    inputValue: {
+      Zone: "",
+      Car: ""
+    },
     apiData: {
       mappingData: [],
       Zones: [],
@@ -25,7 +28,7 @@ var dailyFeed = new Vue({
     }
   },
   methods: {
-    morningShift: function () {
+    morningShift: function() {
       this.disable.morningShift = "active";
       this.disable.noonShift = "disabled";
       this.disable.nightShift = "disabled";
@@ -34,7 +37,7 @@ var dailyFeed = new Vue({
         priority: "event"
       });
     },
-    noonShift: function () {
+    noonShift: function() {
       this.disable.morningShift = "disabled";
       this.disable.noonShift = "active";
       this.disable.nightShift = "disabled";
@@ -43,7 +46,7 @@ var dailyFeed = new Vue({
         priority: "event"
       });
     },
-    nightShift: function () {
+    nightShift: function() {
       this.disable.morningShift = "disabled";
       this.disable.noonShift = "disabled";
       this.disable.nightShift = "active";
@@ -52,7 +55,7 @@ var dailyFeed = new Vue({
         priority: "event"
       });
     },
-    shiftClearAll: function () {
+    shiftClearAll: function() {
       this.disable.morningShift = "active";
       this.disable.noonShift = "active";
       this.disable.nightShift = "active";
@@ -60,7 +63,7 @@ var dailyFeed = new Vue({
         priority: "event"
       });
     },
-    zoneClick: function (zone) {
+    zoneClick: function(zone) {
       for (x in this.apiData.Zones) {
         value = this.apiData.Zones[x];
         if (value.name != zone.name) {
@@ -69,29 +72,26 @@ var dailyFeed = new Vue({
           value.classes = "active";
         }
       }
+
+      this.inputValue.Zone = zone.name;
+
       Shiny.setInputValue("daily_data-Zones", zone.name, {
         priority: "event"
       });
     },
-    zoneClearAll: function () {
+    zoneClearAll: function() {
       for (x in this.apiData.Zones) {
         value = this.apiData.Zones[x];
         value.classes = "disabled";
       }
+
+      this.inputValue.Zone = "";
+
       Shiny.setInputValue("daily_data-Zones", "", {
         priority: "event"
       });
     },
-    carClearAll: function () {
-      for (x in this.apiData.Cars) {
-        value = this.apiData.Cars[x];
-        value.classes = "disabled";
-      }
-      Shiny.setInputValue("daily_data-Cars", "", {
-        priority: "event"
-      });
-    },
-    carClick: function (car) {
+    carClick: function(car) {
       for (x in this.apiData.Cars) {
         value = this.apiData.Cars[x];
         if (value.name != car.name) {
@@ -100,34 +100,50 @@ var dailyFeed = new Vue({
           value.classes = "active";
         }
       }
+
+      this.inputValue.Car = car.name;
+
       Shiny.setInputValue("daily_data-Cars", car.name, {
         priority: "event"
       });
     },
-    submitValues: function () {
+    carClearAll: function() {
+      for (x in this.apiData.Cars) {
+        value = this.apiData.Cars[x];
+        value.classes = "disabled";
+      }
+
+      this.inputValue.Car = "";
+
+      Shiny.setInputValue("daily_data-Cars", "", {
+        priority: "event"
+      });
+    },
+    submitValues: function() {
       Shiny.setInputValue(
         "daily_data-Defects",
-        JSON.stringify(this.apiData.Defects), {
+        JSON.stringify(this.apiData.Defects),
+        {
           priority: "event"
         }
       );
     },
-    submitForm: function () {
+    submitForm: function() {
       Shiny.setInputValue("daily_data-SubmitForm", "clicked", {
         priority: "event"
       });
     }
   },
-  mounted: function () {},
+  mounted: function() {},
   computed: {
-    zoneLength: function () {
+    zoneLength: function() {
       if (this.apiData.Zones.length < 6) {
         return true;
       } else {
         return false;
       }
     },
-    carLength: function () {
+    carLength: function() {
       if (this.apiData.Cars.length < 6) {
         return true;
       } else {
@@ -136,23 +152,44 @@ var dailyFeed = new Vue({
     }
   },
   watch: {
-    mappingData: function (newValue, oldValue) {
-      this.apiData.Zones = []
+    "apiData.mappingData": function(newValue, oldValue) {
+      this.apiData.Zones = [];
       $.each(newValue, (i, v) => {
-        item = {}
-        item["name"] = v.zones
-        item["classes"] = "disabled"
-        zones.push(this.apiData.Zones);
+        item = {};
+        item["name"] = v.zones;
+        item["classes"] = "disabled";
+        this.apiData.Zones.push(item);
+      });
+    },
+    "inputValue.Zone": function(newValue, oldValue) {
+      this.apiData.Cars = [];
+      $.each(this.apiData.mappingData, (i, v) => {
+        item = {};
+        if (v.zones == this.inputValue.Zone) {
+          item["name"] = v.cars;
+          item["classes"] = "disabled";
+          this.apiData.Cars.push(item);
+        }
+      });
+    },
+    "inputValue.Car": function(newValue, oldValue) {
+      this.apiData.Defects = [];
+      $.each(this.apiData.mappingData, (i, v) => {
+        item = {};
+        if (v.zones == this.inputValue.Zone && v.cars == this.inputValue.Car) {
+          item["defect"] = v.problems;
+          item["counts"] = 0;
+          this.apiData.Defects.push(item);
+        }
       });
     }
   }
 });
 
 // update data for Mapping
-Shiny
-  .addCustomMessageHandler('changeMapping', function (data) {
-    dailyFeed.apiData.mappingData = data;
-  });
+Shiny.addCustomMessageHandler("changeMapping", function(data) {
+  dailyFeed.apiData.mappingData = data;
+});
 
 // update data for Zones
 // Shiny
