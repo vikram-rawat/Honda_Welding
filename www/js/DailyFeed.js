@@ -154,33 +154,65 @@ var dailyFeed = new Vue({
   watch: {
     "apiData.mappingData": function(newValue, oldValue) {
       this.apiData.Zones = [];
+      zones = [];
       $.each(newValue, (i, v) => {
+        zones.push(v.zones);
+      });
+      $.unique(zones);
+      $.each(zones, (i, v) => {
         item = {};
-        item["name"] = v.zones;
+        item["name"] = v;
         item["classes"] = "disabled";
         this.apiData.Zones.push(item);
       });
     },
     "inputValue.Zone": function(newValue, oldValue) {
       this.apiData.Cars = [];
+      cars = [];
       $.each(this.apiData.mappingData, (i, v) => {
         item = {};
         if (v.zones == this.inputValue.Zone) {
           item["name"] = v.cars;
-          item["classes"] = "disabled";
-          this.apiData.Cars.push(item);
+          cars.push(item);
         }
+      });
+
+      uniqueCars = [];
+      $.each(cars, (i, v) => {
+        uniqueCars.push(v.name);
+      });
+      $.unique(uniqueCars);
+
+      $.each(uniqueCars, (i, v) => {
+        item = {};
+        item["name"] = v;
+        item["classes"] = "disabled";
+        this.apiData.Cars.push(item);
       });
     },
     "inputValue.Car": function(newValue, oldValue) {
       this.apiData.Defects = [];
+      defects = [];
+
       $.each(this.apiData.mappingData, (i, v) => {
         item = {};
         if (v.zones == this.inputValue.Zone && v.cars == this.inputValue.Car) {
           item["defect"] = v.problems;
-          item["counts"] = 0;
-          this.apiData.Defects.push(item);
+          defects.push(item);
         }
+      });
+
+      uniqueDefects = [];
+      $.each(defects, (i, v) => {
+        uniqueDefects.push(v.defect);
+      });
+      $.unique(uniqueDefects);
+
+      $.each(uniqueDefects, (i, v) => {
+        item = {};
+        item["defect"] = v;
+        item["counts"] = 0;
+        this.apiData.Defects.push(item);
       });
     }
   }
