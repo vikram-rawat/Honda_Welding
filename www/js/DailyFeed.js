@@ -34,7 +34,7 @@ var dailyFeed = new Vue({
       this.disable.noonShift = "disabled";
       this.disable.nightShift = "disabled";
 
-      this.inputValue.Shift = "Morning"
+      this.inputValue.Shift = "Morning";
 
       Shiny.setInputValue("daily_data-Shifts", "Morning", {
         priority: "event"
@@ -45,7 +45,7 @@ var dailyFeed = new Vue({
       this.disable.noonShift = "active";
       this.disable.nightShift = "disabled";
 
-      this.inputValue.Shift = "Noon"
+      this.inputValue.Shift = "Noon";
 
       Shiny.setInputValue("daily_data-Shifts", "Noon", {
         priority: "event"
@@ -56,7 +56,7 @@ var dailyFeed = new Vue({
       this.disable.noonShift = "disabled";
       this.disable.nightShift = "active";
 
-      this.inputValue.Shift = "Night"
+      this.inputValue.Shift = "Night";
 
       Shiny.setInputValue("daily_data-Shifts", "Night", {
         priority: "event"
@@ -67,7 +67,7 @@ var dailyFeed = new Vue({
       this.disable.noonShift = "active";
       this.disable.nightShift = "active";
 
-      this.inputValue.Shift = ""
+      this.inputValue.Shift = "";
 
       Shiny.setInputValue("daily_data-Shifts", "", {
         priority: "event"
@@ -161,9 +161,7 @@ var dailyFeed = new Vue({
     }
   },
   watch: {
-    "inputValue.Shift": function (newValue, oldValue) {
-      if (this.inputValue.Shift)
-    },
+    "inputValue.Shift": function (newValue, oldValue) {},
     "apiData.mappingData": function (newValue, oldValue) {
       this.apiData.Zones = [];
       zones = [];
