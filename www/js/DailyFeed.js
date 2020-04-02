@@ -17,6 +17,7 @@ var dailyFeed = new Vue({
     },
     show: {},
     inputValue: {
+      Shift: "",
       Zone: "",
       Car: ""
     },
@@ -28,42 +29,51 @@ var dailyFeed = new Vue({
     }
   },
   methods: {
-    morningShift: function() {
+    morningShift: function () {
       this.disable.morningShift = "active";
       this.disable.noonShift = "disabled";
       this.disable.nightShift = "disabled";
+
+      this.inputValue.Shift = "Morning"
 
       Shiny.setInputValue("daily_data-Shifts", "Morning", {
         priority: "event"
       });
     },
-    noonShift: function() {
+    noonShift: function () {
       this.disable.morningShift = "disabled";
       this.disable.noonShift = "active";
       this.disable.nightShift = "disabled";
+
+      this.inputValue.Shift = "Noon"
 
       Shiny.setInputValue("daily_data-Shifts", "Noon", {
         priority: "event"
       });
     },
-    nightShift: function() {
+    nightShift: function () {
       this.disable.morningShift = "disabled";
       this.disable.noonShift = "disabled";
       this.disable.nightShift = "active";
+
+      this.inputValue.Shift = "Night"
 
       Shiny.setInputValue("daily_data-Shifts", "Night", {
         priority: "event"
       });
     },
-    shiftClearAll: function() {
+    shiftClearAll: function () {
       this.disable.morningShift = "active";
       this.disable.noonShift = "active";
       this.disable.nightShift = "active";
+
+      this.inputValue.Shift = ""
+
       Shiny.setInputValue("daily_data-Shifts", "", {
         priority: "event"
       });
     },
-    zoneClick: function(zone) {
+    zoneClick: function (zone) {
       for (x in this.apiData.Zones) {
         value = this.apiData.Zones[x];
         if (value.name != zone.name) {
@@ -79,7 +89,7 @@ var dailyFeed = new Vue({
         priority: "event"
       });
     },
-    zoneClearAll: function() {
+    zoneClearAll: function () {
       for (x in this.apiData.Zones) {
         value = this.apiData.Zones[x];
         value.classes = "disabled";
@@ -91,7 +101,7 @@ var dailyFeed = new Vue({
         priority: "event"
       });
     },
-    carClick: function(car) {
+    carClick: function (car) {
       for (x in this.apiData.Cars) {
         value = this.apiData.Cars[x];
         if (value.name != car.name) {
@@ -107,7 +117,7 @@ var dailyFeed = new Vue({
         priority: "event"
       });
     },
-    carClearAll: function() {
+    carClearAll: function () {
       for (x in this.apiData.Cars) {
         value = this.apiData.Cars[x];
         value.classes = "disabled";
@@ -119,31 +129,30 @@ var dailyFeed = new Vue({
         priority: "event"
       });
     },
-    submitValues: function() {
+    submitValues: function () {
       Shiny.setInputValue(
         "daily_data-Defects",
-        JSON.stringify(this.apiData.Defects),
-        {
+        JSON.stringify(this.apiData.Defects), {
           priority: "event"
         }
       );
     },
-    submitForm: function() {
+    submitForm: function () {
       Shiny.setInputValue("daily_data-SubmitForm", "clicked", {
         priority: "event"
       });
     }
   },
-  mounted: function() {},
+  mounted: function () {},
   computed: {
-    zoneLength: function() {
+    zoneLength: function () {
       if (this.apiData.Zones.length < 6) {
         return true;
       } else {
         return false;
       }
     },
-    carLength: function() {
+    carLength: function () {
       if (this.apiData.Cars.length < 6) {
         return true;
       } else {
@@ -152,13 +161,20 @@ var dailyFeed = new Vue({
     }
   },
   watch: {
-    "apiData.mappingData": function(newValue, oldValue) {
+    "inputValue.Shift": function (newValue, oldValue) {
+      if (this.inputValue.Shift)
+    },
+    "apiData.mappingData": function (newValue, oldValue) {
       this.apiData.Zones = [];
       zones = [];
+
       $.each(newValue, (i, v) => {
         zones.push(v.zones);
       });
+
       $.unique(zones);
+      zones.sort();
+
       $.each(zones, (i, v) => {
         item = {};
         item["name"] = v;
@@ -166,9 +182,10 @@ var dailyFeed = new Vue({
         this.apiData.Zones.push(item);
       });
     },
-    "inputValue.Zone": function(newValue, oldValue) {
+    "inputValue.Zone": function (newValue, oldValue) {
       this.apiData.Cars = [];
       cars = [];
+
       $.each(this.apiData.mappingData, (i, v) => {
         item = {};
         if (v.zones == this.inputValue.Zone) {
@@ -181,7 +198,9 @@ var dailyFeed = new Vue({
       $.each(cars, (i, v) => {
         uniqueCars.push(v.name);
       });
+
       $.unique(uniqueCars);
+      uniqueCars.sort()
 
       $.each(uniqueCars, (i, v) => {
         item = {};
@@ -190,7 +209,7 @@ var dailyFeed = new Vue({
         this.apiData.Cars.push(item);
       });
     },
-    "inputValue.Car": function(newValue, oldValue) {
+    "inputValue.Car": function (newValue, oldValue) {
       this.apiData.Defects = [];
       defects = [];
 
@@ -206,7 +225,9 @@ var dailyFeed = new Vue({
       $.each(defects, (i, v) => {
         uniqueDefects.push(v.defect);
       });
+
       $.unique(uniqueDefects);
+      uniqueDefects.sort()
 
       $.each(uniqueDefects, (i, v) => {
         item = {};
@@ -219,22 +240,6 @@ var dailyFeed = new Vue({
 });
 
 // update data for Mapping
-Shiny.addCustomMessageHandler("changeMapping", function(data) {
+Shiny.addCustomMessageHandler("changeMapping", function (data) {
   dailyFeed.apiData.mappingData = data;
 });
-
-// update data for Zones
-// Shiny
-//   .addCustomMessageHandler('changeZones', function (data) {
-//     dailyFeed.apiData.Zones = data
-//   });
-// // update data for Cars
-// Shiny
-//   .addCustomMessageHandler('changeCars', function (data) {
-//     dailyFeed.apiData.Cars = data
-//   });
-// // update data for defects
-// Shiny
-//   .addCustomMessageHandler('changeDefects', function (data) {
-//     dailyFeed.apiData.Defects = data
-//   });
