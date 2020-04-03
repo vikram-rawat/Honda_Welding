@@ -1,3 +1,5 @@
+library(DBI)
+
 MainDB <- dbConnect(RSQLite::SQLite(),
                     "Data/mainData.sqlite")
 
@@ -11,8 +13,8 @@ Zones <- "CREATE TABLE zones (
   is_deleted integer NOT NULL
 )"
 
+dbSendStatement(MainDB,"drop table zones")
 dbSendStatement(MainDB, Zones)
-# dbSendStatement(MainDB,"drop table zones")
 
 Cars <- "CREATE TABLE cars (
   uid INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,8 +26,8 @@ Cars <- "CREATE TABLE cars (
   is_deleted integer NOT NULL
 )"
 
+dbSendStatement(MainDB,"drop table cars")
 dbSendStatement(MainDB, Cars)
-# dbSendStatement(MainDB,"drop table cars")
 
 Defects <- "CREATE TABLE defects (
   uid INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,7 +39,7 @@ Defects <- "CREATE TABLE defects (
   is_deleted integer NOT NULL
 )"
 
-# dbSendStatement(MainDB,"drop table defects")
+dbSendStatement(MainDB,"drop table defects")
 dbSendStatement(MainDB, Defects)
 
 Mapping <- "CREATE TABLE mapping (
@@ -52,7 +54,7 @@ Mapping <- "CREATE TABLE mapping (
   is_deleted integer NOT NULL
 )"
 
-# dbSendStatement(MainDB, "drop table mapping")
+dbSendStatement(MainDB, "drop table mapping")
 dbSendStatement(MainDB, Mapping)
 
 dailyFeedSQL <- "CREATE TABLE dailyfeed (
@@ -70,9 +72,9 @@ dailyFeedSQL <- "CREATE TABLE dailyfeed (
   is_deleted integer NOT NULL
 )"
 
+dbSendStatement(MainDB,"drop table dailyfeed")
 dbSendStatement(MainDB, dailyFeedSQL)
 
-# dbSendStatement(MainDB,"drop table defects")
 
 # setnames(write,"problems", "cars")
 
