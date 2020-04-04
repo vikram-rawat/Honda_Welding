@@ -1,0 +1,401 @@
+zones,cars,problems
+a zone,jazz,spot hole
+a zone,jazz,spot burr
+a zone,jazz,sheet mismatch
+a zone,jazz,hole mismatch
+a zone,jazz,hole damage
+a zone,jazz,spot miss
+a zone,jazz,bulk head hole mismatch
+a zone,jazz,gap b/w frnt flr & rr flr
+a zone,jazz,sheet bend
+a zone,jazz,baffle plate stud ng
+a zone,wr-v,spot hole
+a zone,wr-v,spot burr
+a zone,wr-v,sheet mismatch
+a zone,wr-v,hole mismatch
+a zone,wr-v,hole damage
+a zone,wr-v,spot miss
+a zone,wr-v,bulk head hole mismatch
+a zone,wr-v,gap b/w frnt flr & rr flr
+a zone,wr-v,sheet bend
+a zone,wr-v,baffle plate stud ng
+a zone,city,spot hole
+a zone,city,spot burr
+a zone,city,sheet mismatch
+a zone,city,hole mismatch
+a zone,city,hole damage
+a zone,city,spot miss
+a zone,city,bulk head hole mismatch
+a zone,city,gap b/w frnt flr & rr flr
+a zone,city,sheet bend
+a zone,city,baffle plate stud ng
+a zone,br-v,spot hole
+a zone,br-v,spot burr
+a zone,br-v,sheet mismatch
+a zone,br-v,hole mismatch
+a zone,br-v,hole damage
+a zone,br-v,spot miss
+a zone,br-v,bulk head hole mismatch
+a zone,br-v,gap b/w frnt flr & rr flr
+a zone,br-v,sheet bend
+a zone,br-v,baffle plate stud ng
+a zone,amaze,spot hole
+a zone,amaze,spot burr
+a zone,amaze,sheet mismatch
+a zone,amaze,hole mismatch
+a zone,amaze,hole damage
+a zone,amaze,spot miss
+a zone,amaze,bulk head hole mismatch
+a zone,amaze,gap b/w frnt flr & rr flr
+a zone,amaze,sheet bend
+a zone,amaze,baffle plate stud ng
+b zone,jazz,dent
+b zone,jazz,ding
+b zone,jazz,spot hole
+b zone,jazz,spot broken
+b zone,jazz,sheet mismatch
+b zone,jazz,hole mismatch
+b zone,jazz,hole damage
+b zone,jazz,spot miss
+b zone,jazz,spot burr
+b zone,jazz,spot undulation
+b zone,jazz,gutter shift
+b zone,jazz,sheet band
+b zone,jazz,mig ng
+b zone,jazz,striker plate ng
+b zone,jazz,t stud shifting roofrail
+b zone,jazz,door striket nut & spot ng
+b zone,jazz,half spot
+b zone,jazz,roof shift
+b zone,jazz,roof arch spot ng
+b zone,jazz,roof arch spot undulation
+b zone,jazz,roof flange damage
+d zone,jazz,dent
+d zone,jazz,ding
+d zone,jazz,spot hole
+d zone,jazz,spot broken
+d zone,jazz,sheet mismatch
+d zone,jazz,door run rubber hole mismatch
+d zone,jazz,hole damage
+d zone,jazz,spot miss
+d zone,jazz,spot burr
+d zone,jazz,spot undulation
+d zone,jazz,sheet bend
+d zone,jazz,hemming open
+d zone,jazz,hemming loose
+d zone,jazz,deform/waviness
+d zone,jazz,hood mig tag miss
+c zone,jazz,hood/fender gap lh/rh
+c zone,jazz,fender/ a plr gap lh/rh
+c zone,jazz,fender/ frnt door gap lh/rh
+c zone,jazz,frnt door/rr door nf lh/rh
+c zone,jazz,rr door/ spo gap lh/rh
+c zone,jazz,frnt door seal gap lh
+c zone,jazz,frnt door seal gap rh
+c zone,jazz,rear door seal gap rh
+c zone,jazz,rear door seal gap lh
+c zone,jazz,t stud shifting roofrail
+c zone,jazz,tailgate/trunk gap uneven
+c zone,jazz,tailgate/trunk gap less/more
+c zone,jazz,fuel lid gap ng
+c zone,jazz,mohican gap ng
+c zone,jazz,fender miss lh/rh
+c zone,jazz,fuel lid loose/miss/opening
+c zone,jazz,door up/down
+c zone,jazz,all door gap ng
+c zone,jazz,trunk flange bend
+c zone,jazz,door miss
+c zone,jazz,ip bolt touch
+c zone,jazz,hood/fender nf lh/rh
+c zone,jazz,fender/ a plr nf lh/rh
+c zone,jazz,fender/frnt door nf lh/rh
+c zone,jazz,frnt door/ rr door gap lh/rh
+c zone,jazz,rr door/ spo nf lh/rh
+c zone,jazz,tailgate/roof nf lh/rh
+c zone,jazz,tailgate/ spo nf lh/rh
+c zone,jazz,fuel lid nf
+c zone,jazz,mirror garnish nf(fr door to spo nf)
+c zone,jazz,tail gate sheet mis match
+c zone,jazz,door aperture sheet mis match
+c zone,jazz,run channel sheet mis match
+c zone,jazz,a plr caulkind ng
+b zone,wr-v,dent
+b zone,wr-v,ding
+b zone,wr-v,spot hole
+b zone,wr-v,spot broken
+b zone,wr-v,sheet mismatch
+b zone,wr-v,hole mismatch
+b zone,wr-v,hole damage
+b zone,wr-v,spot miss
+b zone,wr-v,spot burr
+b zone,wr-v,spot undulation
+b zone,wr-v,gutter shift
+b zone,wr-v,sheet band
+b zone,wr-v,mig ng
+b zone,wr-v,striker plate ng
+b zone,wr-v,t stud shifting roofrail
+b zone,wr-v,door striket nut & spot ng
+b zone,wr-v,half spot
+b zone,wr-v,roof shift
+b zone,wr-v,roof arch spot ng
+b zone,wr-v,roof arch spot undulation
+b zone,wr-v,roof flange damage
+b zone,city,dent
+b zone,city,ding
+b zone,city,spot hole
+b zone,city,spot broken
+b zone,city,sheet mismatch
+b zone,city,hole mismatch
+b zone,city,hole damage
+b zone,city,spot miss
+b zone,city,spot burr
+b zone,city,spot undulation
+b zone,city,gutter shift
+b zone,city,sheet band
+b zone,city,mig ng
+b zone,city,striker plate ng
+b zone,city,t stud shifting roofrail
+b zone,city,door striket nut & spot ng
+b zone,city,half spot
+b zone,city,roof shift
+b zone,city,roof arch spot ng
+b zone,city,roof arch spot undulation
+b zone,city,roof flange damage
+b zone,br-v,dent
+b zone,br-v,ding
+b zone,br-v,spot hole
+b zone,br-v,spot broken
+b zone,br-v,sheet mismatch
+b zone,br-v,hole mismatch
+b zone,br-v,hole damage
+b zone,br-v,spot miss
+b zone,br-v,spot burr
+b zone,br-v,spot undulation
+b zone,br-v,gutter shift
+b zone,br-v,sheet band
+b zone,br-v,mig ng
+b zone,br-v,striker plate ng
+b zone,br-v,t stud shifting roofrail
+b zone,br-v,door striket nut & spot ng
+b zone,br-v,half spot
+b zone,br-v,roof shift
+b zone,br-v,roof arch spot ng
+b zone,br-v,roof arch spot undulation
+b zone,br-v,roof flange damage
+b zone,amaze,dent
+b zone,amaze,ding
+b zone,amaze,spot hole
+b zone,amaze,spot broken
+b zone,amaze,sheet mismatch
+b zone,amaze,hole mismatch
+b zone,amaze,hole damage
+b zone,amaze,spot miss
+b zone,amaze,spot burr
+b zone,amaze,spot undulation
+b zone,amaze,gutter shift
+b zone,amaze,sheet band
+b zone,amaze,mig ng
+b zone,amaze,striker plate ng
+b zone,amaze,t stud shifting roofrail
+b zone,amaze,door striket nut & spot ng
+b zone,amaze,half spot
+b zone,amaze,roof shift
+b zone,amaze,roof arch spot ng
+b zone,amaze,roof arch spot undulation
+b zone,amaze,roof flange damage
+c zone,wr-v,hood/fender gap lh/rh
+c zone,wr-v,fender/ a plr gap lh/rh
+c zone,wr-v,fender/ frnt door gap lh/rh
+c zone,wr-v,frnt door/rr door nf lh/rh
+c zone,wr-v,rr door/ spo gap lh/rh
+c zone,wr-v,frnt door seal gap lh
+c zone,wr-v,frnt door seal gap rh
+c zone,wr-v,rear door seal gap rh
+c zone,wr-v,rear door seal gap lh
+c zone,wr-v,t stud shifting roofrail
+c zone,wr-v,tailgate/trunk gap uneven
+c zone,wr-v,tailgate/trunk gap less/more
+c zone,wr-v,fuel lid gap ng
+c zone,wr-v,mohican gap ng
+c zone,wr-v,fender miss lh/rh
+c zone,wr-v,fuel lid loose/miss/opening
+c zone,wr-v,door up/down
+c zone,wr-v,all door gap ng
+c zone,wr-v,trunk flange bend
+c zone,wr-v,door miss
+c zone,wr-v,ip bolt touch
+c zone,wr-v,hood/fender nf lh/rh
+c zone,wr-v,fender/ a plr nf lh/rh
+c zone,wr-v,fender/frnt door nf lh/rh
+c zone,wr-v,frnt door/ rr door gap lh/rh
+c zone,wr-v,rr door/ spo nf lh/rh
+c zone,wr-v,tailgate/roof nf lh/rh
+c zone,wr-v,tailgate/ spo nf lh/rh
+c zone,wr-v,fuel lid nf
+c zone,wr-v,mirror garnish nf(fr door to spo nf)
+c zone,wr-v,tail gate sheet mis match
+c zone,wr-v,door aperture sheet mis match
+c zone,wr-v,run channel sheet mis match
+c zone,wr-v,a plr caulkind ng
+c zone,city,hood/fender gap lh/rh
+c zone,city,fender/ a plr gap lh/rh
+c zone,city,fender/ frnt door gap lh/rh
+c zone,city,frnt door/rr door nf lh/rh
+c zone,city,rr door/ spo gap lh/rh
+c zone,city,frnt door seal gap lh
+c zone,city,frnt door seal gap rh
+c zone,city,rear door seal gap rh
+c zone,city,rear door seal gap lh
+c zone,city,t stud shifting roofrail
+c zone,city,tailgate/trunk gap uneven
+c zone,city,tailgate/trunk gap less/more
+c zone,city,fuel lid gap ng
+c zone,city,mohican gap ng
+c zone,city,fender miss lh/rh
+c zone,city,fuel lid loose/miss/opening
+c zone,city,door up/down
+c zone,city,all door gap ng
+c zone,city,trunk flange bend
+c zone,city,door miss
+c zone,city,ip bolt touch
+c zone,city,hood/fender nf lh/rh
+c zone,city,fender/ a plr nf lh/rh
+c zone,city,fender/frnt door nf lh/rh
+c zone,city,frnt door/ rr door gap lh/rh
+c zone,city,rr door/ spo nf lh/rh
+c zone,city,tailgate/roof nf lh/rh
+c zone,city,tailgate/ spo nf lh/rh
+c zone,city,fuel lid nf
+c zone,city,mirror garnish nf(fr door to spo nf)
+c zone,city,tail gate sheet mis match
+c zone,city,door aperture sheet mis match
+c zone,city,run channel sheet mis match
+c zone,city,a plr caulkind ng
+c zone,br-v,hood/fender gap lh/rh
+c zone,br-v,fender/ a plr gap lh/rh
+c zone,br-v,fender/ frnt door gap lh/rh
+c zone,br-v,frnt door/rr door nf lh/rh
+c zone,br-v,rr door/ spo gap lh/rh
+c zone,br-v,frnt door seal gap lh
+c zone,br-v,frnt door seal gap rh
+c zone,br-v,rear door seal gap rh
+c zone,br-v,rear door seal gap lh
+c zone,br-v,t stud shifting roofrail
+c zone,br-v,tailgate/trunk gap uneven
+c zone,br-v,tailgate/trunk gap less/more
+c zone,br-v,fuel lid gap ng
+c zone,br-v,mohican gap ng
+c zone,br-v,fender miss lh/rh
+c zone,br-v,fuel lid loose/miss/opening
+c zone,br-v,door up/down
+c zone,br-v,all door gap ng
+c zone,br-v,trunk flange bend
+c zone,br-v,door miss
+c zone,br-v,ip bolt touch
+c zone,br-v,hood/fender nf lh/rh
+c zone,br-v,fender/ a plr nf lh/rh
+c zone,br-v,fender/frnt door nf lh/rh
+c zone,br-v,frnt door/ rr door gap lh/rh
+c zone,br-v,rr door/ spo nf lh/rh
+c zone,br-v,tailgate/roof nf lh/rh
+c zone,br-v,tailgate/ spo nf lh/rh
+c zone,br-v,fuel lid nf
+c zone,br-v,mirror garnish nf(fr door to spo nf)
+c zone,br-v,tail gate sheet mis match
+c zone,br-v,door aperture sheet mis match
+c zone,br-v,run channel sheet mis match
+c zone,br-v,a plr caulkind ng
+c zone,amaze,hood/fender gap lh/rh
+c zone,amaze,fender/ a plr gap lh/rh
+c zone,amaze,fender/ frnt door gap lh/rh
+c zone,amaze,frnt door/rr door nf lh/rh
+c zone,amaze,rr door/ spo gap lh/rh
+c zone,amaze,frnt door seal gap lh
+c zone,amaze,frnt door seal gap rh
+c zone,amaze,rear door seal gap rh
+c zone,amaze,rear door seal gap lh
+c zone,amaze,t stud shifting roofrail
+c zone,amaze,tailgate/trunk gap uneven
+c zone,amaze,tailgate/trunk gap less/more
+c zone,amaze,fuel lid gap ng
+c zone,amaze,mohican gap ng
+c zone,amaze,fender miss lh/rh
+c zone,amaze,fuel lid loose/miss/opening
+c zone,amaze,door up/down
+c zone,amaze,all door gap ng
+c zone,amaze,trunk flange bend
+c zone,amaze,door miss
+c zone,amaze,ip bolt touch
+c zone,amaze,hood/fender nf lh/rh
+c zone,amaze,fender/ a plr nf lh/rh
+c zone,amaze,fender/frnt door nf lh/rh
+c zone,amaze,frnt door/ rr door gap lh/rh
+c zone,amaze,rr door/ spo nf lh/rh
+c zone,amaze,tailgate/roof nf lh/rh
+c zone,amaze,tailgate/ spo nf lh/rh
+c zone,amaze,fuel lid nf
+c zone,amaze,mirror garnish nf(fr door to spo nf)
+c zone,amaze,tail gate sheet mis match
+c zone,amaze,door aperture sheet mis match
+c zone,amaze,run channel sheet mis match
+c zone,amaze,a plr caulkind ng
+d zone,wr-v,dent
+d zone,wr-v,ding
+d zone,wr-v,spot hole
+d zone,wr-v,spot broken
+d zone,wr-v,sheet mismatch
+d zone,wr-v,door run rubber hole mismatch
+d zone,wr-v,hole damage
+d zone,wr-v,spot miss
+d zone,wr-v,spot burr
+d zone,wr-v,spot undulation
+d zone,wr-v,sheet bend
+d zone,wr-v,hemming open
+d zone,wr-v,hemming loose
+d zone,wr-v,deform/waviness
+d zone,wr-v,hood mig tag miss
+d zone,city,dent
+d zone,city,ding
+d zone,city,spot hole
+d zone,city,spot broken
+d zone,city,sheet mismatch
+d zone,city,door run rubber hole mismatch
+d zone,city,hole damage
+d zone,city,spot miss
+d zone,city,spot burr
+d zone,city,spot undulation
+d zone,city,sheet bend
+d zone,city,hemming open
+d zone,city,hemming loose
+d zone,city,deform/waviness
+d zone,city,hood mig tag miss
+d zone,br-v,dent
+d zone,br-v,ding
+d zone,br-v,spot hole
+d zone,br-v,spot broken
+d zone,br-v,sheet mismatch
+d zone,br-v,door run rubber hole mismatch
+d zone,br-v,hole damage
+d zone,br-v,spot miss
+d zone,br-v,spot burr
+d zone,br-v,spot undulation
+d zone,br-v,sheet bend
+d zone,br-v,hemming open
+d zone,br-v,hemming loose
+d zone,br-v,deform/waviness
+d zone,br-v,hood mig tag miss
+d zone,amaze,dent
+d zone,amaze,ding
+d zone,amaze,spot hole
+d zone,amaze,spot broken
+d zone,amaze,sheet mismatch
+d zone,amaze,door run rubber hole mismatch
+d zone,amaze,hole damage
+d zone,amaze,spot miss
+d zone,amaze,spot burr
+d zone,amaze,spot undulation
+d zone,amaze,sheet bend
+d zone,amaze,hemming open
+d zone,amaze,hemming loose
+d zone,amaze,deform/waviness
+d zone,amaze,hood mig tag miss

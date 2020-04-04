@@ -1,6 +1,6 @@
 problems
 spot hole
-sopt burr
+spot burr
 sheet mismatch
 hole mismatch
 hole damage
@@ -32,11 +32,11 @@ hood mig tag miss
 hood/fender gap lh/rh
 fender/ a plr gap lh/rh
 fender/ frnt door gap lh/rh
-fnt door/ rr door gap lh/rh
-fnt door/ rr door gap lh/rh
+frnt door/ rr door gap lh/rh
+frnt door/ rr door gap lh/rh
 rr door/ spo gap lh/rh
-fnt door seal gap lh
-fnt door seal gap rh
+frnt door seal gap lh
+frnt door seal gap rh
 rear door seal gap rh
 rear door seal gap lh
 t-stud/ shifting w/s
@@ -48,7 +48,7 @@ fender miss lh/rh
 fuel lid loose/miss/opening
 door up/down
 all door gap ng
-trunk glange bend
+trunk flange bend
 door miss
 ip bolt touch
 hood/fender nf lh/rh

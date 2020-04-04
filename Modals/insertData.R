@@ -68,3 +68,29 @@ dbWriteTable(conn = MainDB,
 MainDB %>% tbl("defects")
 rm(defects)
 
+# mapping -----------------------------------------------------------------
+
+mapping <- fread(file = "Data/csv/mapping.csv",
+                 sep = ",")
+
+mapping <- unique(x = mapping, 
+                  by = c(
+                    "zones",
+                    "cars",
+                    "problems"
+                    )
+                  )
+
+mapping <- create_insert_table(dt = mapping,
+                               useremail = "vikram")
+
+dbSendStatement(MainDB,"delete from mapping")
+
+dbWriteTable(conn = MainDB,
+             name = "mapping",
+             value = mapping,
+             append = TRUE)
+
+MainDB %>% tbl("mapping")
+rm(mapping)
+
