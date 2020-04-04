@@ -5,8 +5,8 @@ account: vikramsinghrawat
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1998668
-bundleId: 2957548
+bundleId: 2968022
 url: https://vikramsinghrawat.shinyapps.io/Honda_Welding/
-when: 1585808531.76946
+when: 1585998771.60163
 asMultiple: FALSE
 asStatic: FALSE
