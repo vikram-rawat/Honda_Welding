@@ -1,3 +1,9 @@
+function unique(array) {
+    return $.grep(array, function(el, index) {
+        return index === $.inArray(el, array);
+    });
+}
+
 var dailyFeed = new Vue({
   el: "#dailyFeed",
   delimiters: ["{%%", "%%}"],
@@ -170,7 +176,7 @@ var dailyFeed = new Vue({
         zones.push(v.zones);
       });
 
-      $.unique(zones);
+      zones = unique(zones);
       zones.sort();
 
       $.each(zones, (i, v) => {
@@ -197,7 +203,7 @@ var dailyFeed = new Vue({
         uniqueCars.push(v.name);
       });
 
-      $.unique(uniqueCars);
+      uniqueCars = unique(uniqueCars);
       uniqueCars.sort()
 
       $.each(uniqueCars, (i, v) => {
@@ -224,7 +230,7 @@ var dailyFeed = new Vue({
         uniqueDefects.push(v.defect);
       });
 
-      $.unique(uniqueDefects);
+      uniqueDefects = unique(uniqueDefects);
       uniqueDefects.sort()
 
       $.each(uniqueDefects, (i, v) => {
