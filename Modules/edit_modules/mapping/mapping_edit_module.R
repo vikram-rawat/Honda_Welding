@@ -118,9 +118,9 @@ mapping_module <- function(
     out <- list(
       uid = hold$uid,
       data = list(
-        "zone" = input$zone,
-        "car" = input$car,
-        "defect" = input$defect
+        "zone" = tolower(input$zone),
+        "car" = tolower(input$car),
+        "defect" = tolower(input$defect)
       )
     )
     
@@ -130,16 +130,16 @@ mapping_module <- function(
       # adding a new mapping
       
       out$data$created_at <- time_now
-      out$data$created_by <- session$userData$email
+      out$data$created_by <- tolower(session$userData$email)
     } else {
       # Editing existing mapping
       
       out$data$created_at <- as.character(hold$created_at)
-      out$data$created_by <- hold$created_by
+      out$data$created_by <- tolower(hold$created_by)
     }
     
     out$data$modified_at <- time_now
-    out$data$modified_by <- session$userData$email
+    out$data$modified_by <- tolower(session$userData$email)
     
     out$data$is_deleted <- FALSE
     

@@ -34,9 +34,9 @@ var dailyFeed = new Vue({
       this.disable.noonShift = "disabled";
       this.disable.nightShift = "disabled";
 
-      this.inputValue.Shift = "Morning";
+      this.inputValue.Shift = "morning";
 
-      Shiny.setInputValue("daily_data-Shifts", "Morning", {
+      Shiny.setInputValue("daily_data-Shifts", "morning", {
         priority: "event"
       });
     },
@@ -45,9 +45,9 @@ var dailyFeed = new Vue({
       this.disable.noonShift = "active";
       this.disable.nightShift = "disabled";
 
-      this.inputValue.Shift = "Noon";
+      this.inputValue.Shift = "noon";
 
-      Shiny.setInputValue("daily_data-Shifts", "Noon", {
+      Shiny.setInputValue("daily_data-Shifts", "noon", {
         priority: "event"
       });
     },
@@ -56,9 +56,9 @@ var dailyFeed = new Vue({
       this.disable.noonShift = "disabled";
       this.disable.nightShift = "active";
 
-      this.inputValue.Shift = "Night";
+      this.inputValue.Shift = "night";
 
-      Shiny.setInputValue("daily_data-Shifts", "Night", {
+      Shiny.setInputValue("daily_data-Shifts", "night", {
         priority: "event"
       });
     },

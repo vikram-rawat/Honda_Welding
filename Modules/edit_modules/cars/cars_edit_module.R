@@ -98,7 +98,7 @@ cars_edit_module <- function(input,
     out <- list(
       uid = hold$uid,
       data = list(
-        "cars" = input$cars
+        "cars" = tolower(input$cars)
       )
     )
     
@@ -108,16 +108,16 @@ cars_edit_module <- function(input,
       # adding a new car
       
       out$data$created_at <- time_now
-      out$data$created_by <- session$userData$email
+      out$data$created_by <- tolower(session$userData$email)
     } else {
       # Editing existing car
       
       out$data$created_at <- as.character(hold$created_at)
-      out$data$created_by <- hold$created_by
+      out$data$created_by <- tolower(hold$created_by)
     }
     
     out$data$modified_at <- time_now
-    out$data$modified_by <- session$userData$email
+    out$data$modified_by <- tolower(session$userData$email)
     
     out$data$is_deleted <- FALSE
     
