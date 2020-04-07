@@ -195,6 +195,7 @@
         </button>
       </h3>
     </div>
+    
     <div
       id="defectsDetails"
       class="collapse"
@@ -204,20 +205,19 @@
       <div class="card-body">
         <div class="row">
           <div class="col-4" v-for="defect in apiData.Defects">
-            <div class="form-group shiny-input-container">
-              <label class="control-label" for="defect">
+              <label :for="defect.defect.replace( /\s/g, '')">
                 {%% defect.defect %%}
               </label>
               <input
-                id="defect.defect"
-                type="number"
-                class="form-control"
-                value="defect.counts"
+                :id="defect.defect.replace( /\s/g, '')"
+                type="range"
+                class="custom-range"
+                :value="defect.counts"
                 min="0"
-                max="999"
+                max="10"
+                step="1"
                 v-model="defect.counts"
               />
-            </div>
           </div>
         </div>
       </div>
