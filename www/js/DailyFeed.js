@@ -1,7 +1,7 @@
 function unique(array) {
-    return $.grep(array, function(el, index) {
-        return index === $.inArray(el, array);
-    });
+  return $.grep(array, function (el, index) {
+    return index === $.inArray(el, array);
+  });
 }
 
 var dailyFeed = new Vue({
@@ -246,4 +246,8 @@ var dailyFeed = new Vue({
 // update data for Mapping
 Shiny.addCustomMessageHandler("changeMapping", function (data) {
   dailyFeed.apiData.mappingData = data;
+});
+
+$(document).ready(function () {
+  $('[data-toggle="tooltip"]').tooltip('enable');
 });
