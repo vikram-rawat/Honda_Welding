@@ -25,7 +25,8 @@ var dailyFeed = new Vue({
     inputValue: {
       Shift: "",
       Zone: "",
-      Car: ""
+      Car: "",
+      Submit: "",
     },
     apiData: {
       mappingData: [],
@@ -239,6 +240,15 @@ var dailyFeed = new Vue({
         item["counts"] = 0;
         this.apiData.Defects.push(item);
       });
+    },
+    "inputValue.Submit": function (newValue, oldValue) {
+      Shiny.setInputValue(
+        "daily_data-Defects",
+        null, {
+          priority: "event"
+        }
+      );
+      this.carClearAll();
     }
   }
 });
@@ -246,6 +256,10 @@ var dailyFeed = new Vue({
 // update data for Mapping
 Shiny.addCustomMessageHandler("changeMapping", function (data) {
   dailyFeed.apiData.mappingData = data;
+});
+
+Shiny.addCustomMessageHandler("dataSubmit", function (data) {
+  dailyFeed.inputValue.Submit = data;
 });
 
 $(document).ready(function () {

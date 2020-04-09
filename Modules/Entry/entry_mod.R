@@ -50,33 +50,6 @@ feed_server <- function(input, output, session, allTables) {
         )
     )
 
-    # session$sendCustomMessage(
-    #   "changeZones",
-    #   allTables$zonesTable() %>%
-    #     mutate(name = zones,
-    #            classes = "disabled") %>%
-    #     select(name, classes)  %>%
-    #     toJSON()
-    # )
-    # 
-    # session$sendCustomMessage(
-    #   "changeCars",
-    #   allTables$carsTable() %>%
-    #     mutate(name = cars,
-    #            classes = "disabled") %>%
-    #     select(name, classes)  %>%
-    #     toJSON()
-    # )
-    # 
-    # session$sendCustomMessage(
-    #   "changeDefects",
-    #   allTables$defectsTable() %>%
-    #     mutate(defect = problems,
-    #            counts = 0) %>%
-    #     select(defect, counts)  %>%
-    #     toJSON()
-    # )
-
   })
   
   ns <- session$ns
@@ -203,7 +176,11 @@ feed_server <- function(input, output, session, allTables) {
             title = "Successfully Updated",
             showDuration = 2000
           )
-
+          
+          session$sendCustomMessage(
+            "dataSubmit",
+            Sys.time()
+          )
         }
       },
       error = function(e){
