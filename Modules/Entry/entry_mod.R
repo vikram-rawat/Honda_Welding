@@ -24,6 +24,7 @@ feed_ui <- function(id) {
           maximizable = TRUE,
           closable = FALSE, 
           label = "Check your Values here",
+          uiOutput(ns("ChassisUI")),
           uiOutput(ns("DateTime")),
           uiOutput(ns("ZonesnCars")),
           tableOutput(ns("defecttable"))
@@ -40,6 +41,25 @@ feed_server <- function(input, output, session, allTables) {
 
   # namespace ---------------------------------------------------------------
   
+  chassisNumbers <- reactive({
+    
+    data <- session$userData$conn %>%
+      tbl("dailyfeed") %>% 
+      arrange(desc(modified_by)) %>% 
+      distinct(Chassis) %>% 
+      select(Chassis) %>% 
+      collect()
+    
+    data$Chassis
+  })
+  
+  observe({
+    session$sendCustomMessage(
+      "ChassisValue",
+      toJSON(chassisNumbers())
+    )
+  })
+    
   observe({
 
     session$sendCustomMessage(
@@ -69,6 +89,15 @@ feed_server <- function(input, output, session, allTables) {
       value = input$Shifts,
       icon = "calendar"
     )
+  })
+  
+  output$ChassisUI <- renderUI({
+    req(input$Chassis)
+
+    div(
+      class = "card text-white bg-info mb-3",
+      input$Chassis
+      )
   })
   
   output$ZonesnCars <- renderUI({

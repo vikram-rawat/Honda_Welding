@@ -133,15 +133,14 @@ var dailyFeed = new Vue({
     },
     show: {},
     inputValue: {
-      InitChassis: "Some Value that I wanted",
-      chassis: "",
+      Chassis: "",
       Shift: "",
       Zone: "",
       Car: "",
       Submit: ""
     },
     apiData: {
-      autocomplete: ['Bangalore', 'Chennai', 'Cochin', 'Delhi', 'Kolkata', 'Mumbai'],
+      Chassis: [],
       mappingData: [],
       Zones: [],
       Cars: [],
@@ -150,7 +149,7 @@ var dailyFeed = new Vue({
   },
   methods: {
     submitChassis: function () {
-      Shiny.setInputValue("daily_data-Chassis", this.inputValue.chassis, {
+      Shiny.setInputValue("daily_data-Chassis", this.inputValue.Chassis, {
         priority: "event"
       });
     },
@@ -374,6 +373,11 @@ var dailyFeed = new Vue({
 // update data for Mapping
 Shiny.addCustomMessageHandler("changeMapping", function (data) {
   dailyFeed.apiData.mappingData = data;
+});
+
+// update data for Chassis Autocomplete
+Shiny.addCustomMessageHandler("ChassisValue", function (data) {
+  dailyFeed.apiData.Chassis = data;
 });
 
 // update dataSubmit on submit click so to reset all input values
