@@ -1,4 +1,33 @@
+<script type="text/x-template" id="vue-autocomplete">
+  <div style="position:relative" v-bind:class="{'open':openSuggestion}">
+    <input style="background-color:#aeecd5" class="form-control" type="text" :value="fullInput" :placeholder="placeholder" @keydown.enter="enter"
+      @keydown.down.prevent="down" @keydown.up.prevent="up" @input="change" @focus="down" ref="inp">
+    <div class="dropdown-menu" style="width:100%">
+      <ul v-if="openSuggestion" class="menu-list">
+        <li v-for="(m, $index) in matches">
+          <a @click="select($index)" :class="{'is-active': $index==current}">{%% m %%}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</script>
+
+
 <div id="dailyFeed">
+  <div class="card-header odd-color">
+    <div class="row">
+      <div class="col-8">
+        <vue-autocomplete v-model="inputValue.chassis" placeholder="Enter Chassis Number"
+          :suggestions="apiData.autocomplete" value="asdflkj"></vue-autocomplete>
+      </div>
+      <div class="col-4">
+        <button type="button" class="btn btn-outline-success float-right" @click="submitChassis">
+          <i aria-hidden="true" class="fa fa-check-circle success"></i>
+          Submit Chassis
+        </button>
+      </div>
+    </div>
+  </div>
   <div class="card">
     <div class="card-header odd-color" id="Shifts">
       <h3 class="mb-0">
@@ -129,8 +158,8 @@
               {%% defect.defect %%} : <strong style="color: blue;">{%% defect.counts %%}</strong>
             </label>
             <div href="#" data-toggle="tooltip" data-placement="top" :title="defect.counts">
-              <input :id="defect.defect.replace( /\s/g, '')" type="range" class="custom-range" :value="defect.counts"
-                min="0" max="10" step="1" v-model="defect.counts" />
+              <input :id="defect.defect.replace( /\s/g, '')" type="range" class="custom-range" min="0" max="10" step="1"
+                v-model="defect.counts" value="0" />
             </div>
           </div>
         </div>

@@ -1,9 +1,119 @@
+// Autocomplete Component
+Vue.component(
+  "vue-autocomplete", {
+    template: "#vue-autocomplete",
+    delimiters: ["{%%", "%%}"],
+    props: ['value', 'placeholder', 'suggestions'],
+    data() {
+      return {
+        userInput: '',
+        fullInput: '',
+        open: false,
+        current: 0
+      }
+    },
+    computed: {
+      matches() {
+        const escaped = this.escapeRegExp(this.userInput)
+        const patt = new RegExp(`^(${escaped})`, 'i')
+        return this.suggestions.filter((str) => {
+          return str.match(patt) !== null
+        })
+      },
+      openSuggestion() {
+        return this.open &&
+          this.matches.length != 0 &&
+          this.userInput !== this.fullInput
+      },
+    },
+    methods: {
+      up() {
+        this.current--
+        if (this.current < 0) {
+          this.current = 0
+        }
+        if (!this.open) this.current = 0
+        this.start()
+      },
+      down() {
+        this.current++
+        if (this.current >= this.matches.length) {
+          this.current = this.matches.length - 1
+        }
+        if (!this.open) this.current = 0
+        this.start()
+      },
+      stop() {
+        this.open = false
+      },
+      start() {
+        this.open = true
+        this.setFullInput()
+      },
+      select(index) {
+        this.current = index
+        this.start()
+        this.enter()
+      },
+      enter() {
+        this.$emit('input', this.fullInput)
+      },
+      change(event) {
+        const n = event.target.value
+        const b = this.userInput.length < n.length
+
+        this.userInput = event.target.value
+
+        if (b) {
+          this.current = 0
+          this.start()
+        } else {
+          this.stop()
+          this.fullInput = this.userInput
+        }
+      },
+      setFullInput() {
+        if (this.open === false) {
+          return
+        }
+
+        var match = this.matches[this.current] || this.userInput
+        this.fullInput = match
+
+        setTimeout(() => {
+          this.$refs.inp.setSelectionRange(
+            this.userInput.length, this.fullInput.length
+          )
+        }, 0)
+      },
+      escapeRegExp(str) {
+        return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+      }
+    },
+    watch: {
+      value: function (n) {
+        this.userInput = n
+        this.fullInput = n
+        this.setFullInput()
+        this.stop()
+      }
+    },
+    mounted() {
+      this.userInput = this.value
+      this.fullInput = this.value
+      this.setFullInput()
+      this.stop()
+    }
+  });
+
+// Function for finding unique array 
 function unique(array) {
   return $.grep(array, function (el, index) {
     return index === $.inArray(el, array);
   });
 }
 
+// Vue main App for entire app
 var dailyFeed = new Vue({
   el: "#dailyFeed",
   delimiters: ["{%%", "%%}"],
@@ -23,12 +133,15 @@ var dailyFeed = new Vue({
     },
     show: {},
     inputValue: {
+      InitChassis: "Some Value that I wanted",
+      chassis: "",
       Shift: "",
       Zone: "",
       Car: "",
-      Submit: "",
+      Submit: ""
     },
     apiData: {
+      autocomplete: ['Bangalore', 'Chennai', 'Cochin', 'Delhi', 'Kolkata', 'Mumbai'],
       mappingData: [],
       Zones: [],
       Cars: [],
@@ -36,6 +149,11 @@ var dailyFeed = new Vue({
     }
   },
   methods: {
+    submitChassis: function () {
+      Shiny.setInputValue("daily_data-Chassis", this.inputValue.chassis, {
+        priority: "event"
+      });
+    },
     morningShift: function () {
       this.disable.morningShift = "active";
       this.disable.noonShift = "disabled";
@@ -258,10 +376,12 @@ Shiny.addCustomMessageHandler("changeMapping", function (data) {
   dailyFeed.apiData.mappingData = data;
 });
 
+// update dataSubmit on submit click so to reset all input values
 Shiny.addCustomMessageHandler("dataSubmit", function (data) {
   dailyFeed.inputValue.Submit = data;
 });
 
+// initializing Tooltips from bootstrap 4
 $(document).ready(function () {
   $('[data-toggle="tooltip"]').tooltip('enable');
 });
