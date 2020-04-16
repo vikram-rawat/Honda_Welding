@@ -1,39 +1,34 @@
-<script type="text/x-template" id="vue-autocomplete">
-  <div style="position:relative" v-bind:class="{'open':openSuggestion}">
-    <input 
-    style="background-color:#aeecd5" 
-      class="form-control" 
-      type="text" 
-      :value="fullInput"
-      :placeholder="placeholder" 
-      @keydown.enter="enter"
-      @keydown.down.prevent="down" 
-      @keydown.up.prevent="up" 
-      @input="change" 
-      @focus="down" 
-      ref="inp"
-      >
-    <div class="dropdown-menu" style="width:100%">
-      <ul v-if="openSuggestion">
-        <li v-for="(m, $index) in matches" class="dropdown-item">
-          <a @click="select($index)" :class="{'is-active': $index==current}">{%% m %%}</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</script>
-
-
 <div id="dailyFeed">
-  <div class="card-header odd-color">
+  <div class="card-header bg-dark">
     <div class="row">
-      <div class="col-8">
-        <vue-autocomplete v-model="inputValue.Chassis" placeholder="Enter Chassis Number"
-          :suggestions="apiData.Chassis"></vue-autocomplete>
+      <div class="col-6">
+        <div class="input-group mb-3 float-left" v-if="show.Chassis == 'select'">
+          <div class=" input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Chassis</label>
+          </div>
+          <select class="custom-select" v-model="inputValue.Chassis">
+            <option value="chassis" v-for="chassis in apiData.Chassis">
+              {%% chassis %%}
+            </option>
+          </select>
+        </div>
+        <div class="input-group mb-3 float-left" v-else>
+          <div class="input-group-prepend">
+            <label class="input-group-text" id="basic-addon1">Chassis</label>
+          </div>
+          <input type="text" class="form-control" placeholder="Chassis Number" aria-label="Enter Chassis Number"
+            aria-describedby="basic-addon1" v-model="inputValue.Chassis">
+        </div>
       </div>
-      <div class="col-4">
+      <div class="col-6">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary" :class="mainTheme.Chassis.Select" @click="selectClickChassis">
+            Select</button>
+          <button type="button" class="btn btn-secondary" :class="mainTheme.Chassis.Type" @click="typeClickChassis">
+            Type</button>
+        </div>
         <button type="button" class="btn btn-outline-success float-right" @click="submitChassis">
-          <i aria-hidden="true" class="fa fa-check-circle success"></i>
+          <i class="fa fa-check-circle success" aria-hidden="true"></i>
           Submit Chassis
         </button>
       </div>

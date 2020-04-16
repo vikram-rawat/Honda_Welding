@@ -1,112 +1,4 @@
-// Autocomplete Component
-Vue.component(
-  "vue-autocomplete", {
-    template: "#vue-autocomplete",
-    delimiters: ["{%%", "%%}"],
-    props: ['value', 'placeholder', 'suggestions'],
-    data() {
-      return {
-        userInput: '',
-        fullInput: '',
-        open: false,
-        current: 0
-      }
-    },
-    computed: {
-      matches() {
-        const escaped = this.escapeRegExp(this.userInput)
-        const patt = new RegExp(`^(${escaped})`, 'i')
-        return this.suggestions.filter((str) => {
-          return str.match(patt) !== null
-        })
-      },
-      openSuggestion() {
-        return this.open &&
-          this.matches.length != 0 &&
-          this.userInput !== this.fullInput
-      },
-    },
-    methods: {
-      up() {
-        this.current--
-        if (this.current < 0) {
-          this.current = 0
-        }
-        if (!this.open) this.current = 0
-        this.start()
-      },
-      down() {
-        this.current++
-        if (this.current >= this.matches.length) {
-          this.current = this.matches.length - 1
-        }
-        if (!this.open) this.current = 0
-        this.start()
-      },
-      stop() {
-        this.open = false
-      },
-      start() {
-        this.open = true
-        this.setFullInput()
-      },
-      select(index) {
-        this.current = index
-        this.start()
-        this.enter()
-      },
-      enter() {
-        this.$emit('input', this.fullInput)
-      },
-      change(event) {
-        const n = event.target.value
-        const b = this.userInput.length < n.length
-
-        this.userInput = event.target.value
-
-        if (b) {
-          this.current = 0
-          this.start()
-        } else {
-          this.stop()
-          this.fullInput = this.userInput
-        }
-      },
-      setFullInput() {
-        if (this.open === false) {
-          return
-        }
-
-        var match = this.matches[this.current] || this.userInput
-        this.fullInput = match
-
-        setTimeout(() => {
-          this.$refs.inp.setSelectionRange(
-            this.userInput.length, this.fullInput.length
-          )
-        }, 0)
-      },
-      escapeRegExp(str) {
-        return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-      }
-    },
-    watch: {
-      value: function (n) {
-        this.userInput = n
-        this.fullInput = n
-        this.setFullInput()
-        this.stop()
-      }
-    },
-    mounted() {
-      this.userInput = this.value
-      this.fullInput = this.value
-      this.setFullInput()
-      this.stop()
-    }
-  });
-
-// Function for finding unique array 
+// Function for finding unique array
 function unique(array) {
   return $.grep(array, function (el, index) {
     return index === $.inArray(el, array);
@@ -121,36 +13,52 @@ var dailyFeed = new Vue({
     disable: {
       morningShift: "disable",
       noonShift: "disable",
-      nightShift: "disable"
+      nightShift: "disable",
     },
     mainTheme: {
+      Chassis: {
+        Select: "active",
+        Type: "",
+      },
       stateTheme: {
         m6: false,
         l6: false,
         m12: true,
-        l12: true
-      }
+        l12: true,
+      },
     },
-    show: {},
+    show: {
+      Chassis: "select",
+    },
     inputValue: {
       Chassis: "",
       Shift: "",
       Zone: "",
       Car: "",
-      Submit: ""
+      Submit: "",
     },
     apiData: {
       Chassis: [],
       mappingData: [],
       Zones: [],
       Cars: [],
-      Defects: []
-    }
+      Defects: [],
+    },
   },
   methods: {
+    selectClickChassis: function () {
+      this.show.Chassis = "select";
+      this.mainTheme.Chassis.Select = "active"
+      this.mainTheme.Chassis.Type = ""
+    },
+    typeClickChassis: function () {
+      this.show.Chassis = "type";
+      this.mainTheme.Chassis.Select = ""
+      this.mainTheme.Chassis.Type = "active"
+    },
     submitChassis: function () {
       Shiny.setInputValue("daily_data-Chassis", this.inputValue.Chassis, {
-        priority: "event"
+        priority: "event",
       });
     },
     morningShift: function () {
@@ -161,7 +69,7 @@ var dailyFeed = new Vue({
       this.inputValue.Shift = "morning";
 
       Shiny.setInputValue("daily_data-Shifts", "morning", {
-        priority: "event"
+        priority: "event",
       });
     },
     noonShift: function () {
@@ -172,7 +80,7 @@ var dailyFeed = new Vue({
       this.inputValue.Shift = "noon";
 
       Shiny.setInputValue("daily_data-Shifts", "noon", {
-        priority: "event"
+        priority: "event",
       });
     },
     nightShift: function () {
@@ -183,7 +91,7 @@ var dailyFeed = new Vue({
       this.inputValue.Shift = "night";
 
       Shiny.setInputValue("daily_data-Shifts", "night", {
-        priority: "event"
+        priority: "event",
       });
     },
     shiftClearAll: function () {
@@ -194,7 +102,7 @@ var dailyFeed = new Vue({
       this.inputValue.Shift = "";
 
       Shiny.setInputValue("daily_data-Shifts", "", {
-        priority: "event"
+        priority: "event",
       });
     },
     zoneClick: function (zone) {
@@ -210,7 +118,7 @@ var dailyFeed = new Vue({
       this.inputValue.Zone = zone.name;
 
       Shiny.setInputValue("daily_data-Zones", zone.name, {
-        priority: "event"
+        priority: "event",
       });
     },
     zoneClearAll: function () {
@@ -222,7 +130,7 @@ var dailyFeed = new Vue({
       this.inputValue.Zone = "";
 
       Shiny.setInputValue("daily_data-Zones", "", {
-        priority: "event"
+        priority: "event",
       });
     },
     carClick: function (car) {
@@ -238,7 +146,7 @@ var dailyFeed = new Vue({
       this.inputValue.Car = car.name;
 
       Shiny.setInputValue("daily_data-Cars", car.name, {
-        priority: "event"
+        priority: "event",
       });
     },
     carClearAll: function () {
@@ -250,22 +158,22 @@ var dailyFeed = new Vue({
       this.inputValue.Car = "";
 
       Shiny.setInputValue("daily_data-Cars", "", {
-        priority: "event"
+        priority: "event",
       });
     },
     submitValues: function () {
       Shiny.setInputValue(
         "daily_data-Defects",
         JSON.stringify(this.apiData.Defects), {
-          priority: "event"
+          priority: "event",
         }
       );
     },
     submitForm: function () {
       Shiny.setInputValue("daily_data-SubmitForm", "clicked", {
-        priority: "event"
+        priority: "event",
       });
-    }
+    },
   },
   mounted: function () {},
   computed: {
@@ -282,7 +190,7 @@ var dailyFeed = new Vue({
       } else {
         return false;
       }
-    }
+    },
   },
   watch: {
     "inputValue.Shift": function (newValue, oldValue) {},
@@ -322,7 +230,7 @@ var dailyFeed = new Vue({
       });
 
       uniqueCars = unique(uniqueCars);
-      uniqueCars.sort()
+      uniqueCars.sort();
 
       $.each(uniqueCars, (i, v) => {
         item = {};
@@ -349,7 +257,7 @@ var dailyFeed = new Vue({
       });
 
       uniqueDefects = unique(uniqueDefects);
-      uniqueDefects.sort()
+      uniqueDefects.sort();
 
       $.each(uniqueDefects, (i, v) => {
         item = {};
@@ -359,15 +267,12 @@ var dailyFeed = new Vue({
       });
     },
     "inputValue.Submit": function (newValue, oldValue) {
-      Shiny.setInputValue(
-        "daily_data-Defects",
-        null, {
-          priority: "event"
-        }
-      );
+      Shiny.setInputValue("daily_data-Defects", null, {
+        priority: "event",
+      });
       this.carClearAll();
-    }
-  }
+    },
+  },
 });
 
 // update data for Mapping
@@ -387,5 +292,7 @@ Shiny.addCustomMessageHandler("dataSubmit", function (data) {
 
 // initializing Tooltips from bootstrap 4
 $(document).ready(function () {
-  $('[data-toggle="tooltip"]').tooltip('enable');
+  $('[data-toggle="tooltip"]').tooltip("enable");
+  $().button("toggle");
+  $().button("dispose");
 });
