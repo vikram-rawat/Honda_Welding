@@ -93,11 +93,23 @@ feed_server <- function(input, output, session, allTables) {
   
   output$ChassisUI <- renderUI({
     req(input$Chassis)
-
-    div(
-      class = "card text-white bg-info mb-3",
-      input$Chassis
+    
+    fluidRow(
+      id = ns("zoneCar"),
+      column(
+        width = 12,
+        div(
+          class = "card text-white bg-dark mb-3",
+          div(
+            class = "card-header",
+            div(
+              class = "float-left",
+              input$Chassis
+            )
+          )
+        )
       )
+    )
   })
   
   output$ZonesnCars <- renderUI({
@@ -138,10 +150,18 @@ feed_server <- function(input, output, session, allTables) {
   observeEvent(input$SubmitForm,{
     tryCatch(
       expr = {
+        flagChassis <- is.null(input$Chassis) 
         flagShifts <- is.null(input$Shifts) 
         flagZones <- is.null(input$Zones) 
         flagCars <- is.null(input$Cars) 
         flagDefects <- is.null(input$Defects) 
+        
+        if(flagChassis){
+          toastr_error(
+            message = "Please Select a Chassis Number",
+            title = "No Chassis Number",
+            showDuration = 2000)
+        }
         
         if(flagShifts){
           toastr_error(
@@ -175,12 +195,14 @@ feed_server <- function(input, output, session, allTables) {
           flagShifts ||
           flagZones ||
           flagCars ||
-          flagDefects 
+          flagDefects ||
+          flagChassis
           )
           ){
 
           table <- data.table(
             Date = Sys.Date(),
+            Chassis = input$Chassis,
             Shift = input$Shifts,
             Zone = input$Zones,
             Car = input$Cars,

@@ -1,18 +1,26 @@
 <div id="dailyFeed">
-  <div class="card-header bg-dark">
+  <div class="card-header bg-dark mb-3">
     <div class="row">
+      <div class="col-2">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-secondary" :class="mainTheme.Chassis.Select" @click="selectClickChassis">
+            Select</button>
+          <button type="button" class="btn btn-secondary" :class="mainTheme.Chassis.Type" @click="typeClickChassis">
+            Type</button>
+        </div>
+      </div>
       <div class="col-6">
-        <div class="input-group mb-3 float-left" v-if="show.Chassis == 'select'">
+        <div class="input-group float-left" v-if="show.Chassis == 'select'">
           <div class=" input-group-prepend">
             <label class="input-group-text" for="inputGroupSelect01">Chassis</label>
           </div>
           <select class="custom-select" v-model="inputValue.Chassis">
-            <option value="chassis" v-for="chassis in apiData.Chassis">
+            <option :value="chassis" v-for="chassis in apiData.Chassis">
               {%% chassis %%}
             </option>
           </select>
         </div>
-        <div class="input-group mb-3 float-left" v-else>
+        <div class="input-group float-left" v-else>
           <div class="input-group-prepend">
             <label class="input-group-text" id="basic-addon1">Chassis</label>
           </div>
@@ -20,13 +28,7 @@
             aria-describedby="basic-addon1" v-model="inputValue.Chassis">
         </div>
       </div>
-      <div class="col-6">
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-secondary" :class="mainTheme.Chassis.Select" @click="selectClickChassis">
-            Select</button>
-          <button type="button" class="btn btn-secondary" :class="mainTheme.Chassis.Type" @click="typeClickChassis">
-            Type</button>
-        </div>
+      <div class="col-4">
         <button type="button" class="btn btn-outline-success float-right" @click="submitChassis">
           <i class="fa fa-check-circle success" aria-hidden="true"></i>
           Submit Chassis
@@ -53,17 +55,17 @@
         <div class="row">
           <div class="col-4">
             <button class="btn btn-default bg-danger" :class="disable.morningShift" @click="morningShift">
-              <img src="img/sunrise.png" width="100" /> Dawn Shift
+              <img src="img/sunrise.png" width="50" /> Dawn Shift
             </button>
           </div>
           <div class="col-4">
             <button class="btn btn-default bg-warning" :class="disable.noonShift" @click="noonShift">
-              <img src="img/sunnoon.jpeg" width="100" /> Noon Shift
+              <img src="img/sunnoon.jpeg" width="50" /> Noon Shift
             </button>
           </div>
           <div class="col-4">
             <button class="btn btn-default bg-dark" :class="disable.nightShift" @click="nightShift">
-              <img src="img/night.jpg" width="100" /> Night Shift
+              <img src="img/night.jpg" width="50" /> Night Shift
             </button>
           </div>
         </div>

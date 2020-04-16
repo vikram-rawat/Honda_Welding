@@ -101,9 +101,11 @@ var dailyFeed = new Vue({
 
       this.inputValue.Shift = "";
 
-      Shiny.setInputValue("daily_data-Shifts", "", {
+      Shiny.setInputValue("daily_data-Shifts", null, {
         priority: "event",
       });
+
+      this.zoneClearAll()
     },
     zoneClick: function (zone) {
       for (x in this.apiData.Zones) {
@@ -129,9 +131,11 @@ var dailyFeed = new Vue({
 
       this.inputValue.Zone = "";
 
-      Shiny.setInputValue("daily_data-Zones", "", {
+      Shiny.setInputValue("daily_data-Zones", null, {
         priority: "event",
       });
+
+      this.carClearAll();
     },
     carClick: function (car) {
       for (x in this.apiData.Cars) {
@@ -157,7 +161,11 @@ var dailyFeed = new Vue({
 
       this.inputValue.Car = "";
 
-      Shiny.setInputValue("daily_data-Cars", "", {
+      Shiny.setInputValue("daily_data-Cars", null, {
+        priority: "event",
+      });
+
+      Shiny.setInputValue("daily_data-Defects", null, {
         priority: "event",
       });
     },
