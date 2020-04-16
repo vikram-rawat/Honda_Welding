@@ -2,6 +2,13 @@
 # library -----------------------------------------------------------------
 
 library(DBI)
+library(magrittr)
+library(dplyr)
+library(data.table)
+
+# source ------------------------------------------------------------------
+
+source("R/functions.R")
 
 # connection --------------------------------------------------------------
 
@@ -94,3 +101,6 @@ dbWriteTable(conn = MainDB,
 MainDB %>% tbl("mapping")
 rm(mapping)
 
+# disconnect --------------------------------------------------------------
+
+dbDisconnect(MainDB)
