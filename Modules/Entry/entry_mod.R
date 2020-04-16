@@ -41,17 +41,25 @@ feed_server <- function(input, output, session, allTables) {
 
   # namespace ---------------------------------------------------------------
   
-  chassisNumbers <- reactive({
-    
-    data <- session$userData$conn %>%
-      tbl("dailyfeed") %>% 
-      arrange(desc(modified_by)) %>% 
-      distinct(Chassis) %>% 
-      select(Chassis) %>% 
-      collect()
-    
-    data$Chassis
-  })
+  chassisNumbers <- reactivePoll(
+    intervalMillis = 1000,
+    session = session,
+    checkFunc = function(){
+      session$userData$conn %>% 
+        tbl("dailyfeed") %>% 
+        summarise(latest = max(modified_at)) 
+    },
+    valueFunc = function(){
+      data <- session$userData$conn %>%
+        tbl("dailyfeed") %>% 
+        arrange(desc(modified_by)) %>% 
+        distinct(Chassis) %>% 
+        select(Chassis) %>% 
+        collect()
+      
+      return(data$Chassis)
+    } 
+  )
   
   observe({
     session$sendCustomMessage(
