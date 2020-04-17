@@ -62,44 +62,54 @@ sidebar <- bs4DashSidebar(
   status = "primary",
   title = "Welding Dashboard",
   brandColor = "gray-light",
-# url = "https://www.google.fr",
+  # url = "https://www.google.fr",
   src = "img/hondaicon.jpg",
   elevation = 3,
   opacity = 0.8,
   bs4SidebarMenu(
-  id = "test",
-  bs4SidebarHeader("Welding"),
+    id = "test",
+    bs4SidebarHeader("Welding"),
     bs4SidebarMenuItem(
       tabName = "FeedData",
       icon = "edit",
       text = "Feed Data",
-      bs4SidebarMenuSubItem(tabName = "Original",
-                            text = "Main Tables",
-                            icon = "cube"),
-      bs4SidebarMenuSubItem(tabName = "DailyFeed",
-                            text = "Daily Feed",
-                            icon = "file-excel")
+      bs4SidebarMenuSubItem(
+        tabName = "Original",
+        text = "Main Tables",
+        icon = "cube"
+      ),
+      bs4SidebarMenuSubItem(
+        tabName = "DailyFeed",
+        text = "Daily Feed",
+        icon = "file-excel"
+      )
     )
   )
 )
 
 # controlbar --------------------------------------------------------------
 
-controlbar <- bs4DashControlbar(disable = TRUE,
-                                title = "Controls")
+controlbar <- bs4DashControlbar(
+  disable = TRUE,
+  title = "Controls"
+)
 
 # mainbody ----------------------------------------------------------------
 
 mainbody <- bs4DashBody(
-  tags$link(rel = "stylesheet", type = "text/css",
-            href = "css/custom.css"),
+  tags$link(
+    rel = "stylesheet", type = "text/css",
+    href = "css/custom.css"
+  ),
   bs4TabItems(
-    bs4TabItem(tabName = "Original",
-               edit_ui('edit_tables')
-               ),
-    bs4TabItem(tabName = "DailyFeed",
-               feed_ui("daily_data")
-               )
+    bs4TabItem(
+      tabName = "Original",
+      edit_ui("edit_tables")
+    ),
+    bs4TabItem(
+      tabName = "DailyFeed",
+      feed_ui("daily_data")
+    )
   ),
   tags$script(src = "js/custom.js")
 )
@@ -128,14 +138,13 @@ ui <- bs4DashPage(
 server <- function(input, output, session) {
   # user session$userData to store user data that will be needed throughout
   # the Shiny application
-  session$userData$email <- 'vikram.rawat@GreyvalleyInfotech.com'
+  session$userData$email <- "vikram.rawat@GreyvalleyInfotech.com"
   session$userData$conn <- conn
   session$userData$db_trigger <- reactiveVal(0)
 
   editData <- callModule(edit_server, "edit_tables")
 
   FeedData <- callModule(feed_server, "daily_data", allTables = editData)
-
 }
 
 # shinyApp ----------------------------------------------------------------
@@ -144,7 +153,7 @@ shinyApp(
   ui = ui,
   server = server,
   options = list(
-                port = 9002,
-                host = "127.0.0.1"
-            )
+    port = 9002,
+    host = "127.0.0.1"
+  )
 )
