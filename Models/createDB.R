@@ -59,12 +59,12 @@ dbSendStatement(MainDB, Mapping)
 
 dailyFeedSQL <- "CREATE TABLE dailyfeed (
   uid INTEGER PRIMARY KEY AUTOINCREMENT,
-  Date Date NOT NULL,
-  Chassis text NOT NULL,
-  Shift text NOT NULL,
-  Zone text NOT NULL,
-  Car text NOT NULL,
-  defects text NOT NULL,
+  date Date NOT NULL,
+  chassis text NOT NULL,
+  shift text NOT NULL,
+  zone text NOT NULL,
+  car text NOT NULL,
+  defect text NOT NULL,
   value text NOT NULL,
   created_at text NOT NULL,
   created_by text NOT NULL,

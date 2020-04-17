@@ -204,12 +204,12 @@ feed_server <- function(input, output, session, allTables) {
           ){
 
           table <- data.table(
-            Date = Sys.Date(),
-            Chassis = input$Chassis,
-            Shift = input$Shifts,
-            Zone = input$Zones,
-            Car = input$Cars,
-            defects = defectValues()$defect, 
+            date = Sys.Date(),
+            chassis = input$Chassis,
+            shift = input$Shifts,
+            zone = input$Zones,
+            car = input$Cars,
+            defect = defectValues()$defect, 
             value = defectValues()$counts,
             created_at = Sys.time(),
             created_by = session$userData$email,

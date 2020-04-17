@@ -101,6 +101,21 @@ dbWriteTable(conn = MainDB,
 MainDB %>% tbl("mapping")
 rm(mapping)
 
+# dailyfeed ---------------------------------------------------------------
+
+dailyfeed <- fread(file = "Data/csv/dailyfeed.csv", 
+                   sep = ",")
+
+dbSendStatement(MainDB,"delete from dailyfeed")
+
+dbWriteTable(conn = MainDB,
+             name = "dailyfeed",
+             value = dailyfeed,
+             append = TRUE)
+
+MainDB %>% tbl("dailyfeed")
+rm(dailyfeed)
+
 # disconnect --------------------------------------------------------------
 
 dbDisconnect(MainDB)
