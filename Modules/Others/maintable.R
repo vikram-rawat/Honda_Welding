@@ -31,21 +31,45 @@ main_table_server <- function(input, output, session) {
   # get Data ----------------------------------------------------------------
   
   mainTable <- reactive({
-    data <- session$userData$conn %>%
+
+    dt <- session$userData$conn %>%
       tbl("dailyfeed") %>%
-      collect()
+      collect() %>% 
+      data.table(key = "uid")
     
-    return(data)
+    dt[,":="(defect = toupper(defect),
+             car = toupper(car),
+             zone = toupper(zone)
+             )]
+    
+    return(dt)
     
   })
   
+  transformedTable <- reactive({
+    dcast.data.table(
+      data = mainTable(),
+      formula = defect ~ car + zone,
+      value.var = "value",
+      fill = 0,
+      fun.aggregate = sum
+    )
+  })
   
   # create GT Table ------------------------------------------------------------
   
   output$gtTable <- render_gt({
-    mainTable <- mainTable()
+    
+    uniqueZones <- mainTable()[, unique(zone)]
+    dtTransformed <- transformedTable()
+    numericCol <- names(dtTransformed[, .SD, .SDcols = -c("defect")])
+    
     future({
-      createGT(mainTable)
+      createGT(
+          dtTransformed = dtTransformed,
+          uniqueZones = uniqueZones,
+          numericCol = numericCol
+        )
     }) %...>% (function(result) {
       return(result)
     })

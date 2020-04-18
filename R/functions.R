@@ -45,27 +45,18 @@ create_insert_table <- function(dt, useremail) {
 
 # create GT table ---------------------------------------------------------
 
-createGT <- function(MainData,
+createGT <- function(dtTransformed,
+                     uniqueZones,
+                     numericCol,
                      Title = "Defects Data",
                      SubTitle = "filtered",
                      rowStudHead = "Defect Names") {
-  setDT(MainData)
-  
-  dtTransformed <- dcast.data.table(
-    data = MainData,
-    formula = defect ~ car + zone,
-    value.var = "value",
-    fill = 0,
-    fun.aggregate = sum
-  )
-  
+
   dtnames <- names(dtTransformed)
   
   newdtnames <- stri_replace_all_regex(str = dtnames,
                                        pattern = "_[^_]+",
                                        replacement = "")
-  
-  # names(dtTransformed) <- newdtnames
   
   colLables <- mapply(
     FUN = function(x, y) {
@@ -83,26 +74,23 @@ createGT <- function(MainData,
     tab_stubhead(label = rowStudHead) %>%
     tab_header(title = Title,
                subtitle = SubTitle)
-  
-  uniqueZones <- MainData[, unique(zone)]
-  
+
   lapply(uniqueZones, function(x) {
     mainTable <<- mainTable %>%
       tab_spanner(label = x,
                   columns = stri_detect_regex(str = dtnames,
                                               pattern = x))
   })
-  
-  numericCol <- names(dtTransformed[, .SD, .SDcols = -c("defect")])
+
   
   mainTable <- mainTable %>%
     grand_summary_rows(
       columns = numericCol,
       fns = list(
-        min = ~ min(., na.rm = TRUE),
-        max = ~ max(., na.rm = TRUE),
-        avg = ~ mean(., na.rm = TRUE),
-        total = ~ sum(., na.rm = TRUE)
+        MINIMUM = ~ min(., na.rm = TRUE),
+        MAXIMUM = ~ max(., na.rm = TRUE),
+        AVERAGE = ~ mean(., na.rm = TRUE),
+        TOTAL = ~ sum(., na.rm = TRUE)
       ),
       formatter = fmt_number,
       use_seps = FALSE
