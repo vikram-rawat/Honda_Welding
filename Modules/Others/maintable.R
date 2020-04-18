@@ -1,7 +1,6 @@
 # ui  ---------------------------------------------------------------------
 
 main_table_ui <- function(id) {
-  
   # namespace ---------------------------------------------------------------
   
   ns <- NS(id)
@@ -16,9 +15,8 @@ main_table_ui <- function(id) {
       closable = FALSE,
       labelStatus = "dark",
       overflow = TRUE,
-      withSpinner(
-        ui_element = gt_output(ns("gtTable")),
-        type = 1)
+      withSpinner(ui_element = gt_output(ns("gtTable")),
+                  type = 1)
     )
   )
 }
@@ -26,8 +24,7 @@ main_table_ui <- function(id) {
 # server ------------------------------------------------------------------
 
 main_table_server <- function(input, output, session) {
- 
-   # namespace ---------------------------------------------------------------
+  # namespace ---------------------------------------------------------------
   
   ns <- session$ns
   
@@ -45,7 +42,15 @@ main_table_server <- function(input, output, session) {
   
   # create GT Table ------------------------------------------------------------
   
-  output$gtTable <- render_gt(createGT(mainTable()))
+  output$gtTable <- render_gt({
+    mainTable <- mainTable()
+    future({
+      createGT(mainTable)
+    }) %...>% (function(result) {
+      return(result)
+    })
+    
+  })
   
   return(list(dailyFeed = mainTable))
   

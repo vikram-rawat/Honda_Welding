@@ -16,12 +16,15 @@ library("shinyjs", character.only = TRUE)
 library("dplyr", character.only = TRUE)
 library("gt", character.only = TRUE)
 library("stringi", character.only = TRUE)
+library("promises", character.only = TRUE)
 
 # library(bootstraplib)
 
 # set defaults ------------------------------------------------------------
 
-setDTthreads(0L)
+plan(multisession)
+
+setDTthreads(1L)
 
 options(scipen = 999)
 options(spinner.type = 8)
