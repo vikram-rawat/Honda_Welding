@@ -66,4 +66,8 @@ dt[, value := values]
 
 dt[,uid:=(1:.N)]
 
+dt <- unique(dt,by = c("date","chassis","shift","zone","car","defect"))
+
 fwrite(dt,"Data/csv/dailyfeed.csv")
+
+dbDisconnect(MainDB)

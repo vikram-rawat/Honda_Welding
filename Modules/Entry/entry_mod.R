@@ -45,14 +45,15 @@ feed_server <- function(input, output, session, allTables) {
     
     session$userData$db_trigger()
     
-      data <- session$userData$conn %>%
-        tbl("dailyfeed") %>% 
-        arrange(desc(modified_by)) %>% 
-        distinct(Chassis) %>% 
-        select(Chassis) %>% 
-        collect()
+    data <- session$userData$conn %>%
+      tbl("dailyfeed") %>% 
+      arrange(desc(modified_by)) %>% 
+      distinct(chassis) %>% 
+      select(chassis) %>% 
+      head(100) %>% 
+      collect()
       
-      return(data$Chassis)
+    return(data$chassis)
 
   })
   

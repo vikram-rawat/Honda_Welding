@@ -65,7 +65,7 @@ dailyFeedSQL <- "CREATE TABLE dailyfeed (
   zone text NOT NULL,
   car text NOT NULL,
   defect text NOT NULL,
-  value text NOT NULL,
+  value int NOT NULL,
   created_at text NOT NULL,
   created_by text NOT NULL,
   modified_at text NOT NULL,

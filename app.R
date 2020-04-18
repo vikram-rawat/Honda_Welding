@@ -15,6 +15,7 @@ library("shinyWidgets", character.only = TRUE)
 library("shinyjs", character.only = TRUE)
 library("dplyr", character.only = TRUE)
 library("gt", character.only = TRUE)
+library("stringi", character.only = TRUE)
 
 # library(bootstraplib)
 
@@ -35,6 +36,7 @@ shiny::onStop(function() {
 # getData -----------------------------------------------------------------
 
 source("globals.R")
+source("R/functions.R")
 
 # source files ------------------------------------------------------------
 
@@ -49,6 +51,7 @@ source("Modules/edit_modules/mapping/mapping_edit_module.R")
 source("Modules/edit_modules/edit_modules.R")
 source("Modules/delete_module.R")
 source("Modules/Entry/entry_mod.R")
+source("Modules/Others/maintable.R")
 
 # navbar ------------------------------------------------------------------
 
@@ -83,6 +86,11 @@ sidebar <- bs4DashSidebar(
         text = "Daily Feed",
         icon = "file-excel"
       )
+    ),
+    bs4SidebarMenuItem(
+      tabName = "Summary",
+      icon = "table",
+      text = "Summary Table"
     )
   )
 )
@@ -109,6 +117,10 @@ mainbody <- bs4DashBody(
     bs4TabItem(
       tabName = "DailyFeed",
       feed_ui("daily_data")
+    ),
+    bs4TabItem(
+      tabName = "Summary",
+      main_table_ui("gttable")
     )
   ),
   tags$script(src = "js/custom.js")
@@ -145,6 +157,9 @@ server <- function(input, output, session) {
   editData <- callModule(edit_server, "edit_tables")
 
   FeedData <- callModule(feed_server, "daily_data", allTables = editData)
+  
+  dailyFeed <- callModule(main_table_server, "gttable")
+  
 }
 
 # shinyApp ----------------------------------------------------------------
