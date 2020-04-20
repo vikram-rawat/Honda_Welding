@@ -6,18 +6,28 @@ main_table_ui <- function(id) {
   ns <- NS(id)
   
   tagList(
-    bs4Card(
-      title = "Summary Table",
-      width = 12,
-      status = "primary",
-      collapsible = TRUE,
-      maximizable =  TRUE,
-      closable = FALSE,
-      labelStatus = "dark",
-      overflow = TRUE,
-      withSpinner(ui_element = gt_output(ns("gtTable")),
-                  type = 1)
-    )
+    tags$script(src = "js/vue.js"),
+    fluidRow(
+      htmlTemplate("www/html/mainTableSelect.html")
+      ),
+    fluidRow(
+      bs4Card(
+        title = "Summary Table",
+        width = 12,
+        status = "primary",
+        collapsible = TRUE,
+        maximizable =  TRUE,
+        closable = FALSE,
+        labelStatus = "dark",
+        overflow = TRUE,
+        withSpinner(
+          ui_element = gt_output(ns("gtTable")),
+          type = 8,
+          size = 3
+        )
+      )
+    ),
+    tags$script(src = "js/mainTableSelect.js")
   )
 }
 
@@ -31,16 +41,16 @@ main_table_server <- function(input, output, session) {
   # get Data ----------------------------------------------------------------
   
   mainTable <- reactive({
-
     dt <- session$userData$conn %>%
       tbl("dailyfeed") %>%
-      collect() %>% 
+      collect() %>%
       data.table(key = "uid")
     
-    dt[,":="(defect = toupper(defect),
-             car = toupper(car),
-             zone = toupper(zone)
-             )]
+    dt[, ":="(
+      defect = toupper(defect),
+      car = toupper(car),
+      zone = toupper(zone)
+    )]
     
     return(dt)
     
@@ -59,14 +69,11 @@ main_table_server <- function(input, output, session) {
   # create GT Table ------------------------------------------------------------
   
   output$gtTable <- render_gt({
-    
     uniqueZones <- mainTable()[, unique(zone)]
     dtTransformed <- transformedTable()
     future({
-      createGT(
-          dtTransformed = dtTransformed,
-          uniqueZones = uniqueZones
-        )
+      createGT(dtTransformed = dtTransformed,
+               uniqueZones = uniqueZones)
     }) %...>% (function(result) {
       return(result)
     })

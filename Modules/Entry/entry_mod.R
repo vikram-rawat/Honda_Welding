@@ -10,19 +10,19 @@ feed_ui <- function(id) {
     tags$script(src = "js/vue.js"),
     fluidRow(
       column(
-        width = 8,
-        htmlTemplate("www/html/accordian.html")
+        width = 12,
+        htmlTemplate("www/html/dailyFeed.html")
         ),
       column(
         width = 4,
         bs4Card(
-          width = 12, 
+          width = 12,
           inputId = "feedDetails",
           title = "Entered Values",
           status = "success",
           elevation = 1,
           maximizable = TRUE,
-          closable = FALSE, 
+          closable = FALSE,
           label = "Check your Values here",
           uiOutput(ns("ChassisUI")),
           uiOutput(ns("DateTime")),
@@ -31,7 +31,7 @@ feed_ui <- function(id) {
           )
         )
       ),
-    tags$script(src = "js/DailyFeed.js")
+    tags$script(src = "js/dailyFeed.js")
   )
 }
 
@@ -40,64 +40,64 @@ feed_ui <- function(id) {
 feed_server <- function(input, output, session, allTables) {
 
   # namespace ---------------------------------------------------------------
-  
+
   chassisNumbers <- reactive({
-    
+
     session$userData$db_trigger()
-    
+
     data <- session$userData$conn %>%
-      tbl("dailyfeed") %>% 
+      tbl("dailyfeed") %>%
       arrange(desc(modified_by)) %>%
-      distinct(chassis) %>% 
-      select(chassis) %>% 
-      head(100) %>% 
+      distinct(chassis) %>%
+      select(chassis) %>%
+      head(100) %>%
       collect()
-      
+
     return(data$chassis)
 
   })
-  
+
   observe({
     session$sendCustomMessage(
       "ChassisValue",
       toJSON(chassisNumbers())
     )
   })
-    
+
   observe({
 
     session$sendCustomMessage(
       "changeMapping",
       toJSON(
-        allTables$mappingTable() %>% 
+        allTables$mappingTable() %>%
           select(zones, cars, problems)
         )
     )
 
   })
-  
+
   ns <- session$ns
 
   jsObjects <- reactiveVal()
 
   feedTable <- reactive({
-    allTables$defectsTable() %>% 
+    allTables$defectsTable() %>%
       select(problems)
   })
-  
+
   output$DateTime <- renderUI({
     bs4InfoBox(
-      iconElevation = 1, 
-      width = 12, 
+      iconElevation = 1,
+      width = 12,
       title = Sys.Date(),
       value = input$Shifts,
       icon = "calendar"
     )
   })
-  
+
   output$ChassisUI <- renderUI({
     req(input$Chassis)
-    
+
     fluidRow(
       id = ns("zoneCar"),
       column(
@@ -115,10 +115,10 @@ feed_server <- function(input, output, session, allTables) {
       )
     )
   })
-  
+
   output$ZonesnCars <- renderUI({
     req(input$Zones)
-    
+
     fluidRow(
       id = ns("zoneCar"),
       column(
@@ -140,77 +140,77 @@ feed_server <- function(input, output, session, allTables) {
         )
       )
   })
-  
+
   defectValues <- reactive({
     req(input$Defects)
     fromJSON(input$Defects)
   })
-  
+
   output$defecttable <- renderTable({
     defectValues()
-    }
+  }
   )
 
-  observeEvent(input$SubmitForm,{
+  observeEvent(input$SubmitForm, {
     tryCatch(
       expr = {
-        flagChassis <- is.null(input$Chassis) 
-        flagShifts <- is.null(input$Shifts) 
-        flagZones <- is.null(input$Zones) 
-        flagCars <- is.null(input$Cars) 
-        flagDefects <- is.null(input$Defects) 
-        
-        if(flagChassis){
-          toastr_error(
+      flagChassis <- is.null(input$Chassis)
+      flagShifts <- is.null(input$Shifts)
+      flagZones <- is.null(input$Zones)
+      flagCars <- is.null(input$Cars)
+      flagDefects <- is.null(input$Defects)
+
+      if (flagChassis) {
+        toastr_error(
             message = "Please Select a Chassis Number",
             title = "No Chassis Number",
             showDuration = 2000)
-        }
-        
-        if(flagShifts){
-          toastr_error(
+      }
+
+      if (flagShifts) {
+        toastr_error(
             message = "Please Select a Shift",
             title = "No Shift Selected",
             showDuration = 2000)
-        }
-        
-        if(flagZones){
-          toastr_error(
+      }
+
+      if (flagZones) {
+        toastr_error(
             message = "Please Select a Zone",
             title = "No Zone Selected",
             showDuration = 2000)
-        }
-        
-        if(flagCars){
-          toastr_error(
+      }
+
+      if (flagCars) {
+        toastr_error(
             message = "Please Select a Car",
             title = "No Car Selected",
             showDuration = 2000)
-        }
-        
-        if(flagDefects){
-          toastr_error(
+      }
+
+      if (flagDefects) {
+        toastr_error(
             message = "Please Select a Defect",
             title = "No Defect Selected",
             showDuration = 2000)
-        }
-        
-        if(!(
+      }
+
+      if (!(
           flagShifts ||
           flagZones ||
           flagCars ||
           flagDefects ||
           flagChassis
           )
-          ){
+          ) {
 
-          table <- data.table(
+        table <- data.table(
             date = Sys.Date(),
             chassis = input$Chassis,
             shift = input$Shifts,
             zone = input$Zones,
             car = input$Cars,
-            defect = defectValues()$defect, 
+            defect = defectValues()$defect,
             value = defectValues()$counts,
             created_at = Sys.time(),
             created_by = session$userData$email,
@@ -218,29 +218,29 @@ feed_server <- function(input, output, session, allTables) {
             modified_by = session$userData$email,
             is_deleted = FALSE
           )
-          
-          session$userData$db_trigger(session$userData$db_trigger() + 1)
-          
-          session$userData$conn %>% 
+
+        session$userData$db_trigger(session$userData$db_trigger() + 1)
+
+        session$userData$conn %>%
             dbWriteTable(
               name = 'dailyfeed',
               value = table,
               append = TRUE
-            ) 
-          
-          toastr_success(
+            )
+
+        toastr_success(
             message = "All the values are inserted in Database",
             title = "Successfully Updated",
             showDuration = 2000
           )
-          
-          session$sendCustomMessage(
+
+        session$sendCustomMessage(
             "dataSubmit",
             Sys.time()
           )
-        }
-      },
-      error = function(e){
+      }
+    },
+      error = function(e) {
         toastr_error(
           message = "Got an Error During Inserting Values",
           title = "Unable to Insert",
@@ -248,9 +248,9 @@ feed_server <- function(input, output, session, allTables) {
           )
       },
       finally = {
-        
-      }
+
+    }
     )
-  }) 
-  
+  })
+
 }

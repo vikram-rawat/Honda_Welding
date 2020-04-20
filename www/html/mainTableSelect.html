@@ -1,0 +1,50 @@
+<div id="mainTableSelect" class="row">
+    <div class="card-header bg-dark mb-3">
+        <div class="row">
+            <div class="col-3">
+                <div class="btn-group" role="group" aria-label="">
+                    <button type="button" class="btn btn-secondary" :class="mainTheme.Select.Date" @click="SelectDate">
+                        Date</button>
+                    <button type="button" class="btn btn-secondary" :class="mainTheme.Select.Chassis"
+                        @click="SelectChassis">
+                        Chassis</button>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="input-group float-left" v-if="show.Select == 'Date'">
+
+                    <div class="form-group row">
+                        <label for="date-input" class="col-2 col-form-label">Select Date</label>
+                        <div class="col-10">
+                            <input class="form-control" v-model="inputValue.Select" type="date" value="2011-08-19"
+                                id="date-input">
+                        </div>
+                    </div>
+
+                    <!-- <div class="input-group-prepend">
+                        <label class="input-group-text" id="basic-addon1">Select</label>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Select Number" aria-label="Enter Select Number"
+                        aria-describedby="basic-addon1" v-model="inputValue.Select">-->
+                </div>
+
+                <div class="input-group float-left" v-else>
+                    <div class=" input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Chassis Value</label>
+                    </div>
+                    <select class="custom-select" v-model="inputValue.Chassis">
+                        <option :value="Chassis" v-for="Chassis in apiData.Chassis">
+                            {%% Chassis %%}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-3">
+                <button type="button" class="btn btn-outline-success float-right" @click="submitSelect">
+                    <i class="fa fa-check-circle success" aria-hidden="true"></i>
+                    Submit Select
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
