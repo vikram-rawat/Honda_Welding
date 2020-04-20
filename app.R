@@ -16,6 +16,7 @@ library("shinyjs", character.only = TRUE)
 library("dplyr", character.only = TRUE)
 library("gt", character.only = TRUE)
 library("stringi", character.only = TRUE)
+library("future", character.only = TRUE)
 library("promises", character.only = TRUE)
 
 # library(bootstraplib)
@@ -68,7 +69,7 @@ sidebar <- bs4DashSidebar(
   status = "primary",
   title = "Welding Dashboard",
   brandColor = "gray-light",
-  # url = "https://www.google.fr",
+# url = "https://www.google.fr",
   src = "img/hondaicon.jpg",
   elevation = 3,
   opacity = 0.8,
@@ -160,9 +161,9 @@ server <- function(input, output, session) {
   editData <- callModule(edit_server, "edit_tables")
 
   FeedData <- callModule(feed_server, "daily_data", allTables = editData)
-  
+
   dailyFeed <- callModule(main_table_server, "gttable")
-  
+
 }
 
 # shinyApp ----------------------------------------------------------------

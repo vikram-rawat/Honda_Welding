@@ -62,13 +62,10 @@ main_table_server <- function(input, output, session) {
     
     uniqueZones <- mainTable()[, unique(zone)]
     dtTransformed <- transformedTable()
-    numericCol <- names(dtTransformed[, .SD, .SDcols = -c("defect")])
-    
     future({
       createGT(
           dtTransformed = dtTransformed,
-          uniqueZones = uniqueZones,
-          numericCol = numericCol
+          uniqueZones = uniqueZones
         )
     }) %...>% (function(result) {
       return(result)

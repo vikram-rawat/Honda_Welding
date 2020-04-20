@@ -47,11 +47,14 @@ create_insert_table <- function(dt, useremail) {
 
 createGT <- function(dtTransformed,
                      uniqueZones,
-                     numericCol,
                      Title = "Defects Data",
                      SubTitle = "filtered",
                      rowStudHead = "Defect Names") {
-
+  
+  setDT(dtTransformed)
+  
+  numericCol <- names(dtTransformed[, .SD, .SDcols = -c("defect")])
+  
   dtnames <- names(dtTransformed)
   
   newdtnames <- stri_replace_all_regex(str = dtnames,

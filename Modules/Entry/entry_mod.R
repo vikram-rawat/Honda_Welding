@@ -47,7 +47,7 @@ feed_server <- function(input, output, session, allTables) {
     
     data <- session$userData$conn %>%
       tbl("dailyfeed") %>% 
-      arrange(desc(modified_by)) %>% 
+      arrange(desc(modified_by)) %>%
       distinct(chassis) %>% 
       select(chassis) %>% 
       head(100) %>% 
