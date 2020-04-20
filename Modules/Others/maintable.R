@@ -33,30 +33,67 @@ main_table_ui <- function(id) {
 
 # server ------------------------------------------------------------------
 
-main_table_server <- function(input, output, session) {
+main_table_server <- function(input, output, session, inputList) {
+  
   # namespace ---------------------------------------------------------------
   
   ns <- session$ns
+
+# send Data to Vue --------------------------------------------------------
   
+  observe({
+    session$sendCustomMessage(
+      "ChassisValues",
+      toJSON(inputList$chassisNumbers())
+    )
+  })
+  
+
+# raise red flags ---------------------------------------------------------
+
+observeEvent(input$RaiseFlag,{
+  toastr_error(
+    message = paste0("There is no value in ", input$RaiseFlag),
+    title = paste0("No ",input$RaiseFlag ," Selected"),
+    showDuration = 2000)
+})  
   # get Data ----------------------------------------------------------------
   
   mainTable <- reactive({
-    dt <- session$userData$conn %>%
-      tbl("dailyfeed") %>%
-      collect() %>%
-      data.table(key = "uid")
     
+    req(input$FilterParams)
+    
+    filterDate <- fromJSON(input$FilterParams)$Date
+    filterChassis <- fromJSON(input$FilterParams)$Chassis
+    
+    if(is.null(filterDate)){
+      dt <- session$userData$conn %>%
+        tbl("dailyfeed") %>%
+        filter(chassis == filterChassis) %>% 
+        collect() %>%
+        data.table(key = "uid")
+    } else {
+      dt <- session$userData$conn %>%
+        tbl("dailyfeed") %>%
+        filter(date == filterDate) %>% 
+        collect() %>%
+        data.table(key = "uid")
+    }
+  
     dt[, ":="(
       defect = toupper(defect),
       car = toupper(car),
       zone = toupper(zone)
     )]
     
+    setorder(dt, zone, car, defect)
+    
     return(dt)
     
   })
   
   transformedTable <- reactive({
+    
     dcast.data.table(
       data = mainTable(),
       formula = defect ~ car + zone,

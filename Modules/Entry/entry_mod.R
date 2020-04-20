@@ -10,7 +10,7 @@ feed_ui <- function(id) {
     tags$script(src = "js/vue.js"),
     fluidRow(
       column(
-        width = 12,
+        width = 8,
         htmlTemplate("www/html/dailyFeed.html")
         ),
       column(
@@ -50,7 +50,7 @@ feed_server <- function(input, output, session, allTables) {
       arrange(desc(modified_by)) %>%
       distinct(chassis) %>%
       select(chassis) %>%
-      head(100) %>%
+      head(1000) %>%
       collect()
 
     return(data$chassis)
@@ -242,7 +242,7 @@ feed_server <- function(input, output, session, allTables) {
     },
       error = function(e) {
         toastr_error(
-          message = "Got an Error During Inserting Values",
+          message = paste0("Got an Error: ", e),
           title = "Unable to Insert",
           showDuration = 2000
           )
@@ -252,5 +252,11 @@ feed_server <- function(input, output, session, allTables) {
     }
     )
   })
+  
+  return(
+    list(
+      chassisNumbers = chassisNumbers
+    )
+  )
 
 }

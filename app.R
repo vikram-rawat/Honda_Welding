@@ -162,7 +162,7 @@ server <- function(input, output, session) {
 
   FeedData <- callModule(feed_server, "daily_data", allTables = editData)
 
-  dailyFeed <- callModule(main_table_server, "gttable")
+  dailyFeed <- callModule(main_table_server, "gttable", inputList = FeedData )
 
 }
 

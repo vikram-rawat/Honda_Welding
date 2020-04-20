@@ -14,7 +14,8 @@ var mainTableSelect = new Vue({
             Select: "Date"
         },
         inputValue: {
-            Chassis: ""
+            Chassis: "",
+            Date: ""
         },
         apiData: {
             Chassis: []
@@ -22,7 +23,7 @@ var mainTableSelect = new Vue({
     },
     methods: {
         SelectDate: function () {
-            this.show.Select = "type";
+            this.show.Select = "Date";
             this.mainTheme.Select.Chassis = ""
             this.mainTheme.Select.Date = "active"
         },
@@ -31,10 +32,39 @@ var mainTableSelect = new Vue({
             this.mainTheme.Select.Chassis = "active"
             this.mainTheme.Select.Date = ""
         },
-        submitSelect: function () {
-            Shiny.setInputValue("daily_data-Select", this.inputValue.Select, {
-                priority: "event",
-            });
+        submitData: function () {
+
+            if (this.mainTheme.Select.Chassis == "active") {
+                if (this.inputValue.Chassis != "") {
+                    Shiny.setInputValue("gttable-FilterParams",
+                        JSON.stringify({
+                            Chassis: this.inputValue.Chassis,
+                            Date: null
+                        }), {
+                            priority: "event",
+                        });
+                } else {
+                    Shiny.setInputValue("gttable-RaiseFlag",
+                        "Chassis", {
+                            priority: "event",
+                        });
+                }
+            } else {
+                if (this.inputValue.Date != "") {
+                    Shiny.setInputValue("gttable-FilterParams",
+                        JSON.stringify({
+                            Chassis: null,
+                            Date: this.inputValue.Date
+                        }), {
+                            priority: "event",
+                        });
+                } else {
+                    Shiny.setInputValue("gttable-RaiseFlag",
+                        "Date", {
+                            priority: "event",
+                        });
+                }
+            }
         }
     },
     mounted: function () {},
@@ -43,11 +73,6 @@ var mainTableSelect = new Vue({
 });
 
 // update data for Select Autocomplete
-Shiny.addCustomMessageHandler("SelectValue", function (data) {
-    dailyFeed.apiData.Select = data;
-});
-
-// update dataSubmit on submit click so to reset all input values
-Shiny.addCustomMessageHandler("dataSubmit", function (data) {
-    dailyFeed.inputValue.Submit = data;
+Shiny.addCustomMessageHandler("ChassisValues", function (data) {
+    mainTableSelect.apiData.Chassis = data;
 });
