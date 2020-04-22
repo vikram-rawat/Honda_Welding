@@ -98,13 +98,13 @@ createGT <- function(dtTransformed,
       formatter = fmt_number,
       use_seps = FALSE
     ) %>%
-    data_color(
-      columns = numericCol,
-      colors = scales::col_numeric(
-        palette = RColorBrewer::brewer.pal(n = 9, name = "Reds"),
-        domain = NULL
-      )
-    ) %>%
+    # data_color(
+    #   columns = numericCol,
+    #   colors = scales::col_numeric(
+    #     palette = RColorBrewer::brewer.pal(n = 9, name = "Reds"),
+    #     domain = NULL
+    #   )
+    # ) %>%
     tab_style(style = list(
       cell_fill(color = "black", alpha = 0.7),
       cell_text(
