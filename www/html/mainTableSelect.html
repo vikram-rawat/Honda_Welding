@@ -1,47 +1,68 @@
 <div id="mainTableSelect" class="col-12">
-    <div class="card-header bg-dark mb-3">
-        <div class="row">
-            <div class="col-3">
-                <div class="btn-group" role="group" aria-label="">
-                    <button type="button" class="btn btn-secondary" :class="mainTheme.Select.Date" @click="SelectDate">
-                        Date
-                    </button>
-                    <button type="button" class="btn btn-secondary" :class="mainTheme.Select.Chassis"
-                        @click="SelectChassis">
-                        Chassis
-                    </button>
-                </div>
-            </div>
-            <div class="col-6">
-
-                <div class="input-group float-left" v-if="show.Select == 'Date'">
-                    <div class=" input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect00">Select Date</label>
-                    </div>
-                    <input class="form-control" v-model="inputValue.Date" type="date" value="2020-04-20"
-                        id="date-input">
-                </div>
-
-                <div class="input-group float-left" v-else>
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect02">
-                            Select Chassis
-                        </label>
-                    </div>
-                    <select class="custom-select" v-model="inputValue.Chassis">
-                        <option :value="Chassis" v-for="Chassis in apiData.Chassis">
-                            {%% Chassis %%}
-                        </option>
-                    </select>
-                </div>
-
-            </div>
-            <div class="col-3">
-                <button type="button" class="btn btn-outline-success float-right" @click="submitData">
-                    <i class="fa fa-check-circle success" aria-hidden="true"></i>
-                    Submit Select
-                </button>
-            </div>
+  <div class="card-header bg-dark mb-3">
+    <div class="row">
+      <div class="col-3">
+        <div class="btn-group" role="group" aria-label="">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            :class="mainTheme.Select.Date"
+            @click="SelectDate"
+          >
+            Date
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            :class="mainTheme.Select.Chassis"
+            @click="SelectChassis"
+          >
+            Chassis
+          </button>
         </div>
+      </div>
+
+      <div class="col-6">
+        <div class="input-group float-left" v-if="show.Select == 'Date'">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect00"
+              >Select Date</label
+            >
+          </div>
+          <input
+            class="form-control"
+            v-model="inputValue.Date"
+            type="date"
+            value="2020-04-20"
+            id="date-input"
+          />
+        </div>
+
+        <div class="input-group float-left" v-else>
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect02">
+              Select Chassis
+            </label>
+          </div>
+
+          <select class="custom-select" v-model="inputValue.Chassis">
+            <option :value="Chassis" v-for="Chassis in apiData.Chassis">
+              {%% Chassis %%}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <button
+          type="button"
+          class="btn btn-outline-success float-right"
+          @click="submitData"
+        >
+          <i class="fa fa-check-circle success" aria-hidden="true"></i>
+          Submit Select
+        </button>
+      </div>
     </div>
+  </div>
 </div>
