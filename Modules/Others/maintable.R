@@ -1,6 +1,7 @@
 # ui  ---------------------------------------------------------------------
 
 main_table_ui <- function(id) {
+  
   # namespace ---------------------------------------------------------------
   
   ns <- NS(id)
@@ -93,7 +94,7 @@ observeEvent(input$RaiseFlag,{
   })
   
   transformedTable <- reactive({
-    
+
     dcast.data.table(
       data = mainTable(),
       formula = defect ~ car + zone,
@@ -101,6 +102,7 @@ observeEvent(input$RaiseFlag,{
       fill = 0,
       fun.aggregate = sum
     )
+    
   })
   
   # create GT Table ------------------------------------------------------------

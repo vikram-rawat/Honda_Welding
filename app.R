@@ -61,71 +61,18 @@ source("Modules/UI/footer_module.R")
 source("Modules/UI/navbar_module.R")
 source("Modules/UI/sidebar_module.R")
 source("Modules/UI/mainbody_module.R")
+source("Modules/main_app.R")
 
 # ui ----------------------------------------------------------------------
 
-ui <- bs4DashPage(
-
-  # options -----------------------------------------------------------------
-
-  old_school = FALSE,
-  sidebar_min = TRUE,
-  sidebar_collapsed = TRUE,
-  controlbar_collapsed = TRUE,
-  controlbar_overlay = TRUE,
-  enable_preloader = TRUE,
-  loading_duration = 2,
-  loading_background = "#2F4F4F",
-  title = "Weilding Defects",
-  
-  # navbar ------------------------------------------------------------------
-  
-  navbar = navbar_ui("app_navbar"),
-
-  # sidebar -----------------------------------------------------------------
-
-  sidebar = sidebar_ui("app_sidebar"),
-  
-  # controlbar --------------------------------------------------------------
-  
-  controlbar = controlbar_ui("app_controllbar"),
-
-  # footer ------------------------------------------------------------------
-
-  footer = footer_ui("app_footer"),
-  
-  # mainbody ----------------------------------------------------------------
-  
-  body = mainbody_ui("app_mainbody")
-  
-)
+ui <- main_ui("main_app")
 
 # server ------------------------------------------------------------------
 
-server <- function(input, output, session) {
+server <- function(input, output, session){
 
-# userData ----------------------------------------------------------------
-
-  session$userData$email <- "vikram.rawat@GreyvalleyInfotech.com"
-  session$userData$conn <- conn
-  session$userData$db_trigger <- reactiveVal(0)
-
-# create UI ---------------------------------------------------------------
-
-  sidebar <- callModule(sidebar_server, "app_sidebar")
-  controlbar <- callModule(controlbar_server, "app_controllbar")
-  navbar <- callModule(navbar_server, "app_navbar")
-  footer <- callModule(footer_server, "app_footer")
-  mainbody <- callModule(mainbody_server, "app_mainbody")
-
-# create sections ---------------------------------------------------------
-
-  editData <- callModule(edit_server, "edit_tables")
-
-  FeedData <- callModule(feed_server, "daily_data", allTables = editData)
-
-  dailyFeed <- callModule(main_table_server, "gttable", inputList = FeedData )
-
+  callModule(main_server, "main_app")
+  
 }
 
 # shinyApp ----------------------------------------------------------------
