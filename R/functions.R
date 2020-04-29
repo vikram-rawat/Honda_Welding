@@ -148,7 +148,9 @@ createGT <- function(dtTransformed,
       locations = (cells_column_labels(columns = numericCol))
     ) %>%
     tab_style(style = cell_fill(color = "lightcyan"),
-              locations = cells_stub())
-  
+              locations = cells_stub()) %>% 
+    tab_options(
+      container.width = px(1000)
+    )
   return(mainTable)
 }

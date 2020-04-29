@@ -110,11 +110,7 @@ observeEvent(input$RaiseFlag,{
     dtTransformed <- transformedTable()
     future({
       createGT(dtTransformed = dtTransformed,
-               uniqueZones = uniqueZones) %>% 
-        tab_options(
-          container.height = px(600),
-          container.width = px(1100)
-        )
+               uniqueZones = uniqueZones)
     }) %...>% (function(result) {
       return(result)
     })
