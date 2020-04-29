@@ -1,9 +1,9 @@
 
 # edit_ui -----------------------------------------------------------------
 
-edit_ui <- function(id){
+edit_ui <- function(id) {
 
-# namespace UI ------------------------------------------------------------
+  # namespace UI ------------------------------------------------------------
 
   ns <- NS(id)
 
@@ -35,28 +35,28 @@ edit_ui <- function(id){
 
 # edit_server -------------------------------------------------------------
 
-edit_server <- function(input, output, session){
+edit_server <- function(input, output, session) {
 
-# namespace ---------------------------------------------------------------
+  # namespace ---------------------------------------------------------------
 
-ns <- session$ns  
+  ns <- session$ns
 
-defectsTable <- callModule(
+  defectsTable <- callModule(
   defects_server,
   "defects_table"
-)
+  )
 
-carsTable <- callModule(
+  carsTable <- callModule(
   cars_server,
   "cars_table"
-)
-  
-zonesTable <- callModule(
+  )
+
+  zonesTable <- callModule(
   zones_server,
   "zones_table"
-)
-  
-mappingTable <- callModule(
+  )
+
+  mappingTable <- callModule(
   mapping_server,
   "mapping_table",
   list(
@@ -64,16 +64,16 @@ mappingTable <- callModule(
      cars = carsTable()$cars,
      defects = defectsTable()$problems
    )
-)
+  )
 
   output$mainTable <- renderUI({
-    switch (input$chooseTable,
+    switch(input$chooseTable,
             "defects" = bs4Card(
               title = "Defects Table",
               width = 12,
               status = "primary",
               collapsible = TRUE,
-              maximizable =  TRUE,
+              maximizable = TRUE,
               closable = FALSE,
               labelStatus = "dark",
               defects_ui(ns("defects_table"))
@@ -83,7 +83,7 @@ mappingTable <- callModule(
               width = 12,
               status = "primary",
               collapsible = TRUE,
-              maximizable =  TRUE,
+              maximizable = TRUE,
               closable = FALSE,
               labelStatus = "dark",
               cars_ui(ns("cars_table"))
@@ -93,7 +93,7 @@ mappingTable <- callModule(
               width = 12,
               status = "primary",
               collapsible = TRUE,
-              maximizable =  TRUE,
+              maximizable = TRUE,
               closable = FALSE,
               labelStatus = "dark",
               zones_ui(ns("zones_table"))

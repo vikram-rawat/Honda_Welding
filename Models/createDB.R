@@ -13,7 +13,7 @@ Zones <- "CREATE TABLE zones (
   is_deleted integer NOT NULL
 )"
 
-dbSendStatement(MainDB,"drop table zones")
+dbSendStatement(MainDB, "drop table zones")
 dbSendStatement(MainDB, Zones)
 
 Cars <- "CREATE TABLE cars (
@@ -26,7 +26,7 @@ Cars <- "CREATE TABLE cars (
   is_deleted integer NOT NULL
 )"
 
-dbSendStatement(MainDB,"drop table cars")
+dbSendStatement(MainDB, "drop table cars")
 dbSendStatement(MainDB, Cars)
 
 Defects <- "CREATE TABLE defects (
@@ -39,7 +39,7 @@ Defects <- "CREATE TABLE defects (
   is_deleted integer NOT NULL
 )"
 
-dbSendStatement(MainDB,"drop table defects")
+dbSendStatement(MainDB, "drop table defects")
 dbSendStatement(MainDB, Defects)
 
 Mapping <- "CREATE TABLE mapping (
@@ -73,7 +73,7 @@ dailyFeedSQL <- "CREATE TABLE dailyfeed (
   is_deleted integer NOT NULL
 )"
 
-dbSendStatement(MainDB,"drop table dailyfeed")
+dbSendStatement(MainDB, "drop table dailyfeed")
 dbSendStatement(MainDB, dailyFeedSQL)
 
 

@@ -42,7 +42,7 @@ feed_server <- function(input, output, session, allTables) {
   # namespace ---------------------------------------------------------------
 
   ns <- session$ns
-  
+
   observe({
     session$sendCustomMessage(
       "dailyFeed_NameSpaceValue",
@@ -51,7 +51,7 @@ feed_server <- function(input, output, session, allTables) {
   })
 
   # chassis Number ----------------------------------------------------------
-  
+
   chassisNumbers <- reactive({
 
     session$userData$db_trigger()
@@ -257,7 +257,7 @@ feed_server <- function(input, output, session, allTables) {
     }
     )
   })
-  
+
   return(
     list(
       chassisNumbers = chassisNumbers

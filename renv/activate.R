@@ -42,7 +42,7 @@ local({
     # include SVN revision for development versions of R
     # (to avoid sharing platform-specific artefacts with released versions of R)
     devel <-
-      identical(R.version[["status"]],   "Under development (unstable)") ||
+      identical(R.version[["status"]], "Under development (unstable)") ||
       identical(R.version[["nickname"]], "Unsuffered Consequences")
 
     if (devel)
@@ -125,7 +125,7 @@ local({
     # check for renv on CRAN matching this version
     db <- as.data.frame(available.packages(), stringsAsFactors = FALSE)
     if ("renv" %in% rownames(db)) {
-      entry <- db["renv", ]
+      entry <- db["renv",]
       if (identical(entry$Version, version)) {
         message("* Installing renv ", version, " ... ", appendLF = FALSE)
         dir.create(libpath, showWarnings = FALSE, recursive = TRUE)

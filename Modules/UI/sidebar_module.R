@@ -1,19 +1,19 @@
 # ui ----------------------------------------------------------------------
 
 sidebar_ui <- function(id) {
-  
+
   # namespace ---------------------------------------------------------------
-  
+
   ns <- NS(id)
-  
+
   # main ui ----------------------------------------------------------------------
-    bs4DashSidebar(
+  bs4DashSidebar(
       expand_on_hover = FALSE,
       skin = "dark",
       status = "primary",
       title = "Welding Dashboard",
       brandColor = "gray-light",
-      # url = "https://www.google.fr",
+  # url = "https://www.google.fr",
       src = "img/hondaicon.jpg",
       elevation = 3,
       opacity = 0.8,

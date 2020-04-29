@@ -14,17 +14,18 @@ mapping_module <- function(
 
   ns <- session$ns
 
-  flagAdd <- reactive({is.null(obj_to_edit())}) 
+  flagAdd <- reactive({ is.null(obj_to_edit()) })
 
   # observer ----------------------------------------------------------------
-  
+
   observeEvent(trigger(), {
 
     hold <- obj_to_edit()
 
-    if(!flagAdd()){ ### edit
+    if (!flagAdd()) {
+      ### edit
 
-    showModal(
+      showModal(
       modalDialog(
       fluidRow(
         column(
@@ -59,7 +60,8 @@ mapping_module <- function(
         )
       )
     )
-    } else { ## Add
+    } else {
+      ## Add
       showModal(
         modalDialog(
           fluidRow(
@@ -93,7 +95,7 @@ mapping_module <- function(
         ))
     }
   })
-  
+
   # observeEvent(input$problems,  {
   # 
   #   if(nchar(input$problems) < 3) {
@@ -123,60 +125,60 @@ mapping_module <- function(
         "defect" = tolower(input$defect)
       )
     )
-    
+
     time_now <- as.character(Sys.time())
-    
+
     if (flagAdd()) {
       # adding a new mapping
-      
+
       out$data$created_at <- time_now
       out$data$created_by <- tolower(session$userData$email)
     } else {
       # Editing existing mapping
-      
+
       out$data$created_at <- as.character(hold$created_at)
       out$data$created_by <- tolower(hold$created_by)
     }
-    
+
     out$data$modified_at <- time_now
     out$data$modified_by <- tolower(session$userData$email)
-    
+
     out$data$is_deleted <- FALSE
-    
+
     out
   })
-  
+
   validate_edit <- eventReactive(input$submit, {
-    
+
     dat <- edit_dat()
-    
+
     # Logic to validate inputs...
-    
+
     dat
   })
-  
+
   observeEvent(validate_edit(), {
-    
+
     removeModal()
-    
+
     dat <- validate_edit()
     tryCatch({
 
       if (flagAdd()) {
         # creating a new car
         # uid <- digest::digest(Sys.time())
-        
+
         newData <- data.table("zones" = input$zone,
                    "cars" = input$car,
                    "problems" = input$defect,
                    "created_at" = dat$data$created_at,
-                   "created_by"= dat$data$created_by,
+                   "created_by" = dat$data$created_by,
                    "modified_at" = dat$data$modified_at,
                    "modified_by" = dat$data$modified_by,
                    "is_deleted" = dat$data$is_deleted
                    )
 
-          dbWriteTable(
+        dbWriteTable(
             session$userData$conn,
             name = "mapping",
             value = newData,
@@ -205,7 +207,7 @@ mapping_module <- function(
       shinytoastr::toastr_success(paste0(title, " Success"))
     }, error = function(error) {
       shinytoastr::toastr_error(paste0(title, " Error"))
-      
+
       print(error)
     })
   })

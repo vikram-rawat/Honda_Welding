@@ -1,11 +1,11 @@
 # ui  ---------------------------------------------------------------------
 
 main_table_ui <- function(id) {
-  
+
   # namespace ---------------------------------------------------------------
-  
+
   ns <- NS(id)
-  
+
   tagList(
     tags$script(src = "js/vue.js"),
     fluidRow(
@@ -17,7 +17,7 @@ main_table_ui <- function(id) {
         width = 12,
         status = "primary",
         collapsible = TRUE,
-        maximizable =  TRUE,
+        maximizable = TRUE,
         closable = FALSE,
         labelStatus = "dark",
         overflow = TRUE,
@@ -35,9 +35,9 @@ main_table_ui <- function(id) {
 # server ------------------------------------------------------------------
 
 main_table_server <- function(input, output, session, inputList) {
-  
+
   # namespace ---------------------------------------------------------------
-  
+
   ns <- session$ns
 
   observe({
@@ -46,60 +46,60 @@ main_table_server <- function(input, output, session, inputList) {
       ns("")
     )
   })
-  
+
   # send Data to Vue --------------------------------------------------------
-  
+
   observe({
     session$sendCustomMessage(
       "mainTable_ChassisValues",
       toJSON(inputList$chassisNumbers())
     )
   })
-  
 
-# raise red flags ---------------------------------------------------------
 
-observeEvent(input$RaiseFlag,{
-  toastr_error(
+  # raise red flags ---------------------------------------------------------
+
+  observeEvent(input$RaiseFlag, {
+    toastr_error(
     message = paste0("There is no value in ", input$RaiseFlag),
-    title = paste0("No ",input$RaiseFlag ," Selected"),
+    title = paste0("No ", input$RaiseFlag, " Selected"),
     showDuration = 2000)
-})  
+  })
   # get Data ----------------------------------------------------------------
-  
+
   mainTable <- reactive({
-    
+
     req(input$FilterParams)
-    
+
     filterDate <- fromJSON(input$FilterParams)$Date
     filterChassis <- fromJSON(input$FilterParams)$Chassis
-    
-    if(is.null(filterDate)){
+
+    if (is.null(filterDate)) {
       dt <- session$userData$conn %>%
         tbl("dailyfeed") %>%
-        filter(chassis == filterChassis) %>% 
+        filter(chassis == filterChassis) %>%
         collect() %>%
         data.table(key = "uid")
     } else {
       dt <- session$userData$conn %>%
         tbl("dailyfeed") %>%
-        filter(date == filterDate) %>% 
+        filter(date == filterDate) %>%
         collect() %>%
         data.table(key = "uid")
     }
-  
+
     dt[, ":="(
       defect = toupper(defect),
       car = toupper(car),
       zone = toupper(zone)
     )]
-    
+
     setorder(dt, zone, car, defect)
-    
+
     return(dt)
-    
+
   })
-  
+
   transformedTable <- reactive({
 
     dcast.data.table(
@@ -109,11 +109,11 @@ observeEvent(input$RaiseFlag,{
       fill = 0,
       fun.aggregate = sum
     )
-    
+
   })
-  
+
   # create GT Table ------------------------------------------------------------
-  
+
   output$gtTable <- render_gt({
     uniqueZones <- mainTable()[, unique(zone)]
     dtTransformed <- transformedTable()
@@ -123,9 +123,9 @@ observeEvent(input$RaiseFlag,{
     }) %...>% (function(result) {
       return(result)
     })
-    
+
   })
-  
+
   return(list(dailyFeed = mainTable))
-  
+
 }

@@ -1,9 +1,9 @@
 mapping_ui <- function(id) {
 
   # namespace ---------------------------------------------------------------
-  
+
   ns <- NS(id)
-  
+
   # ui elements -------------------------------------------------------------
 
   tagList(
@@ -38,8 +38,8 @@ mapping_ui <- function(id) {
 # server ------------------------------------------------------------------
 
 mapping_server <- function(
-  input, 
-  output, 
+  input,
+  output,
   session,
   inputList
   ) {
@@ -49,26 +49,26 @@ mapping_server <- function(
   mainTable <- reactive({
 
     session$userData$db_trigger()
-    
+
     session$userData$conn %>%
       tbl('mapping') %>%
       collect() %>%
-      filter(is_deleted == FALSE) %>% 
+      filter(is_deleted == FALSE) %>%
       arrange(desc(modified_at))
   })
 
   table_prep <- reactiveVal(NULL)
 
   # changes in the Data -----------------------------------------------------
-  
+
   observeEvent(mainTable(), {
-    
+
     out <- mainTable()
-    
+
     ids <- out$uid
-    
-    actions <- vapply(X = ids,FUN =  function(id_) {
-        paste0(
+
+    actions <- vapply(X = ids, FUN = function(id_) {
+      paste0(
           '<div class="btn-group" style="width: 75px;" role="group" aria-label="Basic example">
             <button class="btn btn-primary btn-sm edit_btn" data-toggle="tooltip" data-placement="top" title="Edit" id = ',
           id_,
@@ -78,24 +78,24 @@ mapping_server <- function(
           ' style="margin: 0"><i class="fa fa-trash-o"></i></button>
           </div>'
         )
-      },FUN.VALUE = character(1)
+    }, FUN.VALUE = character(1)
     )
 
     # Remove the `uid` column. We don't want to show this column to the user
     out <- out %>%
-      select(- uid, -is_deleted)
-    
+      select(-uid, - is_deleted)
+
     # Set the Action Buttons row to the first column of the `mtcars` table
     out <- cbind(
               tibble(" " = actions),
               out
             )
-    
+
     if (is.null(table_prep())) {
       # loading data into the table for the first time, so we render the entire table
       # rather than using a DT proxy
       table_prep(out)
-      
+
     } else {
       # table has already rendered, so use DT proxy to update the data in the
       # table without re-rendering the entire table
@@ -112,7 +112,7 @@ mapping_server <- function(
 
     req(table_prep())
     out <- table_prep()
-    
+
     datatable(
       out,
       rownames = FALSE,
@@ -127,7 +127,7 @@ mapping_server <- function(
       ),
       selection = "none",
       class = "compact stripe row-border nowrap",
-      # Escape the HTML in all except 1st column (which has the buttons)
+    # Escape the HTML in all except 1st column (which has the buttons)
       escape = -1,
       extensions = c("Buttons"),
       options = list(
@@ -151,9 +151,9 @@ mapping_server <- function(
   })
 
   table_proxy <- DT::dataTableProxy('table')
-  
+
   # edit data ---------------------------------------------------------------
-  
+
   callModule(
     mapping_module,
     "add_car",
@@ -161,11 +161,11 @@ mapping_server <- function(
     obj_to_edit = function()
       NULL,
     trigger = reactive({
-      input$add_mapping
-    }),
+    input$add_mapping
+  }),
     inputList = inputList
   )
-  
+
   car_to_edit <- eventReactive(input$id_to_edit, {
     mainTable() %>%
       filter(uid == input$id_to_edit)
@@ -177,20 +177,20 @@ mapping_server <- function(
     title = "Edit Car",
     obj_to_edit = car_to_edit,
     trigger = reactive({
-      input$id_to_edit
-    }),
+    input$id_to_edit
+  }),
     inputList = inputList
   )
 
   # delete data -------------------------------------------------------------
-  
+
   obj_to_delete <- eventReactive(input$id_to_delete, {
     out <- mainTable() %>%
       filter(uid == input$id_to_delete) %>%
       pull(problems)
     out <- as.character(out)
   })
-  
+
   callModule(
     delete_module,
     "delete_mappings",
@@ -199,10 +199,10 @@ mapping_server <- function(
     tableName = "mapping",
     obj_to_delete = obj_to_delete,
     trigger = reactive({
-      input$id_to_delete
-    })
+    input$id_to_delete
+  })
   )
-  
+
   return(
     mainTable
   )

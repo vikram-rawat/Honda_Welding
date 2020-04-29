@@ -69,10 +69,10 @@ ui <- main_ui("main_app")
 
 # server ------------------------------------------------------------------
 
-server <- function(input, output, session){
+server <- function(input, output, session) {
 
   callModule(main_server, "main_app")
-  
+
 }
 
 # shinyApp ----------------------------------------------------------------

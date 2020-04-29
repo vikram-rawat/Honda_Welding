@@ -25,7 +25,7 @@ zones <- unique(x = zones, by = "zones")
 zones <- create_insert_table(dt = zones,
                     useremail = "vikram")
 
-dbSendStatement(MainDB,"delete from zones")
+dbSendStatement(MainDB, "delete from zones")
 
 dbWriteTable(conn = MainDB,
              name = "zones",
@@ -45,7 +45,7 @@ cars <- unique(x = cars, by = "cars")
 cars <- create_insert_table(dt = cars,
                     useremail = "vikram")
 
-dbSendStatement(MainDB,"delete from cars")
+dbSendStatement(MainDB, "delete from cars")
 
 dbWriteTable(conn = MainDB,
              name = "cars",
@@ -65,7 +65,7 @@ defects <- unique(x = defects, by = "problems")
 defects <- create_insert_table(dt = defects,
                             useremail = "vikram")
 
-dbSendStatement(MainDB,"delete from defects")
+dbSendStatement(MainDB, "delete from defects")
 
 dbWriteTable(conn = MainDB,
              name = "defects",
@@ -80,7 +80,7 @@ rm(defects)
 mapping <- fread(file = "Data/csv/mapping.csv",
                  sep = ",")
 
-mapping <- unique(x = mapping, 
+mapping <- unique(x = mapping,
                   by = c(
                     "zones",
                     "cars",
@@ -91,7 +91,7 @@ mapping <- unique(x = mapping,
 mapping <- create_insert_table(dt = mapping,
                                useremail = "vikram")
 
-dbSendStatement(MainDB,"delete from mapping")
+dbSendStatement(MainDB, "delete from mapping")
 
 dbWriteTable(conn = MainDB,
              name = "mapping",
@@ -103,10 +103,10 @@ rm(mapping)
 
 # dailyfeed ---------------------------------------------------------------
 
-dailyfeed <- fread(file = "Data/csv/dailyfeed.csv", 
+dailyfeed <- fread(file = "Data/csv/dailyfeed.csv",
                    sep = ",")
 
-dbSendStatement(MainDB,"delete from dailyfeed")
+dbSendStatement(MainDB, "delete from dailyfeed")
 
 dbWriteTable(conn = MainDB,
              name = "dailyfeed",

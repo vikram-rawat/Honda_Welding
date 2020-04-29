@@ -7,20 +7,20 @@ defects_edit_module <- function(input,
                         obj_to_edit,
                         trigger) {
   # namespace ---------------------------------------------------------------
-  
+
   ns <- session$ns
-  
-  flagAdd <- reactive({is.null(obj_to_edit())}) 
+
+  flagAdd <- reactive({ is.null(obj_to_edit()) })
 
   # observer ----------------------------------------------------------------
-  
+
   observeEvent(trigger(), {
 
     hold <- obj_to_edit()
-    
-    if(!flagAdd()){
 
-    showModal(
+    if (!flagAdd()) {
+
+      showModal(
       modalDialog(
       fluidRow(
         column(
@@ -46,7 +46,7 @@ defects_edit_module <- function(input,
       )
     )
     } else {
-      
+
       showModal(
         modalDialog(
           fluidRow(
@@ -73,20 +73,20 @@ defects_edit_module <- function(input,
         ))
     }
   })
-  
-  observeEvent(input$problems,  {
 
-    if(nchar(input$problems) < 3) {
-  
-        shinyFeedback::feedbackDanger(inputId = "problems",
-                                      show = TRUE ,
+  observeEvent(input$problems, {
+
+    if (nchar(input$problems) < 3) {
+
+      shinyFeedback::feedbackDanger(inputId = "problems",
+                                      show = TRUE,
                                       text = "Must enter a Defect!")
-        shinyjs::disable('submit')
-        
-      } else {
-        
-        shinyFeedback::hideFeedback("problems")
-        shinyjs::enable('submit')
+      shinyjs::disable('submit')
+
+    } else {
+
+      shinyFeedback::hideFeedback("problems")
+      shinyjs::enable('submit')
 
     }
   })
@@ -101,47 +101,47 @@ defects_edit_module <- function(input,
         "problems" = tolower(input$problems)
       )
     )
-    
+
     time_now <- as.character(Sys.time())
-    
+
     if (flagAdd()) {
       # adding a new car
-      
+
       out$data$created_at <- time_now
       out$data$created_by <- tolower(session$userData$email)
     } else {
       # Editing existing car
-      
+
       out$data$created_at <- as.character(hold$created_at)
       out$data$created_by <- tolower(hold$created_by)
     }
-    
+
     out$data$modified_at <- time_now
     out$data$modified_by <- tolower(session$userData$email)
-    
+
     out$data$is_deleted <- FALSE
-    
+
     out
   })
-  
+
   validate_edit <- eventReactive(input$submit, {
-    
+
     dat <- edit_dat()
-    
+
     # Logic to validate inputs...
-    
+
     dat
   })
-  
+
   observeEvent(validate_edit(), {
-    
+
     removeModal()
-    
+
     dat <- validate_edit()
     tryCatch({
 
       if (flagAdd()) {
-        
+
         # creating a new defect
 
         dbExecute(
@@ -165,7 +165,7 @@ defects_edit_module <- function(input,
       shinytoastr::toastr_success(paste0(title, " Success"))
     }, error = function(error) {
       shinytoastr::toastr_error(paste0(title, " Error"))
-      
+
       print(error)
     })
   })
