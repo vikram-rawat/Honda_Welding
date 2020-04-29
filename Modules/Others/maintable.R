@@ -40,11 +40,18 @@ main_table_server <- function(input, output, session, inputList) {
   
   ns <- session$ns
 
-# send Data to Vue --------------------------------------------------------
+  observe({
+    session$sendCustomMessage(
+      "mainTable_NameSpaceValue",
+      ns("")
+    )
+  })
+  
+  # send Data to Vue --------------------------------------------------------
   
   observe({
     session$sendCustomMessage(
-      "ChassisValues",
+      "mainTable_ChassisValues",
       toJSON(inputList$chassisNumbers())
     )
   })

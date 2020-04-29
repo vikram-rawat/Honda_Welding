@@ -3,6 +3,7 @@ var mainTableSelect = new Vue({
     el: "#mainTableSelect",
     delimiters: ["{%%", "%%}"],
     data: {
+        nameSpace: "",
         disable: {},
         mainTheme: {
             Select: {
@@ -36,7 +37,7 @@ var mainTableSelect = new Vue({
 
             if (this.mainTheme.Select.Chassis == "active") {
                 if (this.inputValue.Chassis != "") {
-                    Shiny.setInputValue("gttable-FilterParams",
+                    Shiny.setInputValue((this.nameSpace + "FilterParams"),
                         JSON.stringify({
                             Chassis: this.inputValue.Chassis,
                             Date: null
@@ -44,14 +45,14 @@ var mainTableSelect = new Vue({
                             priority: "event",
                         });
                 } else {
-                    Shiny.setInputValue("gttable-RaiseFlag",
+                    Shiny.setInputValue((this.nameSpace + "RaiseFlag"),
                         "Chassis", {
                             priority: "event",
                         });
                 }
             } else {
                 if (this.inputValue.Date != "") {
-                    Shiny.setInputValue("gttable-FilterParams",
+                    Shiny.setInputValue((this.nameSpace + "FilterParams"),
                         JSON.stringify({
                             Chassis: null,
                             Date: this.inputValue.Date
@@ -59,7 +60,7 @@ var mainTableSelect = new Vue({
                             priority: "event",
                         });
                 } else {
-                    Shiny.setInputValue("gttable-RaiseFlag",
+                    Shiny.setInputValue((this.nameSpace + "RaiseFlag"),
                         "Date", {
                             priority: "event",
                         });
@@ -72,7 +73,12 @@ var mainTableSelect = new Vue({
     watch: {}
 });
 
+// update data for NameSpace
+Shiny.addCustomMessageHandler("mainTable_NameSpaceValue", function (data) {
+    mainTableSelect.nameSpace = data;
+});
+
 // update data for Select Autocomplete
-Shiny.addCustomMessageHandler("ChassisValues", function (data) {
+Shiny.addCustomMessageHandler("mainTable_ChassisValues", function (data) {
     mainTableSelect.apiData.Chassis = data;
 });

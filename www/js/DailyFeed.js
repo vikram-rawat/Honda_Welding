@@ -10,6 +10,7 @@ var dailyFeed = new Vue({
   el: "#dailyFeed",
   delimiters: ["{%%", "%%}"],
   data: {
+    nameSpace: "",
     disable: {
       morningShift: "disable",
       noonShift: "disable",
@@ -57,7 +58,7 @@ var dailyFeed = new Vue({
       this.mainTheme.Chassis.Type = "active"
     },
     submitChassis: function () {
-      Shiny.setInputValue("daily_data-Chassis", this.inputValue.Chassis, {
+      Shiny.setInputValue((this.nameSpace + "Chassis"), this.inputValue.Chassis, {
         priority: "event",
       });
     },
@@ -65,10 +66,8 @@ var dailyFeed = new Vue({
       this.disable.morningShift = "active";
       this.disable.noonShift = "disabled";
       this.disable.nightShift = "disabled";
-
       this.inputValue.Shift = "morning";
-
-      Shiny.setInputValue("daily_data-Shifts", "morning", {
+      Shiny.setInputValue((this.nameSpace + "Shifts"), "morning", {
         priority: "event",
       });
     },
@@ -79,7 +78,7 @@ var dailyFeed = new Vue({
 
       this.inputValue.Shift = "noon";
 
-      Shiny.setInputValue("daily_data-Shifts", "noon", {
+      Shiny.setInputValue((this.nameSpace + "Shifts"), "noon", {
         priority: "event",
       });
     },
@@ -90,7 +89,7 @@ var dailyFeed = new Vue({
 
       this.inputValue.Shift = "night";
 
-      Shiny.setInputValue("daily_data-Shifts", "night", {
+      Shiny.setInputValue((this.nameSpace + "Shifts"), "night", {
         priority: "event",
       });
     },
@@ -101,7 +100,7 @@ var dailyFeed = new Vue({
 
       this.inputValue.Shift = "";
 
-      Shiny.setInputValue("daily_data-Shifts", null, {
+      Shiny.setInputValue((this.nameSpace + "Shifts"), null, {
         priority: "event",
       });
 
@@ -119,7 +118,7 @@ var dailyFeed = new Vue({
 
       this.inputValue.Zone = zone.name;
 
-      Shiny.setInputValue("daily_data-Zones", zone.name, {
+      Shiny.setInputValue((this.nameSpace + "Zones"), zone.name, {
         priority: "event",
       });
     },
@@ -131,7 +130,7 @@ var dailyFeed = new Vue({
 
       this.inputValue.Zone = "";
 
-      Shiny.setInputValue("daily_data-Zones", null, {
+      Shiny.setInputValue((this.nameSpace + "Zones"), null, {
         priority: "event",
       });
 
@@ -149,7 +148,7 @@ var dailyFeed = new Vue({
 
       this.inputValue.Car = car.name;
 
-      Shiny.setInputValue("daily_data-Cars", car.name, {
+      Shiny.setInputValue((this.nameSpace + "Cars"), car.name, {
         priority: "event",
       });
     },
@@ -161,24 +160,24 @@ var dailyFeed = new Vue({
 
       this.inputValue.Car = "";
 
-      Shiny.setInputValue("daily_data-Cars", null, {
+      Shiny.setInputValue((this.nameSpace + "Cars"), null, {
         priority: "event",
       });
 
-      Shiny.setInputValue("daily_data-Defects", null, {
+      Shiny.setInputValue((this.nameSpace + "Defects"), null, {
         priority: "event",
       });
     },
     submitValues: function () {
       Shiny.setInputValue(
-        "daily_data-Defects",
+        (this.nameSpace + "Defects"),
         JSON.stringify(this.apiData.Defects), {
           priority: "event",
         }
       );
     },
     submitForm: function () {
-      Shiny.setInputValue("daily_data-SubmitForm", "clicked", {
+      Shiny.setInputValue((this.nameSpace + "SubmitForm"), "clicked", {
         priority: "event",
       });
     },
@@ -275,7 +274,7 @@ var dailyFeed = new Vue({
       });
     },
     "inputValue.Submit": function (newValue, oldValue) {
-      Shiny.setInputValue("daily_data-Defects", null, {
+      Shiny.setInputValue((this.nameSpace + "Defects"), null, {
         priority: "event",
       });
       this.carClearAll();
@@ -283,18 +282,23 @@ var dailyFeed = new Vue({
   },
 });
 
+// update data for NameSpace
+Shiny.addCustomMessageHandler("dailyFeed_NameSpaceValue", function (data) {
+  dailyFeed.nameSpace = data;
+});
+
 // update data for Mapping
-Shiny.addCustomMessageHandler("changeMapping", function (data) {
+Shiny.addCustomMessageHandler("dailyFeed_changeMapping", function (data) {
   dailyFeed.apiData.mappingData = data;
 });
 
 // update data for Chassis Autocomplete
-Shiny.addCustomMessageHandler("ChassisValue", function (data) {
+Shiny.addCustomMessageHandler("dailyFeed_ChassisValue", function (data) {
   dailyFeed.apiData.Chassis = data;
 });
 
 // update dataSubmit on submit click so to reset all input values
-Shiny.addCustomMessageHandler("dataSubmit", function (data) {
+Shiny.addCustomMessageHandler("dailyFeed_dataSubmit", function (data) {
   dailyFeed.inputValue.Submit = data;
 });
 

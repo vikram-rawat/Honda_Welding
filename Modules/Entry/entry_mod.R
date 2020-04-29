@@ -41,6 +41,17 @@ feed_server <- function(input, output, session, allTables) {
 
   # namespace ---------------------------------------------------------------
 
+  ns <- session$ns
+  
+  observe({
+    session$sendCustomMessage(
+      "dailyFeed_NameSpaceValue",
+      ns("")
+    )
+  })
+
+  # chassis Number ----------------------------------------------------------
+  
   chassisNumbers <- reactive({
 
     session$userData$db_trigger()
@@ -59,26 +70,20 @@ feed_server <- function(input, output, session, allTables) {
 
   observe({
     session$sendCustomMessage(
-      "ChassisValue",
+      "dailyFeed_ChassisValue",
       toJSON(chassisNumbers())
     )
   })
 
   observe({
-
     session$sendCustomMessage(
-      "changeMapping",
+      "dailyFeed_changeMapping",
       toJSON(
         allTables$mappingTable() %>%
           select(zones, cars, problems)
         )
     )
-
   })
-
-  ns <- session$ns
-
-  jsObjects <- reactiveVal()
 
   feedTable <- reactive({
     allTables$defectsTable() %>%
@@ -235,7 +240,7 @@ feed_server <- function(input, output, session, allTables) {
           )
 
         session$sendCustomMessage(
-            "dataSubmit",
+            "dailyFeed_dataSubmit",
             Sys.time()
           )
       }
