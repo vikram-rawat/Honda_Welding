@@ -1,12 +1,6 @@
 # load libraries ----------------------------------------------------------
 
 library(package = "jsonlite", character.only = TRUE)
-library(package = "shiny", character.only = TRUE)
-library(package = "bs4Dash", character.only = TRUE)
-library(package = "DBI", character.only = TRUE)
-library(package = "pool", character.only = TRUE)
-library(package = "data.table", character.only = TRUE)
-library(package = "plotly", character.only = TRUE)
 library(package = "DT", character.only = TRUE)
 library(package = "shinyFeedback", character.only = TRUE)
 library(package = "shinytoastr", character.only = TRUE)
@@ -18,6 +12,12 @@ library(package = "gt", character.only = TRUE)
 library(package = "stringi", character.only = TRUE)
 library(package = "future", character.only = TRUE)
 library(package = "promises", character.only = TRUE)
+library(package = "pool", character.only = TRUE)
+library(package = "DBI", character.only = TRUE)
+library(package = "data.table", character.only = TRUE)
+library(package = "plotly", character.only = TRUE)
+library(package = "bs4Dash", character.only = TRUE)
+library(package = "shiny", character.only = TRUE)
 
 # library(bootstraplib)
 
