@@ -102,7 +102,7 @@ main_table_server <- function(input, output, session, inputList) {
 
   transformedTable <- reactive({
 
-    validate(
+    shiny::validate(
       need(
         expr = nrow(mainTable()) >= 1,
         message =  " There is no Data Available",
