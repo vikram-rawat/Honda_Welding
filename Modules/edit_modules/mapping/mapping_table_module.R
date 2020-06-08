@@ -52,9 +52,11 @@ mapping_server <- function(
 
     session$userData$conn %>%
       tbl('mapping') %>%
-      collect() %>%
       filter(is_deleted == FALSE) %>%
-      arrange(desc(modified_at))
+      arrange(desc(modified_at)) %>% 
+      head(100) %>% 
+      collect()
+      
   })
 
   table_prep <- reactiveVal(NULL)

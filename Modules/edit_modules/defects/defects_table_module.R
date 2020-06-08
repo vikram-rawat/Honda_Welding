@@ -47,9 +47,10 @@ defects_server <- function(input, output, session) {
 
     session$userData$conn %>%
       tbl('defects') %>%
-      collect() %>%
       filter(is_deleted == FALSE) %>%
-      arrange(desc(modified_at))
+      arrange(desc(modified_at)) %>% 
+      head(100) %>% 
+      collect()
   })
 
   table_prep <- reactiveVal(NULL)
