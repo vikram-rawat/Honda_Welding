@@ -1,0 +1,432 @@
+{
+  "input": {
+    "feedDetails": {
+      "collapsed": false,
+      "maximized": false,
+      "visible": true
+    },
+    "main_app-app_mainbody-edit_tables-chooseTable": "mappings",
+    "main_app-app_mainbody-edit_tables-mapping_table-add_mapping": 0,
+    "main_app-app_mainbody-edit_tables-mapping_table-table_cell_clicked": {
+
+    },
+    "main_app-app_mainbody-edit_tables-mapping_table-table_rows_all": null,
+    "main_app-app_mainbody-edit_tables-mapping_table-table_rows_current": null,
+    "main_app-app_mainbody-edit_tables-mapping_table-table_search": "",
+    "main_app-app_mainbody-edit_tables-mapping_table-table_state": null,
+    "main_app-app_mainbody-edit_tables-zones_table-add_zones": 0,
+    "main_app-app_mainbody-edit_tables-zones_table-table_cell_clicked": {
+
+    },
+    "main_app-app_mainbody-edit_tables-zones_table-table_rows_all": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "main_app-app_mainbody-edit_tables-zones_table-table_rows_current": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "main_app-app_mainbody-edit_tables-zones_table-table_search": "",
+    "main_app-app_mainbody-edit_tables-zones_table-table_state": null,
+    "main_app-app_sidebar-mainSidebar": "Original"
+  },
+  "output": {
+    "main_app-app_mainbody-edit_tables-mainTable": {
+      "html": "<div class=\"col-sm-12\">\n  <div class=\"card card-primary\">\n    <div class=\"card-header\">\n      <h3 class=\"card-title\">Mapping Table<\/h3>\n      <div class=\"card-tools\">\n        <span class=\"badge bg-dark\" data-toggle=\"tooltip\"><\/span>\n        <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"collapse\">\n          <i class=\"fa fa-minus\"><\/i>\n        <\/button>\n        <button type=\"button\" class=\"btn btn-tool\" data-card-widget=\"maximize\">\n          <i class=\"fa fa-expand\"><\/i>\n        <\/button>\n      <\/div>\n    <\/div>\n    <div class=\"card-body\">\n      <div class=\"row\">\n        <div class=\"col-sm-2\">\n          <button class=\"btn btn-default action-button btn-success\" id=\"main_app-app_mainbody-edit_tables-mapping_table-add_mapping\" style=\"width: 100%; color: #000;\" type=\"button\">\n            <i class=\"fa fa-plus\"><\/i>\n            Add\n          <\/button>\n          <br/>\n          <br/>\n        <\/div>\n      <\/div>\n      <div class=\"row\">\n        <div class=\"col-sm-12\" title=\"Motor Trend Car Road Tests\">\n          <head>\n            <style>#spinner-74c0defcceff9584ec6aeb3d0e221480 {\n      border-top: 1.1em solid rgba(2,117,216, 0.2);\n      border-right: 1.1em solid rgba(2,117,216, 0.2);\n      border-bottom: 1.1em solid rgba(2,117,216, 0.2);\n      border-left: 1.1em solid #0275D8;\n}<\/style>\n          <\/head>\n          <head>\n            <style>#spinner-74c0defcceff9584ec6aeb3d0e221480 {font-size: 8px}spinner-74c0defcceff9584ec6aeb3d0e2214808<\/style>\n          <\/head>\n          <div class=\"shiny-spinner-output-container\">\n            <div class=\"load-container load8 shiny-spinner-hidden\">\n              <div id=\"spinner-74c0defcceff9584ec6aeb3d0e221480\" class=\"loader\">Loading...<\/div>\n            <\/div>\n            <div style=\"height:400px\" class=\"shiny-spinner-placeholder\"><\/div>\n            <div id=\"main_app-app_mainbody-edit_tables-mapping_table-table\" style=\"width:100%; height:auto; \" class=\"datatables html-widget html-widget-output\"><\/div>\n          <\/div>\n          <br/>\n          <br/>\n        <\/div>\n      <\/div>\n      <script src=\"js/cars_table_module.js\"><\/script>\n      <script>cars_table_module_js('main_app-app_mainbody-edit_tables-mapping_table-')<\/script>\n    <\/div>\n  <\/div>\n<\/div>",
+      "deps": [
+        {
+          "name": "font-awesome",
+          "version": "5.3.1",
+          "src": {
+            "href": "font-awesome-5.3.1"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": [
+            "css/all.min.css",
+            "css/v4-shims.min.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "htmlwidgets",
+          "version": "1.5.1",
+          "src": {
+            "href": "htmlwidgets-1.5.1"
+          },
+          "meta": null,
+          "script": "htmlwidgets.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "jquery",
+          "version": "1.12.4",
+          "src": {
+            "href": "jquery-1.12.4"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "datatables-css",
+          "version": "0.0.0",
+          "src": {
+            "href": "datatables-css-0.0.0"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "datatables-crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "datatables-binding",
+          "version": "0.13",
+          "src": {
+            "href": "datatables-binding-0.13"
+          },
+          "meta": null,
+          "script": "datatables.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.1.0.1",
+          "src": {
+            "href": "crosstalk-1.1.0.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    },
+    "main_app-app_mainbody-edit_tables-mapping_table-table": {
+      "x": {
+        "filter": "none",
+        "extensions": [
+          "Buttons"
+        ],
+        "container": "<table class=\"compact stripe row-border nowrap\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zones<\/th>\n      <th>Cars<\/th>\n      <th>Problems<\/th>\n      <th>Created At<\/th>\n      <th>Created By<\/th>\n      <th>Modified At<\/th>\n      <th>Modified By<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "options": {
+          "scrollX": true,
+          "dom": "Bftip",
+          "buttons": [
+            {
+              "extend": "excel",
+              "text": "Download",
+              "title": "mapping-2020-06-19",
+              "exportOptions": {
+                "columns": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6,
+                  7
+                ]
+              }
+            }
+          ],
+          "columnDefs": [
+            {
+              "targets": [
+                4,
+                6
+              ],
+              "render": "function(data, type, row, meta) { return DTWidget.formatDate(data, \"toLocaleString\"); }"
+            },
+            {
+              "targets": 0,
+              "orderable": false
+            },
+            {
+              "orderable": false,
+              "targets": 0
+            }
+          ],
+          "order": [
+
+          ],
+          "autoWidth": false,
+          "orderClasses": false,
+          "ajax": {
+            "type": "POST",
+            "data": "function(d) {\nd.search.caseInsensitive = true;\nd.search.smart = true;\nd.escape = \"-1\";\nvar encodeAmp = function(x) { x.value = x.value.replace(/&/g, \"%26\"); }\nencodeAmp(d.search);\n$.each(d.columns, function(i, v) {encodeAmp(v.search);});\n}"
+          },
+          "serverSide": true,
+          "processing": true
+        },
+        "selection": {
+          "mode": "none",
+          "selected": null,
+          "target": "row"
+        }
+      },
+      "evals": [
+        "options.columnDefs.0.render",
+        "options.ajax.data"
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "dt-core",
+          "version": "1.10.20",
+          "src": {
+            "href": "dt-core-1.10.20"
+          },
+          "meta": null,
+          "script": "js/jquery.dataTables.min.js",
+          "stylesheet": [
+            "css/jquery.dataTables.min.css",
+            "css/jquery.dataTables.extra.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "jszip",
+          "version": "1.10.20",
+          "src": {
+            "href": "jszip-1.10.20"
+          },
+          "meta": null,
+          "script": "jszip.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "dt-ext-buttons",
+          "version": "1.10.20",
+          "src": {
+            "href": "dt-ext-buttons-1.10.20"
+          },
+          "meta": null,
+          "script": [
+            "js/dataTables.buttons.min.js",
+            "js/buttons.flash.min.js",
+            "js/buttons.html5.min.js",
+            "js/buttons.colVis.min.js",
+            "js/buttons.print.min.js"
+          ],
+          "stylesheet": "css/buttons.dataTables.min.css",
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "1.11.3",
+          "src": {
+            "href": "jquery-1.11.3"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.1.0.1",
+          "src": {
+            "href": "crosstalk-1.1.0.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    },
+    "main_app-app_mainbody-edit_tables-zones_table-table": {
+      "x": {
+        "filter": "none",
+        "extensions": [
+          "Buttons"
+        ],
+        "container": "<table class=\"compact stripe row-border nowrap\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Zones<\/th>\n      <th>Created At<\/th>\n      <th>Created By<\/th>\n      <th>Modified At<\/th>\n      <th>Modified By<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>",
+        "options": {
+          "scrollX": true,
+          "dom": "Bftip",
+          "buttons": [
+            {
+              "extend": "excel",
+              "text": "Download",
+              "title": "zones-2020-06-19",
+              "exportOptions": {
+                "columns": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ]
+              }
+            }
+          ],
+          "columnDefs": [
+            {
+              "targets": [
+                2,
+                4
+              ],
+              "render": "function(data, type, row, meta) { return DTWidget.formatDate(data, \"toLocaleString\"); }"
+            },
+            {
+              "targets": 0,
+              "orderable": false
+            },
+            {
+              "orderable": false,
+              "targets": 0
+            }
+          ],
+          "order": [
+
+          ],
+          "autoWidth": false,
+          "orderClasses": false,
+          "ajax": {
+            "type": "POST",
+            "data": "function(d) {\nd.search.caseInsensitive = true;\nd.search.smart = true;\nd.escape = \"-1\";\nvar encodeAmp = function(x) { x.value = x.value.replace(/&/g, \"%26\"); }\nencodeAmp(d.search);\n$.each(d.columns, function(i, v) {encodeAmp(v.search);});\n}"
+          },
+          "serverSide": true,
+          "processing": true
+        },
+        "selection": {
+          "mode": "none",
+          "selected": null,
+          "target": "row"
+        }
+      },
+      "evals": [
+        "options.columnDefs.0.render",
+        "options.ajax.data"
+      ],
+      "jsHooks": [
+
+      ],
+      "deps": [
+        {
+          "name": "dt-core",
+          "version": "1.10.20",
+          "src": {
+            "href": "dt-core-1.10.20"
+          },
+          "meta": null,
+          "script": "js/jquery.dataTables.min.js",
+          "stylesheet": [
+            "css/jquery.dataTables.min.css",
+            "css/jquery.dataTables.extra.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "jszip",
+          "version": "1.10.20",
+          "src": {
+            "href": "jszip-1.10.20"
+          },
+          "meta": null,
+          "script": "jszip.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "dt-ext-buttons",
+          "version": "1.10.20",
+          "src": {
+            "href": "dt-ext-buttons-1.10.20"
+          },
+          "meta": null,
+          "script": [
+            "js/dataTables.buttons.min.js",
+            "js/buttons.flash.min.js",
+            "js/buttons.html5.min.js",
+            "js/buttons.colVis.min.js",
+            "js/buttons.print.min.js"
+          ],
+          "stylesheet": "css/buttons.dataTables.min.css",
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": false
+        },
+        {
+          "name": "jquery",
+          "version": "1.11.3",
+          "src": {
+            "href": "jquery-1.11.3"
+          },
+          "meta": null,
+          "script": "jquery.min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        },
+        {
+          "name": "crosstalk",
+          "version": "1.1.0.1",
+          "src": {
+            "href": "crosstalk-1.1.0.1"
+          },
+          "meta": null,
+          "script": "js/crosstalk.min.js",
+          "stylesheet": "css/crosstalk.css",
+          "head": null,
+          "attachment": null,
+          "all_files": true
+        }
+      ]
+    }
+  },
+  "export": {
+
+  }
+}
