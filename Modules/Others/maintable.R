@@ -125,12 +125,15 @@ main_table_server <- function(input, output, session, inputList) {
   output$gtTable <- render_gt({
     uniqueZones <- mainTable()[, unique(zone)]
     dtTransformed <- transformedTable()
-    future({
-      createGT(dtTransformed = dtTransformed,
-               uniqueZones = uniqueZones)
-    }) %...>% (function(result) {
-      return(result)
-    })
+    # future({
+      createGT(
+        dtTransformed = dtTransformed,
+        uniqueZones = uniqueZones
+        )  
+    # }) %...>% 
+    # (function(result) {
+    #   return(result)
+    # })
 
   })
 

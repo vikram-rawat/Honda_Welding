@@ -10,8 +10,8 @@ library(package = "shinyjs", character.only = TRUE)
 library(package = "dplyr", character.only = TRUE)
 library(package = "gt", character.only = TRUE)
 library(package = "stringi", character.only = TRUE)
-library(package = "future", character.only = TRUE)
-library(package = "promises", character.only = TRUE)
+# library(package = "future", character.only = TRUE)
+# library(package = "promises", character.only = TRUE)
 library(package = "pool", character.only = TRUE)
 library(package = "DBI", character.only = TRUE)
 library(package = "data.table", character.only = TRUE)
@@ -23,7 +23,7 @@ library(package = "shiny", character.only = TRUE)
 
 # set defaults ------------------------------------------------------------
 
-plan(multisession)
+# plan(multisession)
 
 setDTthreads(1L)
 

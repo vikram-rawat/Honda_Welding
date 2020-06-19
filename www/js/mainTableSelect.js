@@ -7,12 +7,12 @@ var mainTableSelect = new Vue({
         disable: {},
         mainTheme: {
             Select: {
-                Date: "active",
-                Chassis: ""
+                Date: "",
+                Chassis: "active"
             }
         },
         show: {
-            Select: "Date"
+            Select: "Chassis"
         },
         inputValue: {
             Chassis: "",
