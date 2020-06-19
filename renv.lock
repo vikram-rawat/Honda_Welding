@@ -88,10 +88,10 @@
     },
     "backports": {
       "Package": "backports",
-      "Version": "1.1.7",
+      "Version": "1.1.8",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "e9c8188eb82b137301493492d767a1ac"
+      "Hash": "3ef0eac19317fd03c0c854aed581d473"
     },
     "base64enc": {
       "Package": "base64enc",
@@ -148,13 +148,6 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "ff0becff7bfdfe3f75d29aff8f3172dd"
-    },
-    "codetools": {
-      "Package": "codetools",
-      "Version": "0.2-16",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "89cf4b8207269ccf82fbeb6473fd662b"
     },
     "colorspace": {
       "Package": "colorspace",
@@ -268,13 +261,6 @@
       "Repository": "CRAN",
       "Hash": "780713bd2f53156fae001443dcdbdcd5"
     },
-    "future": {
-      "Package": "future",
-      "Version": "1.17.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "71c119f236429d7b19fd29229b013cba"
-    },
     "generics": {
       "Package": "generics",
       "Version": "0.0.2",
@@ -288,13 +274,6 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "dd6dc5b9ef202cef18c5200d76e1634c"
-    },
-    "globals": {
-      "Package": "globals",
-      "Version": "0.12.5",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "e9e529fb7a579ad4b4ff65e052e76ed8"
     },
     "glue": {
       "Package": "glue",
@@ -326,10 +305,10 @@
     },
     "htmltools": {
       "Package": "htmltools",
-      "Version": "0.4.0",
+      "Version": "0.5.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "2d7691222f82f41e93f6d30f169bd5e1"
+      "Hash": "7d651b7131794fe007b1ad6f21aaa401"
     },
     "htmlwidgets": {
       "Package": "htmlwidgets",
@@ -400,13 +379,6 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "361811f31f71f8a617a9a68bf63f1f42"
-    },
-    "listenv": {
-      "Package": "listenv",
-      "Version": "0.8.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "0bde42ee282efb18c7c4e63822f5b4f7"
     },
     "magrittr": {
       "Package": "magrittr",
@@ -536,10 +508,10 @@
     },
     "promises": {
       "Package": "promises",
-      "Version": "1.1.0",
+      "Version": "1.1.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "efbbe62da4709f7040a380c702bc7103"
+      "Hash": "a8730dcbdd19f9047774909f0ec214a4"
     },
     "ps": {
       "Package": "ps",
