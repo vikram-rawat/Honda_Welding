@@ -54,7 +54,7 @@ mapping_server <- function(
       tbl('mapping') %>%
       filter(is_deleted == FALSE) %>%
       arrange(desc(modified_at)) %>% 
-      head(100) %>% 
+      head(500) %>% 
       collect()
       
   })
